@@ -1,0 +1,6 @@
+# Governing the coupling between the different models in the simulation, such as the coupling between the CFD model and the daylight model, the coupling between the thermal model and the daylight model, etc. This includes managing the data exchange between the models, ensuring that the models are synchronized in time, and managing the dependencies between the models.
+# A) Order of running of the individual models
+# B) Data transfer between the models, such as transferring the temperature field from the CFD model to the daylight model, transferring the daylight factor from the daylight model to the thermal model, etc.
+# C) Input and output validation between subsystems, such as checking that the output of the CFD model is in the correct format for the daylight model, checking that the output of the daylight model is in the correct format for the thermal model, etc.
+# D) Synchronization of the models in time, such as ensuring that the CFD model and the daylight model are synchronized in time, ensuring that the thermal model is synchronized with the daylight model, etc.
+# E) Recognizing if the coupling went wrong, such as if the CFD model failed to run, if the daylight model failed to run, if the thermal model failed to run, etc., and handling these cases appropriately, such as by logging the error, by retrying the model, by skipping the model, etc.

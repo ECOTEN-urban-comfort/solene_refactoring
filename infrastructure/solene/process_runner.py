@@ -1,0 +1,1 @@
+# Running of an external process (Solene) in solCommand.py with subprocess, shell command or bash.

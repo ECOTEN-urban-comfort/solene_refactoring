@@ -1,0 +1,1 @@
+# Constants for the simulation such as supported models names, default file names, default file formats, etc.
