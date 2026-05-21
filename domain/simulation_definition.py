@@ -1,3 +1,17 @@
+# Immutable startup definition of a simulation case.
+#
+# This module defines the static input-side objects that describe what was
+# loaded before execution begins:
+# - SimulationSettings: typed values read from sim_settings.xml,
+# - InputFiles: the discovered source files required for the run,
+# - SimulationBootstrap: the complete startup package combining settings,
+#   input files, and runtime paths.
+#
+# The purpose of this module is to separate the stable run definition from the
+# mutable SimulationState used during execution.
+#
+# It also preserves the legacy-compatible `interval` structure derived from XML
+# settings so not-yet-refactored parts of the old workflow can still be bridged.
 
 from dataclasses import dataclass
 from pathlib import Path

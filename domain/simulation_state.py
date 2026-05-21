@@ -1,27 +1,29 @@
-# Domain representation of the current simulation state during its life cycle.
-# This module describes:
-# A) in which phase of the simulation life cycle we are (e.g. pre-processing, running, post-processing)
-# B) what are the inputs
-# C) which steps already passed
-# D) which artifacts exist at the moment
-# E) which is valid and which is not
-
-# it is an object passing amongst the application services:
-# - geometry_service.py updates geometry_initialized=True
-# - coupling_service.py updates coupling_initialized=True
-
-# what belongs to the object:
-# - run id
-# - workspace
-# - configuration fingerprint
-# - state of individual steps
-# - reference to artifacts
-# - reference to results
+# Mutable domain model representing the current lifecycle state of one simulation run.
+#
+# This module defines:
+# - the high-level simulation phases,
+# - the status of individual workflow steps,
+# - lightweight references to artifacts,
+# - the central SimulationState object passed between application services.
+#
+# SimulationState is the shared state carrier of the refactored workflow.
+# It answers questions such as:
+# - which run is this,
+# - which phase are we in,
+# - which steps have already completed,
+# - which artifacts and results are currently known,
+# - whether the current state is valid,
+# - and why it may be invalid.
+#
+# It also contains a helper for retrieving the bootstrap definition safely while
+# the architecture is still being incrementally typed and migrated.
 
 from dataclasses import dataclass, field
 from enum import Enum
 from pathlib import Path
 from typing import Any
+
+from domain.simulation_definition import SimulationBootstrap
 
 
 class SimulationPhase(str, Enum):
@@ -122,6 +124,7 @@ class SimulationPhase(str, Enum):
     BOOTSTRAPPING = "bootstrapping"
     PREPROCESSING = "preprocessing"
     GEOMETRY_INITIALIZED = "geometry_initialized"
+    GEOMETRY_EXTRACTED = "geometry_extracted"
     COUPLING_INITIALIZED = "coupling_initialized"
     RUNNING = "running"
     POSTPROCESSING = "postprocessing"
@@ -388,6 +391,7 @@ class SimulationState:
     # These are more granular than `phase` and allow services to update their own
     # execution status without losing visibility of the overall run stage.
     geometry_initialization: StepStatus = StepStatus.NOT_STARTED
+    geometry_extraction: StepStatus = StepStatus.NOT_STARTED
     coupling_initialization: StepStatus = StepStatus.NOT_STARTED
     solene_run: StepStatus = StepStatus.NOT_STARTED
     saturne_run: StepStatus = StepStatus.NOT_STARTED
@@ -408,3 +412,10 @@ class SimulationState:
     # state validity / diagnostics
     is_valid: bool = True
     invalid_reasons: list[str] = field(default_factory=list)
+
+    def require_bootstrap_definition(self) -> SimulationBootstrap:
+        if not isinstance(self.definition, SimulationBootstrap):
+            raise TypeError(
+                "SimulationState.definition must be SimulationBootstrap."
+            )
+        return self.definition

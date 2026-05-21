@@ -1,13 +1,18 @@
-# Concrete configuration-loading implementation.
-# This module reads raw configuration from external sources such as XML files, YAML files, environment variables, 
-# or similar inputs, parses them, validates them, normalizes them, and turns them into the configuration structures 
-# required by the application. In architectural terms, it is an implementation of the configuration contract 
-# defined by application/ports/configuration_provider.py.
-# Its responsibility is:
-# - read external config source
-# - parse and validate raw input
-# - map it into internal config objects
-# - serve as the concrete adapter behind the abstract port
+# Concrete XML-backed implementation of the configuration-loading contract.
+#
+# This module is the infrastructure adapter responsible for building a
+# SimulationBootstrap from a simulation case folder.
+#
+# It performs the technical startup-loading tasks that used to be embedded
+# directly in the legacy script, namely:
+# - scanning the folder for required input files,
+# - validating the presence of required XML files,
+# - parsing sim_settings.xml,
+# - converting raw XML values into typed settings,
+# - deriving canonical runtime paths.
+#
+# In the refactored architecture, this module isolates XML parsing and file
+# discovery from the application layer.
 
 from pathlib import Path
 from xml.dom import minidom

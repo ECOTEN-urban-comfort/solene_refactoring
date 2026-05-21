@@ -1,3 +1,22 @@
+# Immutable value object describing the runtime workspace layout of a simulation case.
+#
+# This module defines RuntimePaths, which groups together the canonical folders
+# used by the runtime session:
+# - the original simulation folder,
+# - the case root,
+# - sauvegarde,
+# - temp,
+# - post,
+# - simulSol,
+# - simulSat.
+#
+# The purpose of this object is to make the runtime directory structure explicit
+# and passable as one typed unit, instead of scattering path variables across
+# services and startup logic.
+#
+# This object only describes the workspace layout. It does not create any
+# directories by itself.
+
 from dataclasses import dataclass
 from pathlib import Path
 

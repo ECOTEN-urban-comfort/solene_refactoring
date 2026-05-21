@@ -1,13 +1,20 @@
 # Application-level contract for obtaining simulation configuration.
-# This module defines the interface that the application layer depends on when it needs configuration data 
-# for a simulation run. It should not know whether the configuration comes from XML, YAML, environment variables, 
-# CLI arguments, or any other source. Its purpose is to decouple orchestration logic from configuration storage 
-# and parsing details.
-
-# Its responsibility is therefore:
-# - define what configuration the application needs
-# - expose it through an abstract interface
-# - prevent simulation_service and related application code from depending on file format or infrastructure details
+#
+# This module defines the interface that the application layer depends on when
+# it needs a simulation case definition.
+#
+# It deliberately hides the source of configuration data, so orchestration code
+# does not need to know whether the configuration comes from:
+# - XML files,
+# - YAML files,
+# - environment variables,
+# - CLI arguments,
+# - test fixtures,
+# - or any other source.
+#
+# The output of this contract is a SimulationBootstrap: a fully assembled startup
+# definition containing typed simulation settings, discovered input files, and
+# derived runtime paths.
 
 from pathlib import Path
 from typing import Protocol
