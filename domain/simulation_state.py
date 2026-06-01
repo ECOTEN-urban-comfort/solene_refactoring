@@ -125,6 +125,7 @@ class SimulationPhase(str, Enum):
     PREPROCESSING = "preprocessing"
     GEOMETRY_INITIALIZED = "geometry_initialized"
     GEOMETRY_EXTRACTED = "geometry_extracted"
+    SOLENE_ENVIRONMENT_READY = "solene_environment_ready"
     COUPLING_INITIALIZED = "coupling_initialized"
     RUNNING = "running"
     POSTPROCESSING = "postprocessing"
@@ -392,6 +393,7 @@ class SimulationState:
     # execution status without losing visibility of the overall run stage.
     geometry_initialization: StepStatus = StepStatus.NOT_STARTED
     geometry_extraction: StepStatus = StepStatus.NOT_STARTED
+    solene_environment_creation: StepStatus = StepStatus.NOT_STARTED
     coupling_initialization: StepStatus = StepStatus.NOT_STARTED
     solene_run: StepStatus = StepStatus.NOT_STARTED
     saturne_run: StepStatus = StepStatus.NOT_STARTED
@@ -401,6 +403,8 @@ class SimulationState:
     # These exist because some services may only care whether a milestone was
     # reached, not about the full multi-state enum.
     geometry_initialized: bool = False
+    geometry_extracted: bool = False
+    solene_environment_ready: bool = False
     coupling_initialized: bool = False
 
     # Known artifacts and results at the current moment of the run.

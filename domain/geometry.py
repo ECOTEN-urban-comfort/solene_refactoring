@@ -45,3 +45,26 @@ class LegacyExtractedGeometry:
     n_points: int
     n_triangles: int
     n_tetras: int
+
+@dataclass(frozen=True)
+class LegacySoleneGeometry:
+    """
+    Result of the Solene-side geometry branch.
+
+    What this represents:
+    ---------------------
+    - the reconstructed volumetric MED geometry,
+    - the derived Solene surface geometry,
+    - the derived Solene mask geometry,
+    - whether the Solene geometry came from cache or from fresh reconstruction.
+
+    This corresponds to the old branch in `initialiser_med(...)` where the code
+    either loads `geom_sol.cpl` or reconstructs `geom_med` and calls
+    `extraire_geom_solene()`.
+    """
+    extracted_geometry: LegacyExtractedGeometry
+    geom_med: Any
+    geom_sol: Any
+    geom_sol_masque: Any | None
+    from_cache: bool
+    n_sol_triangles: int

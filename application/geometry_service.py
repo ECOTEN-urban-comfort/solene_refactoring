@@ -27,6 +27,7 @@ from domain.artifact_keys import (
     PREPARED_INPUT_ARTIFACT,
     PREPARED_GEOMETRY_INPUTS,
     LEGACY_EXTRACTED_GEOMETRY,
+    LEGACY_SOLENE_GEOMETRY,
 )
 from domain.simulation_state import (
     ArtifactRef,
@@ -34,7 +35,8 @@ from domain.simulation_state import (
     SimulationState,
     StepStatus,
 )
-
+from domain.geometry import LegacyExtractedGeometry
+from infrastructure.geometry.legacy.famille import importer_familles_xml
 
 class GeometryService:
     """
@@ -126,7 +128,7 @@ class GeometryService:
         try:
             self._require_geometry_initialized(state)
 
-            extracted = self.gateway.extract(state)
+            extracted = self.gateway.extract_geometry(state)
 
             state.results[LEGACY_EXTRACTED_GEOMETRY] = extracted
 
@@ -140,6 +142,30 @@ class GeometryService:
 
         state.geometry_extraction = StepStatus.DONE
         state.geometry_extracted = True
+        state.phase = SimulationPhase.GEOMETRY_EXTRACTED
+        return state
+    
+    def build_solene_geometry(self, state: SimulationState) -> SimulationState:
+        """
+        Execute the Solene-side geometry branch after MED extraction.
+        """
+        try:
+            extracted = state.results.get(LEGACY_EXTRACTED_GEOMETRY)
+            if extracted is None:
+                raise ValueError(
+                    "Cannot build Solene-side geometry before legacy MED extraction."
+                )
+
+            solene_geometry = self.gateway.build_solene_geometry(state)
+            state.results[LEGACY_SOLENE_GEOMETRY] = solene_geometry
+
+        except Exception as exc:
+            state.phase = SimulationPhase.FAILED
+            state.is_valid = False
+            state.invalid_reasons.append(str(exc))
+            return state
+
+        # You may later want a dedicated phase such as SOLENE_GEOMETRY_READY.
         state.phase = SimulationPhase.GEOMETRY_EXTRACTED
         return state
 
