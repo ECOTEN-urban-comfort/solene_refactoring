@@ -261,7 +261,7 @@ class Geom:
 
     def calculer_normale(self):
         """
-        calcule les normales de chaque triangle
+        Calculates the normals of each triangle
         """
 
         normale = []
@@ -298,8 +298,7 @@ class Geom:
 
     def calculer_cdg(self, triangles=True, tetras=True):
         """
-        calcule le centre de gravite de chaque triangle et de chaque
-        tetra
+        Calculates the center of gravity of each triangle and each tetrahedron
         """
         if triangles:
             self.triangles.cdg = np.zeros((self.n_triangles, 3))
@@ -317,8 +316,8 @@ class Geom:
 
     def verifier_normale(self):
         """
-        verifie l'orientation des normale d'apres le type
-        du tetraedre adjacent
+        checks the orientation of the normal based on the type
+        of the adjacent tetrahedron
         """
         for i in range(self.n_triangles):
             # AB = vecteur du CdG triangles vers CdG élément contigu
@@ -372,8 +371,8 @@ class Geom:
 
     def connecter_triangle_triangle(self, face=True):
         """
-        pour chaque triangle, donne la liste des triangles adjacents
-        qui appartiennent à la même face
+        For each triangle, list the adjacent triangles
+        that belong to the same face
         """
         chrono = Chrono('connecter_triangle_triangle', 'geom')
         tableau_connectivite_triangles = []
@@ -502,10 +501,10 @@ class Geom:
                                  boite=False,
                                  debug=False):
         """
-        cree le vecteur connectivite_tetra qui donne pour chaque triangles
-        le lien vers l'élément contigu,
-        ne prends en compte que les triangles de -familleFace-
-        et les tetraedres de -famille_elem-
+        Create the `connectivite_tetra` vector, which provides, for each triangle,
+        the link to the adjacent element,
+        and only considers triangles from `-familleFace-`
+        and tetrahedra from `-famille_elem-`
         """
 
         self._trouver_tetra_bord()
@@ -666,15 +665,15 @@ class Geom:
 
     def reconstruire_aretes(self):
         """
-        reconstruit la liste des arêtes
+        reconstructs the list of edges
 
-        méthode :
-            ** trouve les points sommets
-            ** pour chaque sommet, parcours chaque arete jusqu'au
-            prochain sommet puis les ajoute à la liste
-        remarque :
-            fonctionne tant que la modélisation est volumique et qu'il
-            n'existe pas de "mur" sans épaisseur
+        method:
+            ** finds the vertices
+            ** for each vertex, traverses each edge to the
+            next vertex and adds them to the list
+        note:
+            works as long as the model is volumetric and there
+            are no "walls" with zero thickness
         """
 
         self._trouver_sommets()
@@ -800,19 +799,18 @@ class Geom:
 
     def reconstruire_faces(self):
         """
-        nécessaire : tableau de connectivite Triangles-Triangles
-            tableau de connectivite Triangles-Triangles(Bis)
-            liste des sommets
-            reconstruction des aretes
+        Required: Triangles-Triangles connectivity matrix
+            Triangles-Triangles connectivity matrix (Bis)
+            List of vertices
+            Edge reconstruction
 
-        méthode : pour chaque triangle pas encore attribuée
-            -> trouver toutes les triangles reliées par deux points qui
-                ne sont pas sur une arete
-            -> recuperer les sommets parmis les points de ces triangles
-            -> reconstruire les contours parmis ces sommets
-            -> séparer les contours extérieurs et les contours trous
-            -> attribuer les contours et les triangles à une nouvelle
-                face
+        method: for each triangle not yet assigned
+            -> find all triangles connected by two points that
+                are not on an edge
+            -> retrieve the vertices from the points of these triangles
+            -> reconstruct the contours using these vertices
+            -> Separate the outer contours from the hole contours
+            -> Assign the contours and triangles to a new face
         """
 
         chrono = Chrono('reconstruire_faces', 'geom')
@@ -1126,8 +1124,8 @@ class Geom:
             ok_fc = ok_fc + np.int32(np.int32(self.faces.famille) == i_fam)
             ok_ft = ok_ft + np.int32(self.triangles.famille == i_fam)
 
-        ok_fc = np.bool(ok_fc)
-        ok_ft = np.bool(ok_ft)
+        ok_fc = np.bool_(ok_fc)
+        ok_ft = np.bool_(ok_ft)
 
         if faces:
             return ok_fc, ok_ft

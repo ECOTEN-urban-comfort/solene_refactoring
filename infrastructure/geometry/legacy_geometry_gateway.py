@@ -24,7 +24,7 @@ from domain.geometry import LegacyExtractedGeometry, LegacySoleneGeometry, Prepa
 from domain.simulation_definition import SimulationBootstrap
 from domain.simulation_state import SimulationState
 from infrastructure.geometry.legacy.hdfFile import MedFile, CplFile
-from infrastructure.geometry.legacy.famille import importer_familles_xml
+from infrastructure.geometry.legacy.famille import importer_familles_xml, CARAC_CLASSE
 
 
 class LegacyGeometryGateway(GeometryGateway):
@@ -171,6 +171,7 @@ class LegacyGeometryGateway(GeometryGateway):
         extracted = self._require_extracted_geometry(state)
         prepared = extracted.prepared_inputs
 
+        # First check if we already have a saved geom_sol.cpl from a previous run, and if so load it directly.
         if prepared.sauvegarde_geom_sol.is_file():
             geom_cpl = CplFile(str(prepared.sauvegarde_geom_sol))
             geom_cpl.charger_geom()
@@ -199,8 +200,9 @@ class LegacyGeometryGateway(GeometryGateway):
 
         for fam_key in list(familles.familles.keys()):
             famille = familles.familles[fam_key]
-            if famille.classe in familles.CARAC_CLASSE:
-                carac = familles.CARAC_CLASSE[famille.classe]
+
+            if famille.classe in CARAC_CLASSE:
+                carac = CARAC_CLASSE[famille.classe]
             else:
                 carac = None
 
