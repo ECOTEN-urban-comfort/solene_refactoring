@@ -16,8 +16,9 @@
 # This module is the current technical bridge between the refactored codebase
 # and the preserved legacy geometry implementation.
 
-from shutil import copy2
+from shutil import copyfile
 from typing import Any
+from pathlib import Path
 
 from application.ports.geometry_gateway import GeometryGateway
 from domain.geometry import LegacyExtractedGeometry, LegacySoleneGeometry, PreparedGeometryInputs
@@ -47,6 +48,11 @@ class LegacyGeometryGateway(GeometryGateway):
     This reduces file count while preserving a meaningful technical boundary.
     """
 
+    @staticmethod
+    def _stage_file(src: Path, dst: Path) -> None:
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        copyfile(src, dst)
+
     def prepare_inputs(self, state: SimulationState) -> PreparedGeometryInputs:
         """
         Prepare a deterministic technical staging area for geometry-related inputs.
@@ -75,9 +81,9 @@ class LegacyGeometryGateway(GeometryGateway):
 
         # Copy into a deterministic technical area so later adapters do not depend
         # directly on the original case-input folder.
-        copy2(bootstrap.input_files.med_file, staged_med_file)
-        copy2(bootstrap.input_files.famille_file, staged_famille_file)
-        copy2(bootstrap.input_files.materiau_file, staged_materiau_file)
+        self._stage_file(bootstrap.input_files.med_file, staged_med_file)
+        self._stage_file(bootstrap.input_files.famille_file, staged_famille_file)
+        self._stage_file(bootstrap.input_files.materiau_file, staged_materiau_file)
 
         # Canonical sauvegarde targets inherited from the legacy workflow.
         sauvegarde_geom_med = state.workspace / "sauvegarde" / "geom_med.cpl"

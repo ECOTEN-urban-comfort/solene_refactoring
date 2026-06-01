@@ -866,7 +866,7 @@ class SolEnv:
                 i += 1
 
         print('\t\t [t] : tout')
-        print()
+        #print()
 
         lst_choix = 't'  # raw_input('\t choix des variables :')
         if lst_choix == 't':

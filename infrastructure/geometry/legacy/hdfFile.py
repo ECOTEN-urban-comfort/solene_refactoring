@@ -175,10 +175,10 @@ class MedFile(HdfFile):
 
         self.extraire_chemins()
         
-        print(f"extract path works and the points path is {self.points} ")
+        #print(f"extract path works and the points path is {self.points} ")
         
         if len(self.hdf.list_nodes('/ENS_MAA')) == 1:
-            print('\t this file is indeed a mesh file\n')
+            #print('\t this file is indeed a mesh file\n')
 
             self.geom = Geom()
             self.geom.points = self._path_to_table(self.points, 3)
@@ -201,10 +201,10 @@ class MedFile(HdfFile):
             self.geom.n_segments = len(self.geom.segments.points)
             self.geom.n_triangles = len(self.geom.triangles.points)
             self.geom.n_tetras = len(self.geom.tetras.points)
-            print("\tnombre d\'éléments : %s" % self.geom.n_tetras)
+            #print("\tnombre d\'éléments : %s" % self.geom.n_tetras)
 
-            print("\tnombre de segments : %s" % self.geom.n_segments)
-            print("\tnombre de triangles : %s" % self.geom.n_triangles)
+            #print("\tnombre de segments : %s" % self.geom.n_segments)
+            #print("\tnombre de triangles : %s" % self.geom.n_triangles)
 
             if self.med_version_maj == 2:
                 if self.med_version_min == 3 and self.med_version_rel == 6:
@@ -295,7 +295,7 @@ class MedFile(HdfFile):
     def extraire_familles_2_3_6(self):
         for key in self.hdf.list_nodes(self.liste_famille):
             key = key._v_pathname.split('/')[-1].split('_')
-            print('\t\tfamille %s, id %s' % (key[-1], key[1]))
+            #print('\t\tfamille %s, id %s' % (key[-1], key[1]))
             self.geom.familles[key[-1]] = key[1]
 
     def extraire_temperature(self):
@@ -364,10 +364,10 @@ class CplFile(HdfFile):
         Ce format permet de ne pas recalculer les connectivites qui ne sont
         pas conservees dans les fichiers .med et .cir
         """
-        print('\n\t MODULE hdfFile.py')
+        #print('\n\t MODULE hdfFile.py')
         print('\t enregistrement de la geometrie %s' % self.geom.nom)
         print('\t dans le fichier %s' % self.nom)
-        print()
+        #print()
 
         self.face = face
 
@@ -470,7 +470,8 @@ class CplFile(HdfFile):
                 self.hdf.create_array('/geom/tetras', 'famille',
                                      self.geom.tetras.famille)
             except BaseException:
-                print('\t pas de donnees volumiques')
+                pass
+                #print('\t pas de donnees volumiques')
 
         self.hdf.close()
 
@@ -483,9 +484,9 @@ class CplFile(HdfFile):
 
         self.face = face
 
-        print('\n\t MODULE hdfFile.py')
-        print('\t loading geometry, stored in the file ')
-        print('\t\t -%s -' % self.nom)
+        #print('\n\t MODULE hdfFile.py')
+        #print('\t loading geometry, stored in the file ')
+        #print('\t\t -%s -' % self.nom)
         self.geom = Geom(nom='')
         self.geom.points = self._path_to_table('/geom/points', 3)
         self.geom.n_points = len(self.geom.points)
@@ -498,8 +499,8 @@ class CplFile(HdfFile):
             self.geom.familles[nom_famille] = valeur
             
             
-        print('##############################################################3')
-        print(self._path_to_table('/geom/triangles/points', 3))
+        #print('##############################################################3')
+        #print(self._path_to_table('/geom/triangles/points', 3))
         
         # triangles
         self.geom.triangles.points = self._path_to_table('/geom/triangles/points', 3)
@@ -507,19 +508,22 @@ class CplFile(HdfFile):
         try:
             self.geom.triangles.cdg = self._path_to_table('/geom/triangles/cdg', 3)
         except BaseException:
-            print('\t -> no center of gravity for triangles')
+            pass
+            #print('\t -> no center of gravity for triangles')
 
         try:
             self.geom.triangles.normale = self._path_to_table(
                 '/geom/triangles/normale', 3)
         except BaseException:
-            print('\t -> pas de normale pour les triangles')
+            pass
+            #print('\t -> pas de normale pour les triangles')
 
         try:
             self.geom.triangles.connectivite_triangles = \
                 self.extraire_dataset_regle('/geom/triangles/connectivite_triangles')
         except BaseException:
-            print('\t -> pas de connectivite triangle')
+            pass
+            #print('\t -> pas de connectivite triangle')
 
         try:
             self.geom.triangles.connectivite_tetra = \
@@ -590,7 +594,8 @@ class CplFile(HdfFile):
                 '/geom/tetras/famille').read()
             self.geom.n_tetras = len(self.geom.tetras.points)
         except BaseException:
-            print('\t -> pas de donnees volumiques')
+            pass
+            #print('\t -> pas de donnees volumiques')
 
         self.hdf.close()
 

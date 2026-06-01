@@ -234,13 +234,13 @@ def print_debut_fonction(fonction, module):
     """
     affiche le declenchement du chronometre
     """
-    print('\n ==> %s start %s.py, %s()' % (time.ctime(), module, fonction))
+    #print('\n ==> %s start %s.py, %s()' % (time.ctime(), module, fonction))
 
 def print_fin_fonction(fonction, module, duree):
     """
     affiche la fin du chronometre
     """
-    print('\\\ fin %s() à %s, duree %s' % (fonction, time.ctime(), duree))
+    #print('\\\ fin %s() à %s, duree %s' % (fonction, time.ctime(), duree))
 
     
 # def get_data(element_xml, nom):
@@ -337,7 +337,8 @@ class Chrono:
         """
         imprime la data de debut
         """
-        print_debut_fonction(self.fonction, self.module)
+        #print_debut_fonction(self.fonction, self.module)
+        pass
 
     def fin(self):
         """

@@ -496,7 +496,7 @@ class CirFile:
         cir = self.cir
         print('\t')
         print('\t extraction des contours de %s faces' % len(self.cir))
-        print()
+        #print()
         n_point = 0
         print(' ', end=' ')
         for face in range(len(self.cir)):
@@ -519,7 +519,7 @@ class CirFile:
             faces.append(ligne_face)
             n_face += 1
 
-        print()
+        #print()
         print('\t fin extraction')
         print('\t %s faces, %s triangles, %s points' % (n_face,
                                                         n_triangle,
@@ -788,6 +788,3 @@ class CirFile:
         contour += '\t' + ecrire_ligne(self.geom.points[points[0] - 1]) + '\n'
 
         return contour
-
-
-print('A que coucou!')

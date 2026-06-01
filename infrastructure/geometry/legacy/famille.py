@@ -228,7 +228,7 @@ class Familles:
         renseigne le numero de chaque famille tel qu'il est indique dans le 
         dictionnaire -dic_fam_num- issue des familles d'un fichier .med
         """
-        print('\t familles.attribuer_num_familles')
+        #print('\t familles.attribuer_num_familles')
         for fam in list(dic_fam_num.keys()):
             try:
                 self.familles[fam].num = int(dic_fam_num[fam])
@@ -371,9 +371,9 @@ with this class from famille.xml, or add this class to famille.py (function 'imp
                 except :
                     pass
 
-        print()
-        print(' LECTURE DES FAMILLES')
-        print('\t nom \t classe           solID  alb    trans  emis   n_couches')
+        #print()
+        #print('LECTURE DES FAMILLES')
+        #print('\t nom \t classe           solID  alb    trans  emis   n_couches')
         for cle in self.familles:
             famille = self.familles[cle]
             chaine = '\t'
@@ -404,13 +404,13 @@ with this class from famille.xml, or add this class to famille.py (function 'imp
             except:
                 chaine += 'no\t'
                 
-            print(chaine)
+            #print(chaine)
             
 #            i = 0
 #            for couche in famille.couches:
 #                i+=1
 #                print '\t\tcouche n ',i , couche[0], '\t ', couche[1] 
-        print()
+        #print()
 
     def renvoyer_classes_presentes(self, lst_famille):
         """

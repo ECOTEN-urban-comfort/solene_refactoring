@@ -405,7 +405,7 @@ class Geom:
         self.triangles.connectivite_triangles = tableau_connectivite_triangles
 
         self._connecter_triangle_triangle_arete()
-        print()
+        #print()
         chrono.fin()
 
     def _connecter_triangle_triangle_arete(self):
@@ -448,7 +448,7 @@ class Geom:
                         ligne_conn_bis.append(triangle_lie)
             tab_conn_bis.append(ligne_conn_bis)
 
-        print()
+        #print()
         self.triangles.connectivite_triangles_bis = tab_conn_bis
         chrono.fin()
 
@@ -583,9 +583,9 @@ class Geom:
             except BaseException:
                 print('probleme ?')
                 self.triangles.connectivite_tetra[lien_face[i]] = None
-        print()
+        #print()
         chrono.fin()
-        print()
+        #print()
         if debug:
             return vec_debug
 

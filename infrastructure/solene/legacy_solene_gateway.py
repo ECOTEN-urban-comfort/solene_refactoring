@@ -42,17 +42,19 @@ class LegacySoleneGateway(SoleneGateway):
             bootstrap.paths.case_name,
         )
 
-        # Equivalent of exporter_geom_solene()
-        write_cir(
-            name=sol_command.masque_cir,
-            geom=solene_geometry.geom_sol_masque,
-            faces=True,
-        )
-        write_cir(
-            name=sol_command.scene_cir,
-            geom=solene_geometry.geom_sol,
-            faces=False,
-        )
+        if not solene_geometry.from_cache:
+
+            # Equivalent of exporter_geom_solene()
+            write_cir(
+                name=sol_command.masque_cir,
+                geom=solene_geometry.geom_sol_masque,
+                faces=True,
+            )
+            write_cir(
+                name=sol_command.scene_cir,
+                geom=solene_geometry.geom_sol,
+                faces=False,
+            )
 
         export_artifacts = SoleneExportArtifacts(
             scene_cir=Path(str(sol_command.scene_cir) + ".cir"),

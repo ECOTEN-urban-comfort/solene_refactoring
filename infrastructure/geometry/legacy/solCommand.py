@@ -296,49 +296,50 @@ class SolCommand():
         """
         création de l'arborescence si elle n'existe pas
         """
-        print('\n  CREATION DU CAS SOLENE')
+        #print('\n  CREATION DU CAS SOLENE')
         
         if not os.path.isdir(self.chemin_simul_sol):
             os.mkdir(self.chemin_simul_sol)
-            print('\t creation repertoire -simulSol-')
-            print('\t -> ', self.chemin_simul_sol)
+            #print('\t creation repertoire -simulSol-')
+            #print('\t -> ', self.chemin_simul_sol)
         else: 
-            print('\t -simulSol- existe deja')
+            #print('\t -simulSol- existe deja')
+            pass
 
         if not os.path.isdir(self.chemin_entree):
             os.mkdir(self.chemin_entree)
-            print('\t creation repertoire -entree-')
-            
+            #print('\t creation repertoire -entree-')
+
         if not os.path.isdir(self.chemin_sortie):
             os.mkdir(self.chemin_sortie)
-            print('\t creation repertoire -sortie-')
+            #print('\t creation repertoire -sortie-')
 
         if not os.path.isdir(self.chemin_clo):
             os.mkdir(self.chemin_clo)
-            print('\t creation repertoire -CLO-')
+            #print('\t creation repertoire -CLO-')
             
         if not os.path.isdir(self.chemin_transitoire):
             os.mkdir(self.chemin_transitoire)
-            print('\t creation repertoire -transitoire-')
+            #print('\t creation repertoire -transitoire-')
                 
         if not os.path.isdir(self.chemin_ener):
             os.mkdir(self.chemin_ener)
-            print('\t creation repertoire -ener-')
+            #print('\t creation repertoire -ener-')
                 
         if not os.path.isdir(self.chemin_ciel):
             os.mkdir(self.chemin_ciel)
-            print('\t creation repertoire -Ciel-')
+            #print('\t creation repertoire -Ciel-')
             self.creer_ciel()
 
         if not os.path.isdir(self.chemin_masque):
             os.mkdir(self.chemin_masque)
-            print('\t creation repertoire -CLO/masque-')
+            #print('\t creation repertoire -CLO/masque-')
             self.creer_ciel()
 
     def creer_cas_confort(self):
         if not os.path.isdir(self.chemin_confort):
             os.mkdir(self.chemin_confort)
-            print('\t creation repertoire -Ciel-')
+            #print('\t creation repertoire -Ciel-')
         
 
     def _creer_nom_descripteur(self):
