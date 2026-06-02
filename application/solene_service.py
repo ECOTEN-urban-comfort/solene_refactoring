@@ -24,6 +24,8 @@ class SoleneService:
         has already been built.
         """
         try:
+            state.set_step_status("solene_environment_creation", StepStatus.IN_PROGRESS)
+
             solene_geometry = state.results.get(LEGACY_SOLENE_GEOMETRY)
             if solene_geometry is None:
                 raise ValueError(
@@ -32,16 +34,13 @@ class SoleneService:
 
             environment = self.gateway.create_environment(state)
             state.results[LEGACY_SOLENE_ENVIRONMENT] = environment
-            state.solene_environment_creation = StepStatus.DONE
-            state.solene_environment_ready = True
-            state.phase = SimulationPhase.SOLENE_ENVIRONMENT_READY
 
         except Exception as exc:
-            state.solene_environment_creation = StepStatus.FAILED
-            state.solene_environment_ready = False
-            state.phase = SimulationPhase.FAILED
-            state.is_valid = False
-            state.invalid_reasons.append(str(exc))
+            state.set_step_status("solene_environment_creation", StepStatus.FAILED)
+            state.set_validity(False, str(exc))
             return state
+        
+        state.set_step_status("solene_environment_creation", StepStatus.DONE)
+        state.set_phase(SimulationPhase.SOLENE_ENVIRONMENT_READY)
 
         return state

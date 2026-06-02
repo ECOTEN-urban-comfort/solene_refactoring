@@ -15,6 +15,7 @@
 # This module intentionally does not yet initialize solver-specific subtrees,
 # geometry processing, coupling logic, or execution commands.
 
+from ensurepip import bootstrap
 from hashlib import sha256
 import json
 from pathlib import Path
@@ -25,6 +26,7 @@ from domain.simulation_state import (
     ArtifactRef,
     SimulationPhase,
     SimulationState,
+    StepStatus,
 )
 from domain.workspace import RuntimePaths
 from domain.artifact_keys import (
@@ -59,16 +61,27 @@ class RuntimeSessionService:
         Create the top-level runtime folders and return the first mutable
         SimulationState for the run.
         """
-        self._ensure_runtime_directories(bootstrap.paths)
-
-        return SimulationState(
+        state = SimulationState(
             run_id=self._build_run_id(),
             workspace=bootstrap.paths.case_root,
             configuration_fingerprint=self._build_configuration_fingerprint(bootstrap),
-            phase=SimulationPhase.PREPROCESSING,
+            phase=SimulationPhase.BOOTSTRAPPING,
             definition=bootstrap,
             artifacts=self._build_initial_artifacts(bootstrap),
         )
+
+        state.set_step_status("bootstrapping", StepStatus.IN_PROGRESS)
+
+        try:
+            self._ensure_runtime_directories(bootstrap.paths)
+
+        except Exception as exc:
+            state.set_step_status("bootstrapping", StepStatus.FAILED)
+            state.set_validity(False, str(exc))
+            return state
+
+        state.set_step_status("bootstrapping", StepStatus.DONE)
+        return state
 
     def _ensure_runtime_directories(self, paths: RuntimePaths) -> None:
         """

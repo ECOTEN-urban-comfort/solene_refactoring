@@ -108,29 +108,15 @@ class SimulationPhase(str, Enum):
             - parsing output files
             - exporting VTU or other artifacts
             - assembling result summaries
-
-    COMPLETED = "completed"
-        The run finished successfully and the final expected outputs are available.
-
-        This should mean the simulation ended in a valid final state.
-
-    FAILED = "failed"
-        The run ended unsuccessfully.
-
-        This does not say which exact step failed; that detail should be captured
-        in step statuses and diagnostics such as `invalid_reasons`.
-
     """
     BOOTSTRAPPING = "bootstrapping"
-    PREPROCESSING = "preprocessing"
     GEOMETRY_INITIALIZED = "geometry_initialized"
     GEOMETRY_EXTRACTED = "geometry_extracted"
+    GEOMETRY_BUILT = "geometry_built"
     SOLENE_ENVIRONMENT_READY = "solene_environment_ready"
     COUPLING_INITIALIZED = "coupling_initialized"
     RUNNING = "running"
     POSTPROCESSING = "postprocessing"
-    COMPLETED = "completed"
-    FAILED = "failed"
 
 
 class StepStatus(str, Enum):
@@ -391,21 +377,15 @@ class SimulationState:
     # State of major lifecycle steps.
     # These are more granular than `phase` and allow services to update their own
     # execution status without losing visibility of the overall run stage.
+    bootstrapping: StepStatus = StepStatus.NOT_STARTED
     geometry_initialization: StepStatus = StepStatus.NOT_STARTED
     geometry_extraction: StepStatus = StepStatus.NOT_STARTED
+    geometry_building: StepStatus = StepStatus.NOT_STARTED
     solene_environment_creation: StepStatus = StepStatus.NOT_STARTED
     coupling_initialization: StepStatus = StepStatus.NOT_STARTED
     solene_run: StepStatus = StepStatus.NOT_STARTED
     saturne_run: StepStatus = StepStatus.NOT_STARTED
     postprocessing: StepStatus = StepStatus.NOT_STARTED
-
-    # Convenience milestone flags.
-    # These exist because some services may only care whether a milestone was
-    # reached, not about the full multi-state enum.
-    geometry_initialized: bool = False
-    geometry_extracted: bool = False
-    solene_environment_ready: bool = False
-    coupling_initialized: bool = False
 
     # Known artifacts and results at the current moment of the run.
     # `default_factory=dict` is used so each SimulationState gets its own
@@ -423,3 +403,30 @@ class SimulationState:
                 "SimulationState.definition must be SimulationBootstrap."
             )
         return self.definition
+    
+    def set_phase(self, new_phase: SimulationPhase) -> None:
+        if self.phase != new_phase:
+            self.phase = new_phase
+
+    def set_step_status(self, step_name: str, new_status: StepStatus) -> None:
+        if not hasattr(self, step_name):
+            raise AttributeError(f"SimulationState has no attribute '{step_name}'.")
+
+        old_status = getattr(self, step_name)
+        if not isinstance(old_status, StepStatus):
+            raise TypeError(
+                f"Attribute '{step_name}' is not a StepStatus field."
+            )
+
+        if old_status != new_status:
+            print(f"[STATE] {step_name}: {new_status.value}")
+            setattr(self, step_name, new_status)
+
+    def set_validity(self, is_valid: bool, reason: str | None = None) -> None:
+        if self.is_valid != is_valid:
+            print(f"[STATE] is_valid: {self.is_valid} -> {is_valid}")
+            self.is_valid = is_valid
+
+        if reason is not None:
+            self.invalid_reasons.append(reason)
+            print(f"[STATE] invalid_reason: {reason}")

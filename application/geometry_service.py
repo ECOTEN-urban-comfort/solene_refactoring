@@ -62,9 +62,9 @@ class GeometryService:
 
         The state object is mutated in place and also returned for convenience.
         """
-        state.geometry_initialization = StepStatus.IN_PROGRESS
-
         try:
+            state.set_step_status("geometry_initialization", StepStatus.IN_PROGRESS)
+
             bootstrap = state.require_bootstrap_definition()
 
             # Validate the core input files required before actual geometry work.
@@ -110,22 +110,17 @@ class GeometryService:
             state.results[PREPARED_GEOMETRY_INPUTS] = prepared
 
         except Exception as exc:
-            state.geometry_initialization = StepStatus.FAILED
-            state.geometry_initialized = False
-            state.phase = SimulationPhase.FAILED
-            state.is_valid = False
-            state.invalid_reasons.append(str(exc))
+            state.set_step_status("geometry_initialization", StepStatus.FAILED)
+            state.set_validity(False, str(exc))
             return state
 
-        state.geometry_initialization = StepStatus.DONE
-        state.geometry_initialized = True
-        state.phase = SimulationPhase.GEOMETRY_INITIALIZED
+        state.set_step_status("geometry_initialization", StepStatus.DONE)
+        state.set_phase(SimulationPhase.GEOMETRY_INITIALIZED)
         return state
     
     def extract_legacy_geometry(self, state: SimulationState) -> SimulationState:
-        state.geometry_extraction = StepStatus.IN_PROGRESS
-
         try:
+            state.set_step_status("geometry_extraction", StepStatus.IN_PROGRESS)
             self._require_geometry_initialized(state)
 
             extracted = self.gateway.extract_geometry(state)
@@ -133,16 +128,12 @@ class GeometryService:
             state.results[LEGACY_EXTRACTED_GEOMETRY] = extracted
 
         except Exception as exc:
-            state.geometry_extraction = StepStatus.FAILED
-            state.geometry_extracted = False
-            state.phase = SimulationPhase.FAILED
-            state.is_valid = False
-            state.invalid_reasons.append(str(exc))
+            state.set_step_status("geometry_extraction", StepStatus.FAILED)
+            state.set_validity(False, str(exc))
             return state
 
-        state.geometry_extraction = StepStatus.DONE
-        state.geometry_extracted = True
-        state.phase = SimulationPhase.GEOMETRY_EXTRACTED
+        state.set_step_status("geometry_extraction", StepStatus.DONE)
+        state.set_phase(SimulationPhase.GEOMETRY_EXTRACTED)
         return state
     
     def build_solene_geometry(self, state: SimulationState) -> SimulationState:
@@ -150,6 +141,8 @@ class GeometryService:
         Execute the Solene-side geometry branch after MED extraction.
         """
         try:
+            state.set_step_status("geometry_building", StepStatus.IN_PROGRESS)
+
             extracted = state.results.get(LEGACY_EXTRACTED_GEOMETRY)
             if extracted is None:
                 raise ValueError(
@@ -160,13 +153,12 @@ class GeometryService:
             state.results[LEGACY_SOLENE_GEOMETRY] = solene_geometry
 
         except Exception as exc:
-            state.phase = SimulationPhase.FAILED
-            state.is_valid = False
-            state.invalid_reasons.append(str(exc))
+            state.set_step_status("geometry_building", StepStatus.FAILED)
+            state.set_validity(False, str(exc))
             return state
 
-        # You may later want a dedicated phase such as SOLENE_GEOMETRY_READY.
-        state.phase = SimulationPhase.GEOMETRY_EXTRACTED
+        state.set_step_status("geometry_building", StepStatus.DONE)
+        state.set_phase(SimulationPhase.GEOMETRY_BUILT)
         return state
 
     def _require_existing_file(self, path: Path, message: str) -> None:
@@ -218,7 +210,7 @@ class GeometryService:
         The extraction step depends on the technical staging prepared by the
         previous geometry-initialization boundary.
         """
-        if not state.geometry_initialized:
+        if not state.geometry_initialization == StepStatus.DONE:
             raise ValueError(
                 "Geometry extraction cannot run before geometry initialization succeeds."
             )
