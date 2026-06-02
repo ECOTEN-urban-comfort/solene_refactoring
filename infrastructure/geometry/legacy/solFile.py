@@ -520,10 +520,10 @@ class CirFile:
             n_face += 1
 
         #print()
-        print('\t fin extraction')
-        print('\t %s faces, %s triangles, %s points' % (n_face,
-                                                        n_triangle,
-                                                        n_point))
+        #print('\t fin extraction')
+        #print('\t %s faces, %s triangles, %s points' % (n_face,
+                                                        #n_triangle,
+                                                        #n_point))
 
         self.geom.points = np.array(points)
 
@@ -577,11 +577,11 @@ class CirFile:
             faces.append(ligne_face)
             n_face += 1
 
-        print('=')
-        print('=   fin extraction')
-        print('=   %s faces, %s triangles, %s points' % (n_face,
-                                                         n_triangle,
-                                                         n_point))
+        #print('=')
+        #print('=   fin extraction')
+        #print('=   %s faces, %s triangles, %s points' % (n_face,
+        #                                                 n_triangle,
+        #                                                 n_point))
 
         self.geom.points = np.array(points)
 

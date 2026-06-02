@@ -189,7 +189,6 @@ class LegacyGeometryGateway(GeometryGateway):
                 geom_med=extracted.geom_med,
                 geom_sol=geom_sol,
                 geom_sol_masque=None,
-                from_cache=True,
                 n_sol_triangles=getattr(geom_sol, "n_triangles", 0),
             )
 
@@ -238,7 +237,6 @@ class LegacyGeometryGateway(GeometryGateway):
             geom_med=geom_med,
             geom_sol=geom_sol,
             geom_sol_masque=geom_sol_masque,
-            from_cache=False,
             n_sol_triangles=getattr(geom_sol, "n_triangles", 0),
         )
 

@@ -66,5 +66,4 @@ class LegacySoleneGeometry:
     geom_med: Any
     geom_sol: Any
     geom_sol_masque: Any | None
-    from_cache: bool
     n_sol_triangles: int

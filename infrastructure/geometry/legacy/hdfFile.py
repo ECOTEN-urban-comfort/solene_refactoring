@@ -365,14 +365,14 @@ class CplFile(HdfFile):
         pas conservees dans les fichiers .med et .cir
         """
         #print('\n\t MODULE hdfFile.py')
-        print('\t enregistrement de la geometrie %s' % self.geom.nom)
-        print('\t dans le fichier %s' % self.nom)
+        #print('\t enregistrement de la geometrie %s' % self.geom.nom)
+        #print('\t dans le fichier %s' % self.nom)
         #print()
 
         self.face = face
 
         if self.fichier_existe:
-            print('\t -> le fichier existe et sera écrasé')
+            #print('\t -> le fichier existe et sera écrasé')
             os.remove(self.nom)
             self.hdf = tables.open_file(self.nom, 'w')
 
@@ -397,13 +397,15 @@ class CplFile(HdfFile):
             self.hdf.create_array('/geom/triangles', 'normale',
                                  table_to_array(self.geom.triangles.normale))
         except BaseException:
-            print('pas de normales aux triangles (?)')
+            pass
+            #print('pas de normales aux triangles (?)')
 
         try:
             self.hdf.create_array('/geom/triangles', 'cdg',
                                  table_to_array(self.geom.triangles.cdg))
         except BaseException:
-            print('pas de centre de gravite aux triangles (?)')
+            pass
+            #print('pas de centre de gravite aux triangles (?)')
 
         if len(self.geom.triangles.connectivite_triangles) > 0:
             try:
@@ -411,20 +413,23 @@ class CplFile(HdfFile):
                     '/geom/triangles/connectivite_triangles',
                     self.geom.triangles.connectivite_triangles)
             except BaseException:
-                print('\t pas de connectivite triangles')
+                pass
+                #print('\t pas de connectivite triangles')
 
         if len(self.geom.triangles.connectivite_tetra) > 0:
             try:
                 self.hdf.create_array('/geom/triangles', 'connectivite_tetras',
                                      self.geom.triangles.connectivite_tetra)
             except BaseException:
-                print('\t pas de connectivite tetras')
+                pass
+                #print('\t pas de connectivite tetras')
 
         try:
             self.hdf.create_array('/geom/triangles', 'famille',
                                  self.geom.triangles.famille)
         except BaseException:
-            print('pas de famille pour les triangles')
+            pass
+            #print('pas de famille pour les triangles')
 
         # faces
         self.hdf.create_group('/geom', 'faces')
@@ -452,13 +457,15 @@ class CplFile(HdfFile):
             self.hdf.create_array('/geom/faces', 'famille',
                                  self.geom.faces.famille)
         except BaseException:
-            print('\t -> pas de familles de faces')
+            pass
+            #print('\t -> pas de familles de faces')
 
         try:
             self.creer_dataset_regle('/geom/faces/liste_triangles',
                                      self.geom.faces.liste_triangles)
         except BaseException:
-            print('\t ->pas de liste de triangles')
+            pass
+            #print('\t ->pas de liste de triangles')
 
         # éléments
         if self.geom.n_tetras > 0:
@@ -529,13 +536,15 @@ class CplFile(HdfFile):
             self.geom.triangles.connectivite_tetra = \
                 self.hdf.get_node('/geom/triangles/connectivite_tetras').read()
         except BaseException:
-            print('\t pas de connectivite tetras')
+            pass
+            #print('\t pas de connectivite tetras')
 
         try:
             self.geom.triangles.famille = \
                 self.hdf.get_node('/geom/triangles/famille').read()
         except BaseException:
-            print('\t pas des familles pour les triangles')
+            pass
+            #print('\t pas des familles pour les triangles')
 
         self.geom.n_triangles = len(self.geom.triangles.points)
 
@@ -544,7 +553,8 @@ class CplFile(HdfFile):
             self.geom.faces.liste_triangles = self.extraire_dataset_regle(
                 '/geom/faces/liste_triangles')
         except BaseException:
-            print('\t ->pas de liste de triangles')
+            pass
+            #print('\t ->pas de liste de triangles')
 
         self.geom.n_faces = len(self.geom.faces.liste_triangles)
 
@@ -577,13 +587,15 @@ class CplFile(HdfFile):
             normale = self.geom.triangles.normale[no_triangle]
             self.geom.faces.normale = normale
         except BaseException:
-            print('\t ->pas d informations sur les faces')
+            pass
+            #print('\t ->pas d informations sur les faces')
 
         try:
             self.geom.faces.famille = self.hdf.get_node(
                 '/geom/faces/famille').read()
         except BaseException:
-            print('\t -> pas de familles de face')
+            pass
+            #print('\t -> pas de familles de face')
 
         # tetras
         try:

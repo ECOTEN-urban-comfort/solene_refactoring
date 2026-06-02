@@ -42,9 +42,23 @@ class LegacySoleneGateway(SoleneGateway):
             bootstrap.paths.case_name,
         )
 
-        if not solene_geometry.from_cache:
+        scene_cir_path = Path(str(sol_command.scene_cir) + ".cir")
+        masque_cir_path = Path(str(sol_command.masque_cir) + ".cir")
 
-            # Equivalent of exporter_geom_solene()
+        # Export only if CIR files are actually missing.
+        if not (scene_cir_path.is_file() and masque_cir_path.is_file()):
+            if solene_geometry.geom_sol is None:
+                raise ValueError(
+                    "Cannot export Solene scene CIR because geom_sol is missing."
+                )
+
+            if solene_geometry.geom_sol_masque is None:
+                raise ValueError(
+                    "Cannot export Solene mask CIR because geom_sol_masque is missing. "
+                    "This typically means geom_sol was loaded from cache but the mask "
+                    "geometry was not rebuilt."
+                )
+
             write_cir(
                 name=sol_command.masque_cir,
                 geom=solene_geometry.geom_sol_masque,
@@ -55,7 +69,7 @@ class LegacySoleneGateway(SoleneGateway):
                 geom=solene_geometry.geom_sol,
                 faces=False,
             )
-
+            
         export_artifacts = SoleneExportArtifacts(
             scene_cir=Path(str(sol_command.scene_cir) + ".cir"),
             masque_cir=Path(str(sol_command.masque_cir) + ".cir"),

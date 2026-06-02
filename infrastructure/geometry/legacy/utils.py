@@ -351,7 +351,8 @@ class Chrono:
         else:
             duree_str = str(round(duree, 2))
         if duree > 2 and self.verbose:
-            print(' %s, duree %ss, f %s ' % (time.ctime(), 
-                                             duree_str, 
-                                             self.fonction))
+            pass
+            #print(' %s, duree %ss, f %s ' % (time.ctime(), 
+                                             #duree_str, 
+                                             #self.fonction))
         self.duree = duree

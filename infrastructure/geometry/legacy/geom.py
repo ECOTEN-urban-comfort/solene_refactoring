@@ -378,11 +378,14 @@ class Geom:
         tableau_connectivite_triangles = []
         for i in range(self.n_triangles):
             if i == 0:
-                print('\t', end=' ')
+                pass
+                #print('\t', end=' ')
             if i % 50 == 0:             # affiche l'avancement
-                sys.stdout.write('+')
+                pass
+                #sys.stdout.write('+')
             if i % 2000. == 0:          #
-                print("-\n\t%s" % i, end=' ')
+                pass
+                #print("-\n\t%s" % i, end=' ')
 
             triangles = self.triangles.points[i]
 
@@ -432,11 +435,14 @@ class Geom:
 
         for i in range(self.n_triangles):
             if i == 0:
-                print('\t', end=' ')
+                pass
+                #print('\t', end=' ')
             if i % 50 == 0:             # affiche l'avancement
-                sys.stdout.write('+')
+                pass
+                #sys.stdout.write('+')
             if i % 2000. == 0:          #
-                print("-\n\t%s" % i, end=' ')
+                pass
+                #print("-\n\t%s" % i, end=' ')
 
             points_tri = set(self.triangles.points[i])
             ligne_conn_bis = []
@@ -511,9 +517,9 @@ class Geom:
 
         chrono = Chrono('connecter_triangle_tetra', 'geom')
 
-        print("\n\t création des liens entre triangles et éléments")
-        print("\t-> %s triangles pour %s éléments\n" % (self.n_triangles,
-                                                        self.n_tetras))
+        #print("\n\t création des liens entre triangles et éléments")
+        #print("\t-> %s triangles pour %s éléments\n" % (self.n_triangles,
+                                                        #self.n_tetras))
 
         # crée des listes réduites de points comprise dans la boîte
         # en conservant les liens
@@ -521,8 +527,8 @@ class Geom:
         if boite:
             face, lien_face = self.extraire_boite('triangles')
             elem, lien_elem = self.extraire_boite('tetras')
-            print("\t -> réduit à %s éléments après extraction_boite()"
-                  % len(lien_elem))
+            #print("\t -> réduit à %s éléments après extraction_boite()"
+                  #% len(lien_elem))
 
         else:
             face = self.triangles.points
@@ -534,19 +540,20 @@ class Geom:
             lst_tetras = self.lst_tetras_bords
             elem = self.tetras.points[lst_tetras]
             lien_elem = lst_tetras
-            print("\t-> réduit à %s éléments après _trouver_tetra_bord()"
-                  % len(lien_elem))
+            #print("\t-> réduit à %s éléments après _trouver_tetra_bord()"
+                  #% len(lien_elem))
         else:
-            print('\t -> tetra_bords n existe pas')
-            print('\t -> recherche parmi tous les éléments')
+            pass
+            #print('\t -> tetra_bords n existe pas')
+            #print('\t -> recherche parmi tous les éléments')
 
         # réduit encore aux éléments de la famille 'famille'
         if famille_elem:
             fam = int(self.familles[famille_elem])
             elem = self.tetras.points[self.tetras.famille == fam]
             lien_elem = np.arange(self.n_tetras)[self.tetras.famille == fam]
-            print("\t -> réduit à %s éléments après reduction famille"
-                  % len(lien_elem))
+            #print("\t -> réduit à %s éléments après reduction famille"
+                  #% len(lien_elem))
 
         if famille_face:
             ok = np.zeros(self.n_triangles)
@@ -567,15 +574,18 @@ class Geom:
         len_face = len(face)
         for i in range(len_face):
             if i == 0:
-                print('\t', end=' ')
+                pass
+                #print('\t', end=' ')
             if i % 50 == 0:             # affiche l'avancement
-                sys.stdout.write('+')
+                pass
+                #sys.stdout.write('+')
             if i % 2000. == 0:          #
-                print("-\n\t%s" % i, end=' ')       #
+                pass
+                #print("-\n\t%s" % i, end=' ')       #
 
             bu = self._trouver_tetra_connecte(face, elem, lien_elem, i)
             if len(bu) == 0:
-                print('supprimer_ici', self.triangles.famille[lien_face[i]])
+                #print('supprimer_ici', self.triangles.famille[lien_face[i]])
                 if debug:
                     vec_debug[i] = 1
             try:
@@ -1224,7 +1234,8 @@ class Geom:
                             self.triangles.connectivite_triangles[i][j]))
                     geom.triangles.connectivite_triangles.append(ligne)
         except BaseException:
-            print('\t -> pas de connectivite triangle')
+            pass
+            #print('\t -> pas de connectivite triangle')
 
         geom.faces.points = []
         geom.faces.liste_trous = []
