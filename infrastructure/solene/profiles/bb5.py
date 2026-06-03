@@ -1,7 +1,7 @@
 from infrastructure.solene.profiles.surface_model_profile import SurfaceModelProfile
 
 BB5_PROFILE = SurfaceModelProfile(
-    name="BB5",
+    name="bb5",
     meteo_sol_defaults={
         "lambda_sol": 0.7,
         "cp_sol": 900,
@@ -88,9 +88,10 @@ BB5_PROFILE = SurfaceModelProfile(
         "MRT",
     ),
     default_time_step_s=3600,
+    include_ecl_inc_tot = False,
+    enable_tp_outputs=True,
     enable_water_descriptors=False,
+    enable_extra_transient_nodes=False,
     enable_irrigation_descriptors=False,
     enable_water_flux_outputs=False,
-    enable_extra_transient_nodes=False,
-    enable_tp_outputs=True,
 )

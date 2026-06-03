@@ -109,9 +109,10 @@ AZAM_PROFILE = SurfaceModelProfile(
         "MRT",
     ),
     default_time_step_s=900,
+    include_ecl_inc_tot = True,
+    enable_tp_outputs=False,
     enable_water_descriptors=True,
+    enable_extra_transient_nodes=True,
     enable_irrigation_descriptors=True,
     enable_water_flux_outputs=True,
-    enable_extra_transient_nodes=True,
-    enable_tp_outputs=False,
 )
