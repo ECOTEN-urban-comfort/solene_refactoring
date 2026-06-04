@@ -3,14 +3,14 @@ from infrastructure.solene.profiles.surface_model_profile import SurfaceModelPro
 AZAM_PROFILE = SurfaceModelProfile(
     name="azam",
     meteo_sol_defaults={
-        "lambda_sol": 1.3,
-        "cp_sol": 1200,
-        "rho_sol": 1760,
+        "lambda_sol": 1.7,
+        "cp_sol": 960,
+        "rho_sol": 2100,
         "z_ref": 2.0,
         "i_jour": 196,
         "i_jour_ref": 1,
-        "moy_Tair": 13.5,
-        "max_Tair": 28.5,
+        "moy_Tair": 5,
+        "max_Tair": 23.8,
         "min_Tair": 1.4,
     },
     carac_face=(
