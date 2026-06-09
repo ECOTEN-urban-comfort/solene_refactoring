@@ -70,7 +70,7 @@ class LegacyGeometryGateway(GeometryGateway):
         - reconstruct geometry
         - export Solene geometry
         """
-        bootstrap = self._require_bootstrap_definition(state)
+        bootstrap = state.require_bootstrap_definition()
 
         stage_dir = state.workspace / "temp" / "geometry_inputs"
         stage_dir.mkdir(parents=True, exist_ok=True)
@@ -138,7 +138,9 @@ class LegacyGeometryGateway(GeometryGateway):
         geom_med = med_file.extraire_geom()
 
         # Step 2: load family definitions from XML.
-        familles = importer_familles_xml(str(prepared.staged_famille_file))
+        bootstrap = state.require_bootstrap_definition()
+        surface_model = bootstrap.settings.surface_model
+        familles = importer_familles_xml(str(prepared.staged_famille_file), surface_model)
 
         # Step 3: enrich family library with materials.
         familles.importer_materiaux_from_xml(str(prepared.staged_materiau_file))
@@ -239,20 +241,6 @@ class LegacyGeometryGateway(GeometryGateway):
             geom_sol_masque=geom_sol_masque,
             n_sol_triangles=getattr(geom_sol, "n_triangles", 0),
         )
-
-    def _require_bootstrap_definition(
-        self,
-        state: SimulationState,
-    ) -> SimulationBootstrap:
-        """
-        Temporary guard while SimulationState.definition is still broadly typed.
-        """
-        if not isinstance(state.definition, SimulationBootstrap):
-            raise TypeError(
-                "SimulationState.definition must be SimulationBootstrap "
-                "before geometry gateway operations can run."
-            )
-        return state.definition
 
     def _require_prepared_inputs(self, state: SimulationState) -> PreparedGeometryInputs:
         """

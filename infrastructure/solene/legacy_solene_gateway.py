@@ -2,14 +2,15 @@ from pathlib import Path
 
 from application.ports.solene_gateway import SoleneGateway
 from domain.artifact_keys import LEGACY_SOLENE_GEOMETRY, LEGACY_TIME_STEP, METEO_LIST
+from domain.simulation_definition import SimulationBootstrap
 from domain.simulation_state import SimulationState
 from domain.solene import LegacySoleneEnvironment, SoleneExportArtifacts
 
 from infrastructure.geometry.legacy.famille import CARAC_CLASSE
-from infrastructure.geometry.legacy.solCommand import SolCommand
-from infrastructure.geometry.legacy.data import Data
-from infrastructure.geometry.legacy.solEnv import SolEnv
-from infrastructure.geometry.legacy.solFile import write_cir
+from infrastructure.solene.sol_command import SolCommand
+from infrastructure.solene.data import Data
+from infrastructure.solene.sol_env import SolEnv
+from infrastructure.solene.solFile import write_cir
 
 
 class LegacySoleneGateway(SoleneGateway):
@@ -83,10 +84,13 @@ class LegacySoleneGateway(SoleneGateway):
         # Note: this step is only fully faithful once TimeStep and meteo import
         # are also migrated into the new architecture.
         time_step = state.results.get(LEGACY_TIME_STEP)
+        bootstrap = state.require_bootstrap_definition()
+        surface_model = bootstrap.settings.surface_model
 
         sol_env = SolEnv(
             sol_command,
             solene_geometry.geom_sol,
+            surface_model,
             data=resul_sol,
             timeStep=time_step,
             familles=solene_geometry.extracted_geometry.familles,

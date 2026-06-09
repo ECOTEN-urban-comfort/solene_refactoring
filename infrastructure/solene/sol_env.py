@@ -79,6 +79,7 @@ class SolEnv:
     def __init__(self,
                  solCommand,
                  geom_sol,
+                 surface_model,
                  familles=None,
                  data=None,
                  timeStep=None):
@@ -99,7 +100,7 @@ class SolEnv:
             self.familles = familles
             self.familles.attribuer_num_familles(self.geom.familles)
         else:
-            self.familles = Familles()
+            self.familles = Familles(surface_model)
 
         if data:
             self.data = data

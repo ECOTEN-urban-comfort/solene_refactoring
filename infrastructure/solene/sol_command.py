@@ -3,7 +3,7 @@ import subprocess
 import time
 
 from infrastructure.geometry.legacy.utils import Chrono, ecrire_fichier
-from infrastructure.geometry.legacy.solFile import *
+from infrastructure.solene.sol_file import *
 from infrastructure.solene.profiles.surface_model_profile import SurfaceModelProfile
 
 JOIN = os.path.join

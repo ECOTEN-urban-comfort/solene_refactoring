@@ -35,8 +35,6 @@ from domain.simulation_state import (
     SimulationState,
     StepStatus,
 )
-from domain.geometry import LegacyExtractedGeometry
-from infrastructure.geometry.legacy.famille import importer_familles_xml
 
 class GeometryService:
     """

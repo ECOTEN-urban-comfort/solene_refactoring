@@ -81,33 +81,48 @@ IV. CARACTERISTIQUES DES CLASSES
 import xml.dom.minidom
 from infrastructure.geometry.legacy.xmlFile import get_data
 import sys
+from copy import deepcopy
 
 # import logging
 # logging.basicConfig(filename='myapp.log', level=logging.INFO)
 # logger = logging.getLogger(__name__)
 
-CARAC_CLASSE = {'mur'             :{'solene':True, 'saturne':True, 'radiatif':True,  'thermique':True,  'emissivite':True, 'energetique' : True, 'latent':False},
-		    'sol_new'             :{'solene':True, 'saturne':True, 'radiatif':True,  'thermique':True,  'emissivite':True, 'energetique' : False, 'latent':True},
-                'mur_veg'       :{'solene':True, 'saturne':True, 'radiatif':True,  'thermique':True,  'emissivite':True, 'energetique' : True, 'latent':True},
-                'vitrage'         :{'solene':True, 'saturne':True, 'radiatif':True, 'thermique':True,  'emissivite':True, 'energetique' : True, 'latent':False},
-                'toit'            :{'solene':True, 'saturne':True, 'radiatif':True,  'thermique':True,  'emissivite':True, 'energetique' : True, 'latent':False},
-                'toit_veg'     :{'solene':True, 'saturne':True, 'radiatif':True,  'thermique':True,  'emissivite':True, 'energetique' : True, 'latent' : True},
-                'plancher_int'    :{'solene':True, 'saturne':False,'radiatif':False, 'thermique':True,  'emissivite':False, 'energetique' : False, 'latent':False},
-                'plancher_bas'    :{'solene':True, 'saturne':False,'radiatif':False, 'thermique':True,  'emissivite':False, 'energetique' : False, 'latent':False},
-                'interieur'       :{'solene':True, 'saturne':False,'radiatif':False, 'thermique':True,  'emissivite':False, 'energetique' : False, 'latent':False},
-                'batiments'       :{'solene':True, 'saturne':True, 'radiatif':True,  'thermique':True,  'emissivite':True, 'energetique' : False, 'latent':False},
-                'paroi_veg'       :{'solene':True, 'saturne':True, 'radiatif':True,  'thermique':True,  'emissivite':True, 'energetique' : False, 'latent':True},
-                'sol'             :{'solene':True, 'saturne':True, 'radiatif':True,  'thermique':True,  'emissivite':True, 'energetique' : False, 'latent':False},
-                'sol_veg'      :{'solene':True, 'saturne':True, 'radiatif':True,  'thermique':True,  'emissivite':True, 'energetique' : False, 'latent':True},
-                'masque_sol' : {'solene':True, 'saturne':True, 'radiatif':True,  'thermique':False,  'emissivite':False, 'energetique' : False,'latent':False},
-                'surface_arbre'   :{'solene':True, 'saturne':True, 'radiatif':True,  'thermique':False, 'emissivite':True, 'energetique' : False,'latent':False},
-                'volume_arbre'    :{'solene':False,'saturne':True, 'radiatif':False, 'thermique':False, 'emissivite':False, 'energetique' : False, 'latent':False},
-                'volume_air'      :{'solene':False,'saturne':True, 'radiatif':False, 'thermique':False, 'emissivite':False, 'energetique' : False, 'latent':False},
-                'sat_wall'        :{'solene':False,'saturne':True, 'radiatif':False, 'thermique':False, 'emissivite':False, 'energetique' : False, 'latent':False},
-                'sat_inlet'       :{'solene':False,'saturne':True, 'radiatif':False, 'thermique':False, 'emissivite':False, 'energetique' : False, 'latent':False},
-                'sat_sym'         :{'solene':False,'saturne':True, 'radiatif':False, 'thermique':False, 'emissivite':False, 'energetique' : False, 'latent':False},
-                'enveloppe_bilan' :{'solene':False,'saturne':True, 'radiatif':False, 'thermique':False, 'emissivite':False, 'energetique' : False, 'latent':False}
-                }
+CARAC_CLASSE_BASE = {
+    "mur": {"solene": True, "saturne": True, "radiatif": True, "thermique": True, "emissivite": True, "energetique": True, "latent": False},
+    "sol_new": {"solene": True, "saturne": True, "radiatif": True, "thermique": True, "emissivite": True, "energetique": False, "latent": True},
+    "mur_veg": {"solene": True, "saturne": True, "radiatif": True, "thermique": True, "emissivite": True, "energetique": True, "latent": True},
+    "vitrage": {"solene": True, "saturne": True, "radiatif": True, "thermique": True, "emissivite": True, "energetique": True, "latent": False},
+    "toit": {"solene": True, "saturne": True, "radiatif": True, "thermique": True, "emissivite": True, "energetique": True, "latent": False},
+    "toit_veg": {"solene": True, "saturne": True, "radiatif": True, "thermique": True, "emissivite": True, "energetique": True, "latent": True},
+    "plancher_int": {"solene": True, "saturne": False, "radiatif": False, "thermique": True, "emissivite": False, "energetique": False, "latent": False},
+    "plancher_bas": {"solene": True, "saturne": False, "radiatif": False, "thermique": True, "emissivite": False, "energetique": False, "latent": False},
+    "interieur": {"solene": True, "saturne": False, "radiatif": False, "thermique": True, "emissivite": False, "energetique": False, "latent": False},
+    "batiments": {"solene": True, "saturne": True, "radiatif": True, "thermique": True, "emissivite": True, "energetique": False, "latent": False},
+    "paroi_veg": {"solene": True, "saturne": True, "radiatif": True, "thermique": True, "emissivite": True, "energetique": False, "latent": True},
+    "sol": {"solene": True, "saturne": True, "radiatif": True, "thermique": True, "emissivite": True, "energetique": False, "latent": False},
+    "sol_veg": {"solene": True, "saturne": True, "radiatif": True, "thermique": True, "emissivite": True, "energetique": False, "latent": True},
+    "masque_sol": {"solene": True, "saturne": True, "radiatif": True, "thermique": False, "emissivite": False, "energetique": False, "latent": False},
+    "surface_arbre": {"solene": True, "saturne": True, "radiatif": True, "thermique": False, "emissivite": True, "energetique": False, "latent": False},
+    "volume_arbre": {"solene": False, "saturne": True, "radiatif": False, "thermique": False, "emissivite": False, "energetique": False, "latent": False},
+    "volume_air": {"solene": False, "saturne": True, "radiatif": False, "thermique": False, "emissivite": False, "energetique": False, "latent": False},
+    "sat_wall": {"solene": False, "saturne": True, "radiatif": False, "thermique": False, "emissivite": False, "energetique": False, "latent": False},
+    "sat_inlet": {"solene": False, "saturne": True, "radiatif": False, "thermique": False, "emissivite": False, "energetique": False, "latent": False},
+    "sat_sym": {"solene": False, "saturne": True, "radiatif": False, "thermique": False, "emissivite": False, "energetique": False, "latent": False},
+    "enveloppe_bilan": {"solene": False, "saturne": True, "radiatif": False, "thermique": False, "emissivite": False, "energetique": False, "latent": False},
+}
+
+SURFACE_MODEL_OVERRIDES = {
+    "mixture": {
+        "sol": {"latent": False},
+    },
+    "azam": {
+        "sol": {"latent": True},
+    },
+    "bb5": {
+        "sol": {"latent": True},
+    },
+}
+
                 
 # LIEN NUM FAMILLE
 #FAM_NUM_TR = ['bat', 'solair', 'solbat']
@@ -171,12 +186,12 @@ def get_layers(famille_xml):
                             
     return layers
     
-def importer_familles_xml(nom_fichier):
+def importer_familles_xml(nom_fichier, surface_model):
     """
     importation des familles depuis le fichier -nom_fichier- vers un 
     objet Familles
     """
-    fam = Familles()
+    fam = Familles(surface_model)
     fam.importer_from_xml(nom_fichier)
     
     return fam
@@ -209,10 +224,20 @@ class Familles:
     des caracteristi
             self.chemin_familles_xml = get_data(self.param_xml, 'chemin_familles_xml')ques materiaux
     """
-    def __init__(self):
+    def __init__(self, surface_model):
         self.familles = {}
         self.lst_classe = LIEN_NUM_CLASSE
         self.materiaux = {}
+        self.caras_classe = self._build_carac_classe(surface_model)
+
+    def _build_carac_classe(surface_model: str) -> dict:
+        carac = deepcopy(CARAC_CLASSE_BASE)
+
+        overrides = SURFACE_MODEL_OVERRIDES.get(surface_model, {})
+        for classe, values in overrides.items():
+            carac[classe].update(values)
+
+        return carac
         
     def remplir(self, liste_nom):
         """
@@ -321,7 +346,7 @@ class Familles:
             self.familles[name] = Famille(nom = name, classe = classe)
             famille = self.familles[name]
 
-            if CARAC_CLASSE[classe]['solene']:
+            if self.carac_classe[classe]['solene']:
                 # famille.num = int(get_data(famille_xml, 'soleneID'))
                 # famille.num_sol = int(get_data(famille_xml, 'soleneID'))
                 if classe in ('batiments', 'sol', 'sol_veg', 'paroi_veg', 'masque_sol'): # 'masque_sol'
@@ -346,14 +371,14 @@ class Familles:
 with this class from famille.xml, or add this class to famille.py (function 'importer_from_xml')")
 
 
-            if CARAC_CLASSE[classe]['radiatif']:
+            if self.carac_classe[classe]['radiatif']:
                 famille.param['albedo'] = float(get_data(famille_xml, 'albedo'))
                 famille.param['transmittance'] = float(get_data(famille_xml, 'transmittance'))
-            if CARAC_CLASSE[classe]['thermique']:
+            if self.carac_classe[classe]['thermique']:
                 famille.couches=get_layers(famille_xml)
-            if CARAC_CLASSE[classe]['emissivite']:
+            if self.carac_classe[classe]['emissivite']:
                 famille.param['emissivite'] = float(get_data(famille_xml, 'emissivite'))
-            if CARAC_CLASSE[classe]['latent']:
+            if self.carac_classe[classe]['latent']:
                 try:
                     famille.param['LAI'] = float(get_data(famille_xml, 'LAI'))
                 except :
@@ -468,7 +493,7 @@ with this class from famille.xml, or add this class to famille.py (function 'imp
         renvoie la liste des classes ayant la caracteristique -carac-
         """
         lst_classe = []
-        for classe, dic_classe_carac in list(CARAC_CLASSE.items()):
+        for classe, dic_classe_carac in list(self.carac_classe.items()):
             if dic_classe_carac[carac] == True:
                 lst_classe.append(classe)
         return lst_classe
@@ -491,7 +516,7 @@ with this class from famille.xml, or add this class to famille.py (function 'imp
         dic = {}
         for famille in list(self.familles.keys()):
             print(famille)
-            if CARAC_CLASSE[self.familles[famille].classe]['solene']:
+            if self.carac_classe[self.familles[famille].classe]['solene']:
                 dic[famille] = self.familles[famille].num_sol
             
         return dic
@@ -513,14 +538,14 @@ with this class from famille.xml, or add this class to famille.py (function 'imp
         """
         dic = {}
         dic['murs'] = ''
-        for classe in list(CARAC_CLASSE.keys()):
-            if CARAC_CLASSE[classe]['saturne'] and not CARAC_CLASSE[classe]['thermique']:
+        for classe in list(self.carac_classe.keys()):
+            if self.carac_classe[classe]['saturne'] and not self.carac_classe[classe]['thermique']:
                 dic[classe] = ''
         
         for nom_fam in list(self.familles.keys()):
             fam = self.familles[nom_fam]
-            if CARAC_CLASSE[fam.classe]['saturne']:
-                if CARAC_CLASSE[fam.classe]['thermique'] :
+            if self.carac_classe[fam.classe]['saturne']:
+                if self.carac_classe[fam.classe]['thermique'] :
                     dic['murs'] += ' ' + nom_fam + ','
                 else:
                     dic[fam.classe] += ' ' + nom_fam + ','
@@ -541,8 +566,8 @@ with this class from famille.xml, or add this class to famille.py (function 'imp
         sat_familles['murs'] = []
         for nom_fam in list(self.familles.keys()):
             fam = self.familles[nom_fam]
-            if CARAC_CLASSE[fam.classe]['saturne']:
-                if CARAC_CLASSE[fam.classe]['thermique'] :
+            if self.carac_classe[fam.classe]['saturne']:
+                if self.carac_classe[fam.classe]['thermique'] :
                     sat_familles['murs'].append(nom_fam)
 
         sat_familles['sat_inlet'] = self.renvoyer_liste_famille_classes('sat_inlet', liste_nom = True)
@@ -565,7 +590,7 @@ with this class from famille.xml, or add this class to famille.py (function 'imp
         lst_fam_solene = []
         for fam in self.familles:
             fam = self.familles[fam]
-            if CARAC_CLASSE[fam.classe]['solene']:
+            if self.carac_classe[fam.classe]['solene']:
                 lst_fam_solene.append(fam.nom)
                 
         return lst_fam_solene
