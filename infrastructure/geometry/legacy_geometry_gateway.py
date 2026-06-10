@@ -22,10 +22,9 @@ from pathlib import Path
 
 from application.ports.geometry_gateway import GeometryGateway
 from domain.geometry import LegacyExtractedGeometry, LegacySoleneGeometry, PreparedGeometryInputs
-from domain.simulation_definition import SimulationBootstrap
 from domain.simulation_state import SimulationState
-from infrastructure.geometry.legacy.hdfFile import MedFile, CplFile
-from infrastructure.geometry.legacy.famille import importer_familles_xml, CARAC_CLASSE
+from infrastructure.solene.hdfFile import MedFile, CplFile
+from infrastructure.solene.famille import importer_familles_xml
 
 
 class LegacyGeometryGateway(GeometryGateway):
@@ -197,7 +196,8 @@ class LegacyGeometryGateway(GeometryGateway):
         # Fresh Solene-side branch
         geom_med = extracted.geom_med
         familles = extracted.familles
-
+        carac_classe = familles.carac_classe
+        
         # Equivalent of self.geom_med.reconstruire_geom()
         geom_med.reconstruire_geom()
 
@@ -208,8 +208,8 @@ class LegacyGeometryGateway(GeometryGateway):
         for fam_key in list(familles.familles.keys()):
             famille = familles.familles[fam_key]
 
-            if famille.classe in CARAC_CLASSE:
-                carac = CARAC_CLASSE[famille.classe]
+            if famille.classe in carac_classe:
+                carac = carac_classe[famille.classe]
             else:
                 carac = None
 

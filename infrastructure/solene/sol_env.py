@@ -18,20 +18,16 @@ Created on Wed May 19 10:13:24 2010
     Laurent Malys, Laboratoire CERMA, UMR 1563
     laurent.malys@cerma.archi.fr
 """
-from numpy import zeros, float32, array, arange, exp, round, ones
+from numpy import zeros, arange, exp, round, ones
 import os
-import xml.dom.minidom
-from shutil import copy
 
-from data import Data
-from timeStep import TimeStep
-from utils import ecrire_fichier, text_to_tab, no_min
-from utils import trouver_lien, trouver_lien_cdg
-from famille import Familles
-from geom import Geom
-from solCommand import VARIABLES_GLO
-from solFile import read_val, write_val, read_cir
-from vtkFile import VtkFile
+from infrastructure.solene.data import Data
+from infrastructure.solene.timeStep import TimeStep
+from infrastructure.solene.utils import ecrire_fichier
+from infrastructure.solene.famille import Familles
+from infrastructure.solene.geom import Geom
+from infrastructure.solene.sol_file import read_val, write_val
+from infrastructure.solene.vtkFile import VtkFile
 
 lien_num_fam = ['bat', 'solair', 'solbat']
 
@@ -573,6 +569,6 @@ class SolEnv:
         TODO : remplacer par des valeurs dans le fichier de conf
         """
         txt = ''
-        for var in VARIABLES_GLO:
+        for var in self.SolCommand.variables_glo:
             txt += '%s %s\n' % (var, self.SolCommand.var[var])
         ecrire_fichier(self.SolCommand.option_resul + '.txt', txt)

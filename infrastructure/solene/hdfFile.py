@@ -14,8 +14,8 @@ import numpy as np
 import tables
 import os
 
-from infrastructure.geometry.legacy.utils import Chrono
-from infrastructure.geometry.legacy.geom import *
+from infrastructure.solene.utils import Chrono
+from infrastructure.solene.geom import *
 
 
 parallel_domain = 'CHA/parallel domain/MAI.TE4/                  -1                  -1/Fluid volume/CO'
@@ -29,14 +29,13 @@ def array_to_table(vec, n):
     table = vec.reshape(n, len(vec) // n).transpose()
     return table
 
-
 def table_to_array(table):
     """
     transforme les tables de shape (n_tetras, nPoints)
     en array de dimension1
     """
 
-    if type(table) == np.ndarray:
+    if isinstance(table, np.ndarray):
         a = table.transpose().flatten()
 
     return a
@@ -120,16 +119,7 @@ class HdfFile:
         """
         noeud = self.hdf.get_node(chemin).read()
         
-        vec = noeud
-        
-        #     transforms the dim1 arrays from the .med files into dim2 arrays
-        #     with vectors containing 'n' values   
-        
-        table = vec.reshape(n, len(vec) // n).transpose()
-    
-        return table        
-        
-        #return array_to_table(noeud, n)
+        return array_to_table(noeud, n)
 
 
 class MedFile(HdfFile):
@@ -143,18 +133,13 @@ class MedFile(HdfFile):
         self.hdf = tables.open_file(nom)
 
         self.points = ''
-        
         self.pointsTE4 = ''
         self.familleTE4 = ''
-        
         self.pointsTR3 = ''
         self.familleTR3 = ''
-        
         self.pointsSE2 = ''
-        self.familleSE2 =  ''
-        
-        self.list_of_famille = ''
-        
+        self.familleSE2 = ''
+        self.liste_famille = ''
         self.extraire_version()
 
     def extraire_version(self):
@@ -166,19 +151,16 @@ class MedFile(HdfFile):
 
     def extraire_geom(self):
         """
-        Extract the geometry from the MED file.
-        Retrieve information about edges, triangles, tetrahedra,
-        and their respective families.
+        extrait la geometrie depuis le fichier med
+        recupere les informations sur les aretes, les triangles, les tetraedres
+        et leurs familles respectives
         """
 
         chrono = Chrono('extraire_geom', 'hdfFile')
 
         self.extraire_chemins()
-        
-        #print(f"extract path works and the points path is {self.points} ")
-        
+
         if len(self.hdf.list_nodes('/ENS_MAA')) == 1:
-            #print('\t this file is indeed a mesh file\n')
 
             self.geom = Geom()
             self.geom.points = self._path_to_table(self.points, 3)
@@ -201,10 +183,6 @@ class MedFile(HdfFile):
             self.geom.n_segments = len(self.geom.segments.points)
             self.geom.n_triangles = len(self.geom.triangles.points)
             self.geom.n_tetras = len(self.geom.tetras.points)
-            #print("\tnombre d\'éléments : %s" % self.geom.n_tetras)
-
-            #print("\tnombre de segments : %s" % self.geom.n_segments)
-            #print("\tnombre de triangles : %s" % self.geom.n_triangles)
 
             if self.med_version_maj == 2:
                 if self.med_version_min == 3 and self.med_version_rel == 6:
@@ -213,8 +191,6 @@ class MedFile(HdfFile):
                     self.extraire_familles_2_3_4()
             elif self.med_version_maj == 3 or self.med_version_maj == 4:
                 self.extraire_familles_2_3_6()
-        else:
-            print('\t !ce fichier n est pas un med geometrie!')
 
         self.hdf.close()
         chrono.fin()
@@ -224,7 +200,6 @@ class MedFile(HdfFile):
     def extraire_chemins(self):
         if self.med_version_maj == 2:
             noeud_maillage = self.hdf.list_nodes('/ENS_MAA')[0]
-            print('\t nom de la geometrie dans .med:', noeud_maillage)
             self.nom_maillage = noeud_maillage._v_pathname.split('/')[-1]
 
             self.points = '/ENS_MAA/%s/NOE/COO' % self.nom_maillage
@@ -295,7 +270,6 @@ class MedFile(HdfFile):
     def extraire_familles_2_3_6(self):
         for key in self.hdf.list_nodes(self.liste_famille):
             key = key._v_pathname.split('/')[-1].split('_')
-            #print('\t\tfamille %s, id %s' % (key[-1], key[1]))
             self.geom.familles[key[-1]] = key[1]
 
     def extraire_temperature(self):
@@ -317,44 +291,6 @@ class MedFile(HdfFile):
         noeud = self.hdf.list_nodes(chemin)[0]
         return noeud.read()
 
-    def extraire_donnee(self):
-        """
-        cree deux dictionnaires contenant les donnees surfaciques
-        et volumiques
-
-        """
-        lst_champs = self.hdf.list_nodes('CHA')
-        nom_champs = []
-        for ch in lst_champs:
-            nom_champs.append(ch._v_name)
-        CHA2D = {}
-        for champ in champs:
-            try:
-                CHA2D[champ] = self.hdf['CHA/' + champ + \
-                    '/MAI.TR3/                 100                  -1/Boundary/CO']
-                print('importation donnee 2D : %s' % champ)
-            except BaseException:
-                print('pas de donnee 2d pour le champ %s' % champ)
-
-        CHA3D = {}
-        for champ in champs:
-            try:
-                tt = str(
-                    list(self.hdf['/CHA/' + champ + '/MAI.TE4'].keys()))[2:-2]
-                chemin = '/CHA/' + champ + '/MAI.TE4/' + tt + '/Fluid volume/CO'
-                print(chemin)
-            except BaseException:
-                print('pas de chemin')
-            try:
-                CHA3D[champ] = self.hdf[chemin]
-                print('importation donnee 3D : %s' % champ)
-            except BaseException:
-                print('pas de donnee 3d pour le champ %s' % champ)
-
-        self.CHA2D = CHA2D
-        self.CHA3D = CHA3D
-
-
 class CplFile(HdfFile):
 
     def enregistrer_geom(self, face=True):
@@ -364,15 +300,11 @@ class CplFile(HdfFile):
         Ce format permet de ne pas recalculer les connectivites qui ne sont
         pas conservees dans les fichiers .med et .cir
         """
-        #print('\n\t MODULE hdfFile.py')
-        #print('\t enregistrement de la geometrie %s' % self.geom.nom)
-        #print('\t dans le fichier %s' % self.nom)
-        #print()
 
         self.face = face
 
         if self.fichier_existe:
-            #print('\t -> le fichier existe et sera écrasé')
+            print('\t -> le fichier existe et sera écrasé')
             os.remove(self.nom)
             self.hdf = tables.open_file(self.nom, 'w')
 
@@ -398,14 +330,12 @@ class CplFile(HdfFile):
                                  table_to_array(self.geom.triangles.normale))
         except BaseException:
             pass
-            #print('pas de normales aux triangles (?)')
 
         try:
             self.hdf.create_array('/geom/triangles', 'cdg',
                                  table_to_array(self.geom.triangles.cdg))
         except BaseException:
             pass
-            #print('pas de centre de gravite aux triangles (?)')
 
         if len(self.geom.triangles.connectivite_triangles) > 0:
             try:
@@ -414,7 +344,6 @@ class CplFile(HdfFile):
                     self.geom.triangles.connectivite_triangles)
             except BaseException:
                 pass
-                #print('\t pas de connectivite triangles')
 
         if len(self.geom.triangles.connectivite_tetra) > 0:
             try:
@@ -422,14 +351,12 @@ class CplFile(HdfFile):
                                      self.geom.triangles.connectivite_tetra)
             except BaseException:
                 pass
-                #print('\t pas de connectivite tetras')
 
         try:
             self.hdf.create_array('/geom/triangles', 'famille',
                                  self.geom.triangles.famille)
         except BaseException:
             pass
-            #print('pas de famille pour les triangles')
 
         # faces
         self.hdf.create_group('/geom', 'faces')
@@ -458,14 +385,12 @@ class CplFile(HdfFile):
                                  self.geom.faces.famille)
         except BaseException:
             pass
-            #print('\t -> pas de familles de faces')
 
         try:
             self.creer_dataset_regle('/geom/faces/liste_triangles',
                                      self.geom.faces.liste_triangles)
         except BaseException:
             pass
-            #print('\t ->pas de liste de triangles')
 
         # éléments
         if self.geom.n_tetras > 0:
@@ -478,7 +403,6 @@ class CplFile(HdfFile):
                                      self.geom.tetras.famille)
             except BaseException:
                 pass
-                #print('\t pas de donnees volumiques')
 
         self.hdf.close()
 
@@ -490,10 +414,6 @@ class CplFile(HdfFile):
         """
 
         self.face = face
-
-        #print('\n\t MODULE hdfFile.py')
-        #print('\t loading geometry, stored in the file ')
-        #print('\t\t -%s -' % self.nom)
         self.geom = Geom(nom='')
         self.geom.points = self._path_to_table('/geom/points', 3)
         self.geom.n_points = len(self.geom.points)
@@ -504,11 +424,7 @@ class CplFile(HdfFile):
             nom_famille = famille._v_pathname.split('/')[-1]
             valeur = famille.read()
             self.geom.familles[nom_famille] = valeur
-            
-            
-        #print('##############################################################3')
-        #print(self._path_to_table('/geom/triangles/points', 3))
-        
+
         # triangles
         self.geom.triangles.points = self._path_to_table('/geom/triangles/points', 3)
 
@@ -516,35 +432,30 @@ class CplFile(HdfFile):
             self.geom.triangles.cdg = self._path_to_table('/geom/triangles/cdg', 3)
         except BaseException:
             pass
-            #print('\t -> no center of gravity for triangles')
 
         try:
             self.geom.triangles.normale = self._path_to_table(
                 '/geom/triangles/normale', 3)
         except BaseException:
             pass
-            #print('\t -> pas de normale pour les triangles')
 
         try:
             self.geom.triangles.connectivite_triangles = \
                 self.extraire_dataset_regle('/geom/triangles/connectivite_triangles')
         except BaseException:
             pass
-            #print('\t -> pas de connectivite triangle')
 
         try:
             self.geom.triangles.connectivite_tetra = \
                 self.hdf.get_node('/geom/triangles/connectivite_tetras').read()
         except BaseException:
             pass
-            #print('\t pas de connectivite tetras')
 
         try:
             self.geom.triangles.famille = \
                 self.hdf.get_node('/geom/triangles/famille').read()
         except BaseException:
             pass
-            #print('\t pas des familles pour les triangles')
 
         self.geom.n_triangles = len(self.geom.triangles.points)
 
@@ -554,7 +465,6 @@ class CplFile(HdfFile):
                 '/geom/faces/liste_triangles')
         except BaseException:
             pass
-            #print('\t ->pas de liste de triangles')
 
         self.geom.n_faces = len(self.geom.faces.liste_triangles)
 
@@ -588,14 +498,12 @@ class CplFile(HdfFile):
             self.geom.faces.normale = normale
         except BaseException:
             pass
-            #print('\t ->pas d informations sur les faces')
 
         try:
             self.geom.faces.famille = self.hdf.get_node(
                 '/geom/faces/famille').read()
         except BaseException:
             pass
-            #print('\t -> pas de familles de face')
 
         # tetras
         try:
@@ -607,7 +515,6 @@ class CplFile(HdfFile):
             self.geom.n_tetras = len(self.geom.tetras.points)
         except BaseException:
             pass
-            #print('\t -> pas de donnees volumiques')
 
         self.hdf.close()
 

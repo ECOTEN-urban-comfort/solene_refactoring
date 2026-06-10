@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """@package famille
-Created on Tue May 18 18:06:39 2010
+Created on Tue May 18 18:06:39 2010s
 
 @author :
     Laurent Malys, Laboratoire CERMA, UMR 1563
@@ -79,7 +79,7 @@ IV. CARACTERISTIQUES DES CLASSES
 """
 
 import xml.dom.minidom
-from infrastructure.geometry.legacy.xmlFile import get_data
+from infrastructure.solene.xmlFile import get_data
 import sys
 from copy import deepcopy
 
@@ -228,9 +228,9 @@ class Familles:
         self.familles = {}
         self.lst_classe = LIEN_NUM_CLASSE
         self.materiaux = {}
-        self.caras_classe = self._build_carac_classe(surface_model)
+        self.carac_classe = self._build_carac_classe(surface_model)
 
-    def _build_carac_classe(surface_model: str) -> dict:
+    def _build_carac_classe(self, surface_model: str) -> dict:
         carac = deepcopy(CARAC_CLASSE_BASE)
 
         overrides = SURFACE_MODEL_OVERRIDES.get(surface_model, {})

@@ -51,46 +51,9 @@ contient:
 import numpy as np
 import sys
 import time
-import math
-
 
 # from hdfFile import *
-from infrastructure.geometry.legacy.utils import Chrono, norm, produit_bool, tab_distance
-
-
-def creer_un_sol(x0, y0, x1, y1, dx, dy, z=0):
-    geo = Geom()
-    lst_points = []
-    lst_triangles = []
-    nx = int((x1 - x0) / dx)
-    ny = int((y1 - y0) / dy)
-    ddx = float(x1 - x0) / nx
-    ddy = float(y1 - y0) / ny
-
-    y = y0
-    while y < y1:  # in range(y0, y1, ddy):
-        x = x0
-        while x < x1:  # for x in range(x0, x1, ddx):
-            lst_points.append([x, y, z])
-            x += ddx
-        y += ddy
-
-    for j in range(ny - 1):
-        for i in range(nx - 1):
-            lst_triangles.append([i + j * nx, i + j * nx + 1, i + (j + 1) * nx + 1])
-            lst_triangles.append([i + j * nx, i + (j + 1) * nx, i + (j + 1) * nx + 1])
-    geo.points = np.array(lst_points)
-    geo.n_points = len(lst_points)
-
-    geo.n_triangles = len(lst_triangles)
-    geo.triangles.points = np.array(lst_triangles) + 1
-    geo.triangles.normale = np.array(
-        [0, 0, 1] * geo.n_triangles).reshape(geo.n_triangles, 3)
-
-    geo.n_faces = 1
-    geo.faces.liste_triangles = [list(range(geo.n_triangles))]
-    return geo
-
+from infrastructure.solene.utils import Chrono, norm, produit_bool, tab_distance
 
 class Triangles:
     """
@@ -160,16 +123,6 @@ class Faces:
         self.famille = np.array([])
         self.normale = np.array([])
 
-
-class SousGeom:
-    """
-    contient des array de booleen
-    """
-
-    def __init__(self, nom):
-        self.nom = nom
-
-
 class Geom:
     '''
     test Geom
@@ -224,31 +177,6 @@ class Geom:
         else:
             return True
 
-    def est_coplanaire(self, i, j):
-        """
-        teste la coplanéarité de deux triangles
-        repérées par i et j dans la liste des triangles
-        """
-
-        I = np.array([self.points[self.triangles.points[i][0] - 1],
-                      self.points[self.triangles.points[i][1] - 1],
-                      self.points[self.triangles.points[i][2] - 1]])
-
-        J = np.array([self.points[self.triangles.points[j][0] - 1],
-                      self.points[self.triangles.points[j][1] - 1],
-                      self.points[self.triangles.points[j][2] - 1]])
-
-        K = I - J
-
-        hum = np.cross(np.cross(K[0], K[1]), np.cross(K[0], K[2])).round(2)
-
-        if hum.all() < 0.01:
-            ret = True
-        else:
-            ret = False
-
-        return ret
-
     def distance(self, i, j):
         """
         calcule la distance entre deux points n° i et j
@@ -261,7 +189,7 @@ class Geom:
 
     def calculer_normale(self):
         """
-        Calculates the normals of each triangle
+        calcule les normales de chaque triangle
         """
 
         normale = []
@@ -298,7 +226,8 @@ class Geom:
 
     def calculer_cdg(self, triangles=True, tetras=True):
         """
-        Calculates the center of gravity of each triangle and each tetrahedron
+        calcule le centre de gravite de chaque triangle et de chaque
+        tetra
         """
         if triangles:
             self.triangles.cdg = np.zeros((self.n_triangles, 3))
@@ -316,25 +245,16 @@ class Geom:
 
     def verifier_normale(self):
         """
-        checks the orientation of the normal based on the type
-        of the adjacent tetrahedron
+        verifie l'orientation des normale d'apres le type
+        du tetraedre adjacent
         """
         for i in range(self.n_triangles):
-            # AB = vecteur du CdG triangles vers CdG élément contigu
             AB = self.tetras.cdg[int(self.triangles.connectivite_tetra[i])] - self.triangles.cdg[i]
 
             # inverse le sens de la normale si elle n'est pas orientée vers
             # l'élément contigu
             if np.inner(AB, self.triangles.normale[i]) < 0.:
                 self.triangles.normale[i] = -self.triangles.normale[i]
-
-    def definir_boite(self, xmin, xmax, ymin, ymax, zmin, zmax):
-        """
-        defini une boite d'apres borne inf/sup pour chaque axe
-        """
-        boite = np.array([[xmin, ymin, zmin], [xmax, ymax, zmax]])
-
-        self.boite = boite
 
     def extraire_boite(self, tetras_ou_triangles='tetras'):
         """
@@ -347,8 +267,6 @@ class Geom:
             points = self.tetras.points
         elif tetras_ou_triangles == 'triangles':
             points = self.triangles.points
-        else:
-            print("\t seul 'tetras' ou 'triangles' sont acceptés")
 
         # extrait le premier point de chaque triangle/tetra et crée une table
         # avec leurs coordonnées
@@ -371,21 +289,14 @@ class Geom:
 
     def connecter_triangle_triangle(self, face=True):
         """
-        For each triangle, list the adjacent triangles
-        that belong to the same face
+        pour chaque triangle, donne la liste des triangles adjacents
+        qui appartiennent à la même face
         """
         chrono = Chrono('connecter_triangle_triangle', 'geom')
         tableau_connectivite_triangles = []
         for i in range(self.n_triangles):
-            if i == 0:
-                pass
-                #print('\t', end=' ')
             if i % 50 == 0:             # affiche l'avancement
-                pass
-                #sys.stdout.write('+')
-            if i % 2000. == 0:          #
-                pass
-                #print("-\n\t%s" % i, end=' ')
+                sys.stdout.write('+')
 
             triangles = self.triangles.points[i]
 
@@ -408,7 +319,6 @@ class Geom:
         self.triangles.connectivite_triangles = tableau_connectivite_triangles
 
         self._connecter_triangle_triangle_arete()
-        #print()
         chrono.fin()
 
     def _connecter_triangle_triangle_arete(self):
@@ -434,15 +344,8 @@ class Geom:
         normale = self.triangles.normale
 
         for i in range(self.n_triangles):
-            if i == 0:
-                pass
-                #print('\t', end=' ')
             if i % 50 == 0:             # affiche l'avancement
-                pass
-                #sys.stdout.write('+')
-            if i % 2000. == 0:          #
-                pass
-                #print("-\n\t%s" % i, end=' ')
+                sys.stdout.write('+')
 
             points_tri = set(self.triangles.points[i])
             ligne_conn_bis = []
@@ -454,33 +357,8 @@ class Geom:
                         ligne_conn_bis.append(triangle_lie)
             tab_conn_bis.append(ligne_conn_bis)
 
-        #print()
         self.triangles.connectivite_triangles_bis = tab_conn_bis
         chrono.fin()
-
-#    def connecter_triangle_parallel_domain(self, med_para):
-#        """
-#        retrouve les listes de triangles qui correspondent à celles
-#        utilisées dans Saturne parallelise
-#        (cad avec plusieurs sous domaines)
-#        """
-#        med_file = MedFile()
-#        try:
-#            self.tetras.lien_vers_domain = \
-#                med_file.extraire_parallel_domain(med_para)
-#        except:
-#            print "\t les liens vers les domaines n'ont pu etre importes"
-#
-#        self.n_domains = max(self.tetras.lien_vers_domain)
-#
-#        co_tet = self.triangles.connectivite_tetra.tolist()
-#
-#        self.triangles.lien_vers_domain = self.tetras.lien_vers_domain[co_tet]
-#        self.triangles.liste_domains = []
-#        for i in range(self.n_domains):
-#            cond = self.triangles.lien_vers_domain == i+1
-#            self.triangles.liste_domaines.append(
-#                np.arange(self.n_triangles)[cond])
 
     def _trouver_tetra_bord(self):
         """
@@ -507,19 +385,15 @@ class Geom:
                                  boite=False,
                                  debug=False):
         """
-        Create the `connectivite_tetra` vector, which provides, for each triangle,
-        the link to the adjacent element,
-        and only considers triangles from `-familleFace-`
-        and tetrahedra from `-famille_elem-`
+        cree le vecteur connectivite_tetra qui donne pour chaque triangles
+        le lien vers l'élément contigu,
+        ne prends en compte que les triangles de -familleFace-
+        et les tetraedres de -famille_elem-
         """
 
         self._trouver_tetra_bord()
 
         chrono = Chrono('connecter_triangle_tetra', 'geom')
-
-        #print("\n\t création des liens entre triangles et éléments")
-        #print("\t-> %s triangles pour %s éléments\n" % (self.n_triangles,
-                                                        #self.n_tetras))
 
         # crée des listes réduites de points comprise dans la boîte
         # en conservant les liens
@@ -527,8 +401,6 @@ class Geom:
         if boite:
             face, lien_face = self.extraire_boite('triangles')
             elem, lien_elem = self.extraire_boite('tetras')
-            #print("\t -> réduit à %s éléments après extraction_boite()"
-                  #% len(lien_elem))
 
         else:
             face = self.triangles.points
@@ -540,20 +412,12 @@ class Geom:
             lst_tetras = self.lst_tetras_bords
             elem = self.tetras.points[lst_tetras]
             lien_elem = lst_tetras
-            #print("\t-> réduit à %s éléments après _trouver_tetra_bord()"
-                  #% len(lien_elem))
-        else:
-            pass
-            #print('\t -> tetra_bords n existe pas')
-            #print('\t -> recherche parmi tous les éléments')
 
         # réduit encore aux éléments de la famille 'famille'
         if famille_elem:
             fam = int(self.familles[famille_elem])
             elem = self.tetras.points[self.tetras.famille == fam]
             lien_elem = np.arange(self.n_tetras)[self.tetras.famille == fam]
-            #print("\t -> réduit à %s éléments après reduction famille"
-                  #% len(lien_elem))
 
         if famille_face:
             ok = np.zeros(self.n_triangles)
@@ -561,7 +425,7 @@ class Geom:
                 fam = int(self.familles[fami])
                 ok = ok + np.int32(self.triangles.famille[lien_face] == fam)
 
-            ok = np.bool8(ok)
+            ok = np.bool_(ok)
 
             face = self.triangles.points[ok]
             lien_face = lien_face[ok]
@@ -573,29 +437,18 @@ class Geom:
 
         len_face = len(face)
         for i in range(len_face):
-            if i == 0:
-                pass
-                #print('\t', end=' ')
             if i % 50 == 0:             # affiche l'avancement
-                pass
-                #sys.stdout.write('+')
-            if i % 2000. == 0:          #
-                pass
-                #print("-\n\t%s" % i, end=' ')       #
+                sys.stdout.write('+')
 
             bu = self._trouver_tetra_connecte(face, elem, lien_elem, i)
             if len(bu) == 0:
-                #print('supprimer_ici', self.triangles.famille[lien_face[i]])
                 if debug:
                     vec_debug[i] = 1
             try:
                 self.triangles.connectivite_tetra[lien_face[i]] = int(bu[0])
             except BaseException:
-                print('probleme ?')
                 self.triangles.connectivite_tetra[lien_face[i]] = None
-        #print()
         chrono.fin()
-        #print()
         if debug:
             return vec_debug
 
@@ -633,21 +486,9 @@ class Geom:
             try:
                 bu = bu[self.tetras.famille[bu] != int(self.familles['arbre'])]
             except BaseException:
-                # print "probleme bubu"
                 pass
 
         return bu
-
-    def connecter_triangles_faces(self):
-        """
-        trouve la face a laquelle appartient chaque triangle
-        """
-        con_tr_face = np.zeros(self.n_triangles)
-        for face in range(self.n_faces):
-            for triangle in range(self.n_triangles):
-                con_tr_face[self.faces.liste_triangles[face][triangle]] = face
-
-        return con_tr_face
 
 #
 # Fin connectivite
@@ -655,19 +496,8 @@ class Geom:
 
 # ==============================================================================
 # recuperation des segments
-#
 
-#    def retrouver_segments(self):
-#        """
-#        pour chaque face, retrouve la liste des segments
-#        """
-#        for face in range(self.n_faces):
-#            liste_points = self.faces
-
-#
-#
 # ==============================================================================
-
 
 # ==============================================================================
 # = DEBUT reconstruction des arêtes
@@ -675,15 +505,15 @@ class Geom:
 
     def reconstruire_aretes(self):
         """
-        reconstructs the list of edges
+        reconstruit la liste des arêtes
 
-        method:
-            ** finds the vertices
-            ** for each vertex, traverses each edge to the
-            next vertex and adds them to the list
-        note:
-            works as long as the model is volumetric and there
-            are no "walls" with zero thickness
+        méthode :
+            ** trouve les points sommets
+            ** pour chaque sommet, parcours chaque arete jusqu'au
+            prochain sommet puis les ajoute à la liste
+        remarque :
+            fonctionne tant que la modélisation est volumique et qu'il
+            n'existe pas de "mur" sans épaisseur
         """
 
         self._trouver_sommets()
@@ -712,14 +542,6 @@ class Geom:
         self.n_aretes = len(points)
         self.aretes.lien_aretes_points = points_aretes
         self.aretes.points = np.array(points)
-
-    def _trouver_sommets_bis(self):
-        """
-        trouve la liste des sommets 'a posteriori'
-        """
-        liste_sommets = self.aretes.points.flatten().tolist()
-        liste_sommets = list(set(liste_sommets))
-        self.liste_sommets = liste_sommets
 
     def _trouver_sommets(self):
         """
@@ -809,18 +631,19 @@ class Geom:
 
     def reconstruire_faces(self):
         """
-        Required: Triangles-Triangles connectivity matrix
-            Triangles-Triangles connectivity matrix (Bis)
-            List of vertices
-            Edge reconstruction
+        nécessaire : tableau de connectivite Triangles-Triangles
+            tableau de connectivite Triangles-Triangles(Bis)
+            liste des sommets
+            reconstruction des aretes
 
-        method: for each triangle not yet assigned
-            -> find all triangles connected by two points that
-                are not on an edge
-            -> retrieve the vertices from the points of these triangles
-            -> reconstruct the contours using these vertices
-            -> Separate the outer contours from the hole contours
-            -> Assign the contours and triangles to a new face
+        méthode : pour chaque triangle pas encore attribuée
+            -> trouver toutes les triangles reliées par deux points qui
+                ne sont pas sur une arete
+            -> recuperer les sommets parmis les points de ces triangles
+            -> reconstruire les contours parmis ces sommets
+            -> séparer les contours extérieurs et les contours trous
+            -> attribuer les contours et les triangles à une nouvelle
+                face
         """
 
         chrono = Chrono('reconstruire_faces', 'geom')
@@ -839,8 +662,6 @@ class Geom:
             # choisir la première triangles parmis celles qui ne sont
             # pas encore attribuées
             triangle = triangles_restants[0]
-            if self.verbose:
-                print('in', len(triangles_restants))
 
             # trouver les triangles reliées par deux points qui ne sont pas
             # sur une arete
@@ -972,7 +793,7 @@ class Geom:
                 if isinstance(ga, np.ndarray) and ga.size == 1:
                     ga = ga.item()
                 bu = set(self.aretes.lien_aretes_points[ga]).issubset(set(points))
-               
+
                 # si tt est une arete et que celle ci est dans la face
                 # (i.e. ses points sont dans la liste des points)
                 if isinstance(ga, int) and bu:
@@ -995,7 +816,6 @@ class Geom:
             # old debug (?)
             if iteration > 200:
                 stop = True
-                print("DEBUG")
 
         return enchainement_parcours, liste_sommets
 
@@ -1046,6 +866,7 @@ class Geom:
             for j in contour:
                 if i != j:
                     distances.append(self.distance(i, j))
+
         return max(distances)
 
     def trouver_familles(self):
@@ -1068,42 +889,6 @@ class Geom:
 
 # =============================================================================
 # SELECTION  EXTRACTION GEOM
-
-
-    def selection_boite(self,
-                        face=None,
-                        boite=None,
-                        par_face=False):
-        """
-        renvoi une liste de booleen qui dit si les faces ou les
-        triangles sont dans la boite
-        """
-
-        if par_face:
-            points = self.faces.points
-
-        else:
-            points = self.triangles.points
-
-        ok = np.zeros(len(points))
-
-        # selection boite pour l'instant
-        for i_point in points:
-            face = self.points[i_point - 1]
-            face = face.transpose()
-            face_max = [max(face[0]), max(face[1]), max(face[2])]
-            face_min = [min(face[0]), min(face[1]), min(face[2])]
-
-            if face_min >= boite[0] and face_max <= boite[1]:
-                ok[i] = 1
-            else:
-                ok[i] = 0
-
-        if par_face:
-            return self._ok_face2ok_triangles(ok)
-        else:
-            ok = np.bool8(ok)
-            return ok
 
     def selection_famille(self,
                           liste_famille,
@@ -1141,17 +926,6 @@ class Geom:
             return ok_fc, ok_ft
         else:
             return ok_ft
-
-    def _ok_face2ok_triangles(self, ok):
-        ok_triangles = np.zeros(self.n_triangles)
-        for i, i_ok in enumerate(ok):
-            for j in self.faces.liste_triangles[i]:
-                ok_triangles[j] = i_ok
-
-        ok = np.bool(ok)
-        ok_triangles = np.bool(ok_triangles)
-
-        return ok, ok_triangles
 
 # ==============================================================================
 # Recontruction totale
@@ -1235,7 +1009,6 @@ class Geom:
                     geom.triangles.connectivite_triangles.append(ligne)
         except BaseException:
             pass
-            #print('\t -> pas de connectivite triangle')
 
         geom.faces.points = []
         geom.faces.liste_trous = []
@@ -1272,117 +1045,3 @@ class Geom:
             geom.n_tetras = len(self.tetras.points)
 
         return geom
-
-    def aplanissement_toit(self, b_h_bat=False, h_bat=None):
-        """
-        attribue un z moyen à chaque point de chaque toit
-        """
-        tt = [0] * len(self.points)
-        n_points = len(self.points)
-
-        for i_face, face in enumerate(self.faces.points):
-            if b_h_bat:
-                z_moy = h_bat[i_face]
-            else:
-                z_moy = self.points[np.array(face) - 1].transpose()[2].mean()
-
-            # for i_point in range(len(face)):
-            #    point = face[i_point]
-            for i_point, point in enumerate(face):
-                if tt[point - 1] == 0:
-                    self.points[point - 1][2] = z_moy
-                    tt[point - 1] = i_face
-                else:
-                    print('face %s: le point %s appartient déjà à la face %s' %
-                          (i_face, point, tt[point - 1]))
-                    tt.append(1)
-                    liste_points = self.points.tolist()
-                    liste_points.append([self.points[point - 1][0],
-                                        self.points[point - 1][1],
-                                        z_moy])
-                    self.points = np.array(liste_points)
-                    n_points += 1
-                    self.faces.points[i_face][i_point] = n_points
-        self.faces.normale = np.array([[0, 0, 1]] * self.n_faces)
-        self.n_points = n_points
-
-    def retrouver_no_bat(self, geom_toits):
-        """
-        retrouve le numero des batiments correspondants au cir issu d'orbis gis
-        """
-        no_bat = np.zeros(self.n_faces)
-        for i_face in range(len(self.faces.points)):
-            for i_face_toit in range(len(geom_toits.faces.points)):
-                pts_toit_face = geom_toits.faces.points[i_face_toit]
-                matrice_face = self.points[np.array(pts_toit_face) - 1]
-                pts_communs = self.trouver_points_communs(i_face, matrice_face)
-
-                # cas des toits
-                if self.faces.normale[i_face][2] == 1 and len(
-                        pts_communs) == len(self.faces.points[i_face]):
-                    no_bat[i_face] = i_face_toit
-
-                elif self.faces.normale[i_face][2] == 0 and len(pts_communs) == 2:
-                    no_bat[i_face] = i_face_toit
-
-        return no_bat
-
-    def trouver_points_communs(self, i_face, matrice_face):
-        pts_communs = []
-        for i_point_geom in self.faces.points[i_face]:
-            for i_point_face in matrice_face:
-                if self.distance(i_point_geom, i_point_face) < 0.01:
-                    pts_communs.append(i_point_geom)
-
-        return (pts_communs)
-
-    def _bati_sur_toit_face(self, i_face):
-        # création des nouveaux points
-        points = self.geom.points.tolist()
-        n_points_0 = self.n_points
-        n_points = len(self.points)
-        face_bas = []
-        for i_point in self.faces.points[i_face]:
-            point = self.faces.points[i_point - 1]
-            points.append(point - h)
-            n_points += 1
-            face_bas.append(n_points)
-
-    def trouver_num_face(self, num_triangle):
-        """
-        retrouve le numero de la face à partir du numéro du triangle
-        """
-        for i in range(len(self.faces.liste_triangles)):
-            A = np.array(self.faces.liste_triangles[i])
-            for j in range(len(A)):
-                if A[j] == num_triangle:
-                    return i
-        print('numéro pas trouvé')
-        return None
-
-    def creer_lien_vers_face(self):
-        """
-        creer l'objet self.triangle.lien_vers_face le ième élément du vecteur correspond au numéro de la face à laquelle appartient le triangle numéro i.
-        """
-        self.triangles.lien_vers_face = np.zeros(self.n_triangles)
-        for i in range(self.n_faces):
-            for j in self.faces.liste_triangles[i]:
-                self.triangles.lien_vers_face[j] = i
-   ###
-
-    def calculer_surface_triangle(self, num_triangle):
-        sommet1 = int(self.triangles.points[num_triangle][0])
-        sommet2 = int(self.triangles.points[num_triangle][1])
-        sommet3 = int(self.triangles.points[num_triangle][2])
-        a = float(self.distance(sommet1, sommet2))
-        b = float(self.distance(sommet2, sommet3))
-        c = float(self.distance(sommet3, sommet1))
-        surface = math.pow((a + b + c) * (-a + b + c) *
-                           (a - b + c) * (a + b - c), 0.5) / 4
-        return surface
-
-    def calculer_surface_face(self, num_face):
-        surface = 0
-        for i in self.faces.liste_triangles[num_face]:
-            surface += self.calculer_surface_triangle(i)
-        return surface

@@ -2,15 +2,14 @@ from pathlib import Path
 
 from application.ports.solene_gateway import SoleneGateway
 from domain.artifact_keys import LEGACY_SOLENE_GEOMETRY, LEGACY_TIME_STEP, METEO_LIST
-from domain.simulation_definition import SimulationBootstrap
 from domain.simulation_state import SimulationState
 from domain.solene import LegacySoleneEnvironment, SoleneExportArtifacts
+from infrastructure.solene.profiles.registry import get_surface_model_profile
 
-from infrastructure.geometry.legacy.famille import CARAC_CLASSE
 from infrastructure.solene.sol_command import SolCommand
 from infrastructure.solene.data import Data
 from infrastructure.solene.sol_env import SolEnv
-from infrastructure.solene.solFile import write_cir
+from infrastructure.solene.sol_file import write_cir
 
 
 class LegacySoleneGateway(SoleneGateway):
@@ -37,10 +36,15 @@ class LegacySoleneGateway(SoleneGateway):
         solene_geometry = self._require_solene_geometry(state)
         bootstrap = state.require_bootstrap_definition()
 
+        surface_model_profile = get_surface_model_profile(
+            bootstrap.settings.surface_model
+        )
+
         # Recreate the minimum Solene command/runtime context needed for .cir export.
         sol_command = SolCommand(
             str(bootstrap.paths.simul_sol_dir),
             bootstrap.paths.case_name,
+            surface_model_profile,
         )
 
         scene_cir_path = Path(str(sol_command.scene_cir) + ".cir")

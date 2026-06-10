@@ -17,13 +17,9 @@ class SurfaceModelProfile:
 
     default_time_step_s: int
 
+    enable_ecl_inc_tot: bool
+    enable_tp_outputs: bool
     enable_water_descriptors: bool
+    enable_extra_transient_nodes: bool
     enable_irrigation_descriptors: bool
     enable_water_flux_outputs: bool
-    enable_extra_transient_nodes: bool
-    enable_tp_outputs: bool
-
-    # Remaining logic differences that are still not worth exploding
-    # into many tiny flags in the first refactoring step.
-    ts_energie_bat_mode: Literal["mixture", "azam", "bb5"]
-    eclairements_mode: Literal["mixture", "azam", "bb5"]

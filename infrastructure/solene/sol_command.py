@@ -2,7 +2,8 @@ import os
 import subprocess
 import time
 
-from infrastructure.geometry.legacy.utils import Chrono, ecrire_fichier
+from config.external_tools import SoleneExternalTools
+from infrastructure.solene.utils import Chrono, ecrire_fichier
 from infrastructure.solene.sol_file import *
 from infrastructure.solene.profiles.surface_model_profile import SurfaceModelProfile
 
@@ -53,9 +54,10 @@ class SolCommand:
         chemin_sim: str,
         nom_cas: str,
         profile: SurfaceModelProfile,
-        n_ciel: int = 3,
+        tools: SoleneExternalTools,
     ) -> None:
         self.profile = profile
+        self.tools = tools
         self.nom_cas = nom_cas
         self.chemin_simul_sol = chemin_sim
 
@@ -169,43 +171,31 @@ class SolCommand:
         self.creer_cas()
 
     def creer_cas(self) -> None:
-        print("\n  CREATION DU CAS SOLENE")
 
         if not os.path.isdir(self.chemin_simul_sol):
             os.mkdir(self.chemin_simul_sol)
-            print("\t creation repertoire -simulSol-")
-            print("\t -> ", self.chemin_simul_sol)
-        else:
-            print("\t -simulSol- existe deja")
 
         if not os.path.isdir(self.chemin_entree):
             os.mkdir(self.chemin_entree)
-            print("\t creation repertoire -entree-")
 
         if not os.path.isdir(self.chemin_sortie):
             os.mkdir(self.chemin_sortie)
-            print("\t creation repertoire -sortie-")
 
         if not os.path.isdir(self.chemin_clo):
             os.mkdir(self.chemin_clo)
-            print("\t creation repertoire -CLO-")
 
         if not os.path.isdir(self.chemin_transitoire):
             os.mkdir(self.chemin_transitoire)
-            print("\t creation repertoire -transitoire-")
 
         if not os.path.isdir(self.chemin_ener):
             os.mkdir(self.chemin_ener)
-            print("\t creation repertoire -ener-")
 
         if not os.path.isdir(self.chemin_ciel):
             os.mkdir(self.chemin_ciel)
-            print("\t creation repertoire -Ciel-")
             self.creer_ciel()
 
         if not os.path.isdir(self.chemin_masque):
             os.mkdir(self.chemin_masque)
-            print("\t creation repertoire -CLO/masque-")
             self.creer_ciel()
 
     def creer_cas_confort(self) -> None:
@@ -226,8 +216,6 @@ class SolCommand:
 
         if not ok:
             self.calculer_luminance_ciel()
-        else:
-            print('\tles fichiers luminances existent')
 
     def definir_meteo_dic(self, liste_meteo):
         """
@@ -250,7 +238,7 @@ class SolCommand:
         avec comme argument ordre = 3
         crée les angles solides par défaut
         """
-        com = ['geode_ciel',
+        com = [str(self.tools.geode_ciel),
              self.ciel_cir,
              str(ordre)]
 	     
@@ -353,8 +341,6 @@ class SolCommand:
         chrono = Chrono('calculer_flux_sol_direct', 'solCommande') 
         if self.param['transparence'] and fichier_meteo == None:
             for i, jour in enumerate(self.liste_jours):
-                print('=  calcul jour : %s' % i)
-                
                 com = ['masques_sol_lum',
                        self.scene_cir,             #
                        self.masque_cir,            #
@@ -374,13 +360,9 @@ class SolCommand:
                                         stdout = self.fichier_sortie, 
                                         stderr = self.fichier_sortie)
                 self.historique_commande.append(com)     
-       
-        if self.param['transparence'] == False:
-            print('to do') # To Do!
             
         if fichier_meteo and nb_transmission == 0:
             for i, jour in enumerate(self.liste_jours):
-                print('= calcul jour : ', str(i))
                 
                 com = ['energie_solaire_directe_meteo',
                        self.scene_cir,
@@ -392,7 +374,6 @@ class SolCommand:
                        self._composer_nom(self.chemin_meteo_direct, i),
                        str(self.param['latitude']),
                        self._composer_nom(self.var['flux_sol_direct'], i)]
-                print(com)
 
                
                 retcode = subprocess.call(com,
@@ -403,7 +384,6 @@ class SolCommand:
 
         if fichier_meteo and nb_transmission == -1:
             for i, jour in enumerate(self.liste_jours):
-                print('=  calcul jour : %s' % i)
                 
                 com = ['masques_sol_lum_meteo',
                        self.scene_cir,             #
@@ -452,7 +432,6 @@ class SolCommand:
         
         if self.param['transparence'] and fichier_meteo == None:
             for i, jour in enumerate(self.liste_jours):
-                print('= calcul jour : %s' % i)
                 
                 com = ['masques_ciel_lum',
                        self.scene_cir,             #
@@ -477,7 +456,6 @@ class SolCommand:
                 
         if fichier_meteo and nb_transmission == 0:
             for i, jour in enumerate(self.liste_jours):
-                print('= calcul jour : %s' % jour)
                 
                 com = ['energie_solaire_diffuse_meteo',
                        self.scene_cir,             #
@@ -500,7 +478,6 @@ class SolCommand:
 
         if fichier_meteo and nb_transmission == -1:
             for i, jour in enumerate(self.liste_jours):
-                print('= calcul jour : %s' % i)
                 
                 com = ['masques_ciel_lum_meteo',
                        self.scene_cir,             #
@@ -644,8 +621,7 @@ class SolCommand:
             self.calculer_surface()
 
         for suffix in self.liste_ts_sol:
-            print(time.ctime(), ' >> radiosite: ', suffix, end=' ')
-            chro_chro = Chrono('chro', 'chro', verbose = False)
+            chro_chro = Chrono('chro', 'chro')
             com = ['radiosite',
                     self.var['flux_sol_total'] + '_' + suffix,
                     self.carac['albedo'],
@@ -680,7 +656,6 @@ class SolCommand:
                 self.historique_commande.append(com)        
                 
                 chro_chro.fin()
-                print(chro_chro.duree)
 
         chrono.fin()
                                            
@@ -755,11 +730,6 @@ class SolCommand:
                self.var['Tn2'] + '_' + suffixe_avant+'.val', # 23
                self.var['Tnoeud'] + '_' + suffixe_avant+'.txt', # 24
                self.option_resul +'.txt']
-               
-        for ligne in verf:
-            if not os.path.isfile(ligne):
-                stop = True
-                print(ligne, 'n existe pas')
                 
         self.bak.append([time.time(), com])
         
@@ -1053,7 +1023,7 @@ class SolCommand:
                                      terminal = False):
         
 
-        chrono = Chrono('simulation_Ts_EnergieBat', 'solCommande', verbose= verbose)
+        chrono = Chrono('simulation_Ts_EnergieBat', 'solCommande')
         if meteo:
             self.definir_meteo_ts(suffixe_apres, t_ciel = False)
 

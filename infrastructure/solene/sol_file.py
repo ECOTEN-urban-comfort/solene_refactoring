@@ -23,8 +23,8 @@ clean :    27/07/2010
 import sys
 
 import numpy as np
-from infrastructure.geometry.legacy.utils import ecrire_fichier, trouver_lien, Chrono
-from infrastructure.geometry.legacy.geom import Geom
+from infrastructure.solene.utils import ecrire_fichier, trouver_lien, Chrono
+from infrastructure.solene.geom import Geom
 
 
 def ecrire_ligne(arr):

@@ -14,9 +14,9 @@
 
 """
 from numpy import *
-from infrastructure.geometry.legacy.geom import *
-from infrastructure.geometry.legacy.utils import *
-from infrastructure.geometry.legacy.vtkFile import *
+from infrastructure.solene.geom import *
+from infrastructure.solene.utils import *
+from infrastructure.solene.vtkFile import *
 
 
 def enlever_nan(donnee):

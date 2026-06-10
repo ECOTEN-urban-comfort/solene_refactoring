@@ -8,7 +8,7 @@ Created on Wed Sep  8 15:58:19 2010
 import os
 import xml.dom.minidom
 
-from infrastructure.geometry.legacy.utils import ecrire_fichier
+from infrastructure.solene.utils import ecrire_fichier
 
 # import logging
 # logging.basicConfig(filename='myapp.log', level=logging.INFO)
@@ -27,30 +27,9 @@ def get_data(element_xml, nom):
         data = None
     return data
 
-def return_interval(fichier_xml):
-    """
-    renvoi l'interval de simulation sous forme d'une liste
-    """
-    interval = []
-    lst_nom_champ = ['debut_jour',
-                 'debut_mois',
-                 'debut_heure',
-                 'debut_minutes',
-                 'fin_jour',
-                 'fin_mois',
-                 'fin_heure',
-                 'fin_minutes',
-                 'pas_heure',
-                 'pas_minutes']
-                 
-    for nom_champ in lst_nom_champ:
-        interval.append(int(get_data(fichier_xml, nom_champ)))
-        
-    return interval
-
 class XmlFile:
     """
-    Case management / parameters in an XML file
+    gestion des cas / parametre dans un fichier xml
     """
     def __init__(self, chemin_fichier_xml = None):
         self.chemin_xml = chemin_fichier_xml
@@ -63,7 +42,8 @@ class XmlFile:
                           chemin_noeud, 
                           attribut = None, 
                           valeur_attribut = None,
-                          data = None):
+                          data = None,
+			  rang_noeud_enfant=0):
         
         doc = xml.dom.minidom.parse(self.chemin_xml)        
         noeud = doc
@@ -74,7 +54,7 @@ class XmlFile:
         
         for rep in chemin:
             try:
-                noeud = noeud.getElementsByTagName(rep)[0]
+                noeud = noeud.getElementsByTagName(rep)[rang_noeud_enfant]
             except:
                 noeud_plus = doc.createElement(rep)
                 noeud.appendChild(noeud_plus)
@@ -127,55 +107,3 @@ class XmlFile:
         noeud.removeChild(a_supprimer)
 
         ecrire_fichier(self.chemin_xml, doc.toxml())
-
-    def ajouter_noeud(self, noeud_parent, noeud_enfant):
-        doc = xml.dom.minidom.parse(self.chemin_xml)        
-        noeud = doc
-        chemin = noeud_parent.split('/')
-        for rep in chemin:
-            try:
-                noeud = noeud.getElementsByTagName(rep)[0]
-            except:
-                print('pas de noeud %s' %rep)
-        n = doc.createElement(noeud_enfant)
-        noeud.appendChild(n)
-        ecrire_fichier(self.chemin_xml, doc.toxml())
-        
-
-    def parse_constant(self, noeud_constant):
-        attr = {}
-        for cle, it in list(noeud_constant.attributes.items()):
-            attr[cle] = it
-        attr['value'] = noeud_constant.firstChild.data
-        if 'type' in attr:
-            if attr['type'] == 'float':
-                attr['value'] = float(attr['value'])
-            elif attr['type'] == 'bool':
-                attr['value'] = bool(attr['value'])
-            elif attr['type'] == 'int':
-                attr['value'] = int(attr['value'])
-        return attr
-
-    def parse_list(self, noeud_liste):
-        """
-        recupere la liste des noeuds nommes "constant" dans le noeud
-        -noeud_liste-
-        
-        renvoi un dictionnaire avec les cles corerspondantes a l'attribut 
-        "name" et contenant tous les attributs et la valeur (cle "value")
-        """
-        dic_liste = {}
-
-        doc = xml.dom.minidom.parse(self.chemin_xml)        
-        noeud = doc
-        chemin = noeud_liste.split('/')
-        for rep in chemin:
-            try:
-                noeud = noeud.getElementsByTagName(rep)[0]
-            except:
-                print('pas de noeud %s' %rep)
-        liste = noeud.getElementsByTagName('constant')
-        for el in liste:
-            el_attr = self.parse_constant(el)
-            dic_liste[el_attr['name']] = el_attr
-        return dic_liste

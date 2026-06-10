@@ -64,19 +64,6 @@ def ecrire_ts_sol(tps_en_sec = 0):
     tps_sol = '%s_%s_%sH%s' % (tps.tm_mday, tps.tm_mon, tm_hour, tm_min)
     
     return tps_sol
-    
-def heure_s_to_heure_sol(heure_s):
-    if heure_s > 24 * 3600:
-        print('probleme heure > 24h')
-    else:
-        heure = int(heure_s/3600)
-        minute = int((heure_s%60)/60)
-        
-        heure_sol = '%s:%s' % (heure, minute)
-        return heure_sol
-        
-def heure_s_to_heure_tot(heure_s):
-    heure = heure_s/3600
 
 def creer_liste_ts(jour_d, mois_d, hh_d, mm_d,
                    jour_f, mois_f, hh_f, mm_f,
@@ -102,26 +89,6 @@ def creer_liste_ts(jour_d, mois_d, hh_d, mm_d,
         
     return liste_ts
 
-def creer_liste_ts_lst(interval):
-
-    jour_d = interval[0]
-    mois_d = interval[1]
-    hh_d = interval[2]
-    mm_d = interval[3]
-    jour_f = interval[4]
-    mois_f = interval[5]
-    hh_f = interval[6]
-    mm_f = interval[7]
-    ts_hh = interval[8]
-    ts_mm = interval[9]
-
-    liste_ts = creer_liste_ts(jour_d, mois_d, hh_d, mm_d,
-                   jour_f, mois_f, hh_f, mm_f,
-                   ts_hh, ts_mm)
-        
-    return liste_ts
-
-    
 def convertir_liste_ts_sol(liste_ts):
     liste_ts_sol=[]
     for ts in liste_ts:
@@ -258,40 +225,3 @@ class TimeStep:
         
     def jour(self, i):
         return time.localtime(self.liste_ts[i]-3600).tm_yday
-    
-
-# sim.TimeStep.liste_jours = []
-# liste_ts_sol = convertir_liste_ts_sol(sim.TimeStep.liste_ts)
-# compt_ts_sol = 0
-# jour_debut_en_s = convertir_ts_sol_liste(sim.TimeStep.jour_d, sim.TimeStep.mois_d, 0, 0)
-
-# if sim.TimeStep.liste_ts[-1] < jour_debut_en_s:
-#     liste_jour_s = range(jour_debut_en_s, 3600*24*365, 3600*24)
-#     liste_jour_s += range(0, sim.TimeStep.liste_ts[-1], 3600*24)
-# else:
-#     liste_jour_s = range(jour_debut_en_s, sim.TimeStep.liste_ts[-1], 3600*24)
-
-# liste_ts_restant = sim.TimeStep.liste_ts_bis
-# ts = liste_ts_restant[0]
-
-# for i in range(len(liste_jour_s)-1):
-#     jour_plus_un = liste_jour_s[i+1]
-#     jour_plus_un_nom = ecrire_ts_sol(liste_jour_s[i+1]).split('_')[0]
-#     jour_sol = liste_ts_sol[compt_ts_sol]
-#     jour = jour_sol.split('_')[0]
-#     jour_new = jour_sol.split('_')[0]
-#     mois = jour_sol.split('_')[1]
-#     heure = jour_sol.split('_')[2].replace('H',':')
-#     while jour_new != jour_plus_un_nom:
-#         liste_ts_restant.remove(ts) 
-#         compt_ts_sol +=1
-#         ts = liste_ts_restant[0]
-#         jour_new = ecrire_ts_sol(ts).split('_')[0]
-#     heure_fin = liste_ts_sol[compt_ts_sol-1].split('_')[2].replace('H',':') 
-#     sim.TimeStep.liste_jours.append([jour, mois, heure, heure_fin, sim.TimeStep.ts_sol])
-# jour_sol = liste_ts_sol[compt_ts_sol]
-# jour = jour_sol.split('_')[0]
-# mois = jour_sol.split('_')[1]
-# heure = jour_sol.split('_')[2].replace('H',':')            
-# heure_fin = liste_ts_sol[-1].split('_')[2].replace('H',':')                                   
-# sim.TimeStep.liste_jours.append([jour, mois, heure, heure_fin, sim.TimeStep.ts_sol]) 

@@ -88,7 +88,7 @@ BB5_PROFILE = SurfaceModelProfile(
         "MRT",
     ),
     default_time_step_s=3600,
-    include_ecl_inc_tot = False,
+    enable_ecl_inc_tot = False,
     enable_tp_outputs=True,
     enable_water_descriptors=False,
     enable_extra_transient_nodes=False,
