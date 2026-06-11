@@ -16,6 +16,7 @@
 from dataclasses import dataclass
 from pathlib import Path
 
+from config.external_tools import CommonCExternalTools
 from domain.workspace import RuntimePaths
 
 @dataclass(frozen=True)
@@ -87,3 +88,4 @@ class SimulationBootstrap:
     settings: SimulationSettings
     input_files: InputFiles
     paths: RuntimePaths
+    external_tools: CommonCExternalTools

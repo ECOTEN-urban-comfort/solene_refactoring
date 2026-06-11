@@ -1,0 +1,24 @@
+*** ajouter "#define LINUX" dans solene.h 
+    a pour effet de corriger les chemins et les commandes externes dans les fichiers :
+	"lib_solene_94.c"
+	"geode_ciel.c"
+	"luminance_ciel.c"
+	"luminance_ciel_temps.c"
+	
+*** definition des chemins TMP_SOLENE et OK_SOLENE dans tc_solene_paths.h
+	
+*** définition des variables d'environnement
+	SOLENEHOME
+	SOLENETEMP
+	
+*** suppression des extensions ".exe" pour que les appels 
+    de fonctions externes fonctionnent (convention batch)
+	par exemple avec "ls -d *.exe | sed 's/\(.*\).exe$/mv "&" "\1"/' | sh"
+	
+*** fonctions qui marchent le 22-01-2010 :
+	geode_ciel
+	luminance_ciel
+	luminance_ciel_temps
+	
+*** fonctions qui ne marchent pas :
+	triangule_face (probleme de chemins)

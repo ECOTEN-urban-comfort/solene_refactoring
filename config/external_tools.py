@@ -1,133 +1,106 @@
+from __future__ import annotations
+
 from dataclasses import dataclass
 from pathlib import Path
-from shutil import which
-
-
-def _resolve_tool(name: str, configured_path: str | None = None) -> Path:
-    """
-    Resolve an external executable either from an explicit configured path
-    or from PATH.
-    """
-    if configured_path:
-        path = Path(configured_path)
-        if not path.is_file():
-            raise FileNotFoundError(
-                f"Configured executable for '{name}' was not found: {path}"
-            )
-        return path
-
-    found = which(name)
-    if found:
-        return Path(found)
-
-    raise FileNotFoundError(
-        f"Executable '{name}' was not found in PATH and no explicit path was configured."
-    )
+import platform
 
 
 @dataclass(frozen=True)
-class SoleneExternalTools:
-    geode_ciel: Path
+class CommonCExternalTools:
+    """
+    Resolved paths to legacy native executables from common_c.
+    """
+
     angl_solid: Path
-    surf_cont: Path
-
-    luminance_ciel_temps: Path
-    luminance_ciel: Path
-
-    masques_sol_lum: Path
-    energie_solaire_directe_meteo: Path
-    masques_sol_lum_meteo: Path
-
-    masques_ciel_lum: Path
-    energie_solaire_diffuse_meteo: Path
-    masques_ciel_lum_meteo: Path
-
-    val_op_val: Path
-
-    facform_lum: Path
     facform: Path
     facform_ciel: Path
-
+    geode_ciel: Path
+    luminance_ciel_temps: Path
+    masques_ciel_lum: Path
+    masques_sol_lum: Path
     radiosite: Path
+    rot: Path
+    surf_cont: Path
+    val_op_val: Path
 
-    simulation_ts_energie_bat: Path
-    simulation_ts_energie_bat_veg: Path
-    simulation_ts_energie_bat_new: Path
 
-    # Optional transitive dependency used from inside geode_ciel.c
-    rot: Path | None = None
+def _platform_dir_name() -> str:
+    system = platform.system().lower()
 
-    @classmethod
-    def resolve(
-        cls,
-        *,
-        geode_ciel: str | None = None,
-        angl_solid: str | None = None,
-        surf_cont: str | None = None,
-        luminance_ciel_temps: str | None = None,
-        luminance_ciel: str | None = None,
-        masques_sol_lum: str | None = None,
-        energie_solaire_directe_meteo: str | None = None,
-        masques_sol_lum_meteo: str | None = None,
-        masques_ciel_lum: str | None = None,
-        energie_solaire_diffuse_meteo: str | None = None,
-        masques_ciel_lum_meteo: str | None = None,
-        val_op_val: str | None = None,
-        facform_lum: str | None = None,
-        facform: str | None = None,
-        facform_ciel: str | None = None,
-        radiosite: str | None = None,
-        simulation_ts_energie_bat: str | None = None,
-        simulation_ts_energie_bat_veg: str | None = None,
-        simulation_ts_energie_bat_new: str | None = None,
-        rot: str | None = None,
-    ) -> "SoleneExternalTools":
-        return cls(
-            geode_ciel=_resolve_tool("geode_ciel", geode_ciel),
-            angl_solid=_resolve_tool("angl_solid", angl_solid),
-            surf_cont=_resolve_tool("surf_cont", surf_cont),
+    if system.startswith("linux"):
+        return "linux-x86_64"
+    if system.startswith("windows"):
+        return "windows-x86_64"
 
-            luminance_ciel_temps=_resolve_tool(
-                "luminance_ciel_temps", luminance_ciel_temps
-            ),
-            luminance_ciel=_resolve_tool("luminance_ciel", luminance_ciel),
+    raise RuntimeError(f"Unsupported platform for common_c binaries: {system}")
 
-            masques_sol_lum=_resolve_tool("masques_sol_lum", masques_sol_lum),
-            energie_solaire_directe_meteo=_resolve_tool(
-                "energie_solaire_directe_meteo", energie_solaire_directe_meteo
-            ),
-            masques_sol_lum_meteo=_resolve_tool(
-                "masques_sol_lum_meteo", masques_sol_lum_meteo
-            ),
 
-            masques_ciel_lum=_resolve_tool("masques_ciel_lum", masques_ciel_lum),
-            energie_solaire_diffuse_meteo=_resolve_tool(
-                "energie_solaire_diffuse_meteo", energie_solaire_diffuse_meteo
-            ),
-            masques_ciel_lum_meteo=_resolve_tool(
-                "masques_ciel_lum_meteo", masques_ciel_lum_meteo
-            ),
+def _exe_suffix() -> str:
+    return ".exe" if platform.system().lower().startswith("windows") else ""
 
-            val_op_val=_resolve_tool("val_op_val", val_op_val),
 
-            facform_lum=_resolve_tool("facform_lum", facform_lum),
-            facform=_resolve_tool("facform", facform),
-            facform_ciel=_resolve_tool("facform_ciel", facform_ciel),
+def _require_file(path: Path) -> Path:
+    if not path.is_file():
+        raise FileNotFoundError(f"Required executable was not found: {path}")
+    return path
 
-            radiosite=_resolve_tool("radiosite", radiosite),
 
-            simulation_ts_energie_bat=_resolve_tool(
-                "simulation_Ts_EnergieBat_laurent",
-                simulation_ts_energie_bat,
-            ),
-            simulation_ts_energie_bat_veg=_resolve_tool(
-                "simulation_Ts_EnergieBat_VEG",
-                simulation_ts_energie_bat_veg,
-            ),
-            simulation_ts_energie_bat_new=_resolve_tool(
-                "simulation_Ts_EnergieBat.exe",
-                simulation_ts_energie_bat_new,
-            ),
+def build_tools_from_bin_dir(bin_root: Path) -> CommonCExternalTools:
+    """
+    Build tool paths from the new normalized structure:
 
-            rot=Path(rot) if rot else None,
-        )
+        common_c/
+          bin/
+            linux-x86_64/
+            windows-x86_64/
+
+    Example:
+        bin_root = Path("/.../common_c/bin")
+    """
+    platform_dir = bin_root / _platform_dir_name()
+    suffix = _exe_suffix()
+
+    return CommonCExternalTools(
+        angl_solid=_require_file(platform_dir / f"angl_solid{suffix}"),
+        facform=_require_file(platform_dir / f"facform{suffix}"),
+        facform_ciel=_require_file(platform_dir / f"facform_ciel{suffix}"),
+        geode_ciel=_require_file(platform_dir / f"geode_ciel{suffix}"),
+        luminance_ciel_temps=_require_file(platform_dir / f"luminance_ciel_temps{suffix}"),
+        masques_ciel_lum=_require_file(platform_dir / f"masques_ciel_lum{suffix}"),
+        masques_sol_lum=_require_file(platform_dir / f"masques_sol_lum{suffix}"),
+        radiosite=_require_file(platform_dir / f"radiosite{suffix}"),
+        rot=_require_file(platform_dir / f"rot{suffix}"),
+        surf_cont=_require_file(platform_dir / f"surf_cont{suffix}"),
+        val_op_val=_require_file(platform_dir / f"val_op_val{suffix}"),
+    )
+
+
+def build_tools_from_legacy_exe_dir(exe_dir: Path) -> CommonCExternalTools:
+    """
+    Transitional helper for the current legacy layout from your screenshot:
+
+        common_c/
+          exe/
+            angl_solid
+            angl_solid.exe
+            facform
+            ...
+
+    Example:
+        exe_dir = Path("/.../common_c/exe")
+    """
+    suffix = _exe_suffix()
+
+    return CommonCExternalTools(
+        angl_solid=_require_file(exe_dir / f"angl_solid{suffix}"),
+        facform=_require_file(exe_dir / f"facform{suffix}"),
+        facform_ciel=_require_file(exe_dir / f"facform_ciel{suffix}"),
+        geode_ciel=_require_file(exe_dir / f"geode_ciel{suffix}"),
+        luminance_ciel_temps=_require_file(exe_dir / f"luminance_ciel_temps{suffix}"),
+        masques_ciel_lum=_require_file(exe_dir / f"masques_ciel_lum{suffix}"),
+        masques_sol_lum=_require_file(exe_dir / f"masques_sol_lum{suffix}"),
+        radiosite=_require_file(exe_dir / f"radiosite{suffix}"),
+        rot=_require_file(exe_dir / f"rot{suffix}"),
+        surf_cont=_require_file(exe_dir / f"surf_cont{suffix}"),
+        val_op_val=_require_file(exe_dir / f"val_op_val{suffix}"),
+    )

@@ -2,7 +2,7 @@ import os
 import subprocess
 import time
 
-from config.external_tools import SoleneExternalTools
+from config.external_tools import CommonCExternalTools, SoleneExternalTools
 from infrastructure.solene.utils import Chrono, ecrire_fichier
 from infrastructure.solene.sol_file import *
 from infrastructure.solene.profiles.surface_model_profile import SurfaceModelProfile
@@ -54,7 +54,7 @@ class SolCommand:
         chemin_sim: str,
         nom_cas: str,
         profile: SurfaceModelProfile,
-        tools: SoleneExternalTools,
+        tools: CommonCExternalTools,
     ) -> None:
         self.profile = profile
         self.tools = tools
@@ -258,7 +258,7 @@ class SolCommand:
         
         appelle la commande externe 'angl_solid'
         """
-        com = ['angl_solid',
+        com = [self.tools.angl_solid,
              self.ciel_cir,
              self.ciel_angle_solide_val]
 
@@ -275,7 +275,7 @@ class SolCommand:
         
         appelle lea commande externe 'surf_cont'
         """
-        com = ['surf_cont',
+        com = [self.tools.surf_cont,
              self.scene_cir,
              self.carac['surface']]
              
@@ -299,7 +299,7 @@ class SolCommand:
 
         """
         for i, jour in enumerate(self.liste_jours):
-            com = ['luminance_ciel_temps',
+            com = [self.tools.luminance_ciel_temps,
                    self.ciel_cir,
                    str(self.param['latitude']),
                    str(self.param['longitude']),
@@ -323,232 +323,7 @@ class SolCommand:
 
         return retcode
 
-    def calculer_flux_sol_direct(self, 
-                                 nb_transmission = -1, 
-                                 fichier_meteo = None,
-                                 execute = True):
-        """ 
-        calcul du rayonnement solaire direct
-
-        doivent être renseignés:\n
-           ** geometrie scene
-           ** géométrie masque
-           ** transmittivité
-           ** latitude,
-           ** liste des jours
-
-        """
-        chrono = Chrono('calculer_flux_sol_direct', 'solCommande') 
-        if self.param['transparence'] and fichier_meteo == None:
-            for i, jour in enumerate(self.liste_jours):
-                com = ['masques_sol_lum',
-                       self.scene_cir,             #
-                       self.masque_cir,            #
-                       self.carac['transmittance'],    #
-                       str(self.param['latitude']),        #
-                       self._composerJJMM(i),   # jour (jour/mois)
-                       jour[2],  # heure debut (hh:mm)
-                       jour[3],  # heure fin (hh:mm)
-                       jour[4],  # pas (hh:mm)
-                       str(self.param['angle_vision']),     # 89.9 par defaut
-                       str(nb_transmission),       # fonction (-1 => toutes)
-                       self._composer_nom(self.var['flux_sol_direct'], i),     
-                       str(self.param['opt_lumiere'])]      # fonction (0 => W/m2) 
-
-                
-                retcode = subprocess.call(com,
-                                        stdout = self.fichier_sortie, 
-                                        stderr = self.fichier_sortie)
-                self.historique_commande.append(com)     
-            
-        if fichier_meteo and nb_transmission == 0:
-            for i, jour in enumerate(self.liste_jours):
-                
-                com = ['energie_solaire_directe_meteo',
-                       self.scene_cir,
-                       self._composer_nom(self.masque_mas, jour),
-                       self._composerJJMM(jour),
-                       jour[2],  # heure debut (hh:mm)
-                       jour[3],  # heure fin (hh:mm)
-                       jour[4],  # pas (hh:mm)
-                       self._composer_nom(self.chemin_meteo_direct, i),
-                       str(self.param['latitude']),
-                       self._composer_nom(self.var['flux_sol_direct'], i)]
-
-               
-                retcode = subprocess.call(com,
-                                        stdout = self.fichier_sortie, 
-                                        stderr = self.fichier_sortie)
-                
-                self.historique_commande.append(com)       
-
-        if fichier_meteo and nb_transmission == -1:
-            for i, jour in enumerate(self.liste_jours):
-                
-                com = ['masques_sol_lum_meteo',
-                       self.scene_cir,             #
-                       self.masque_cir,            #
-                       self.carac['transmittance'],    #
-                       str(self.param['latitude']),        #
-                       self._composerJJMM(i),   # jour (jour/mois)
-                       jour[2],  # heure debut (hh:mm)
-                       jour[3],  # heure fin (hh:mm)
-                       jour[4],  # pas (hh:mm)
-                       str(self.param['angle_vision']),     # 89.9 par defaut
-                       str(nb_transmission),       # fonction (-1 => toutes)
-                       self._composer_nom(self.chemin_meteo_direct, i),
-                       self._composer_nom(self.var['flux_sol_direct'], i),     
-                       str(self.param['opt_lumiere'])]      # fonction (0 => W/m2)
-                
-                if execute:
-                    retcode = subprocess.call(com,
-                                              stdout = self.fichier_sortie, 
-                                              stderr = self.fichier_sortie)
-                else:
-                    retcode = 0
-                self.historique_commande.append(com)
-
-        chrono.fin()
-        
-        return retcode
-
-    def calculer_flux_sol_diffus(self, 
-                                 nb_transmission = -1, 
-                                 fichier_meteo = None):
-
-        """
-        calcul du rayonnement solaire diffus
-        
-        appelle la fonction extene 'masques_ciel_lum'
-        
-        doivent être renseignés
-            ** geom scene
-            ** geom masque
-            ** transmittivite masque
-            ** ciel + angles solides
-            ** liste jours
-        """
-        chrono = Chrono('calculer_flux_sol_diffus', 'solCommande') 
-        
-        if self.param['transparence'] and fichier_meteo == None:
-            for i, jour in enumerate(self.liste_jours):
-                
-                com = ['masques_ciel_lum',
-                       self.scene_cir,             #
-                       self.masque_cir,            #
-                       self.carac['transmittance'],    #
-                       self.ciel_cir,              #
-                       self.ciel_angle_solide_val,   #
-                       jour[2],  # heure debut (hh:mm)
-                       jour[3],  # heure fin (hh:mm)
-                       jour[4],  # pas (hh:mm)
-                       self._composer_nom(self.luminance_ciel_val, i),
-                       str(self.param['angle_vision']),     # 89.9 par defaut
-                       str(nb_transmission),       # fonction (-1 => toutes)
-                       self._composer_nom(self.var['flux_sol_diffus'], i),
-                       str(self.param['opt_lumiere'])]        # fonction (0 => W/m2) 
-                
-
-                retcode = subprocess.call(com,
-                                        stdout = self.fichier_sortie, 
-                                        stderr = self.fichier_sortie)
-                self.historique_commande.append(com)
-                
-        if fichier_meteo and nb_transmission == 0:
-            for i, jour in enumerate(self.liste_jours):
-                
-                com = ['energie_solaire_diffuse_meteo',
-                       self.scene_cir,             #
-                       self.masque_cir,            #
-                       self.ciel_cir,              #
-                       self.ciel_angle_solide_val,   #
-                       self._composer_nom(self.luminance_ciel_val, i),
-                       jour[2],  # heure debut (hh:mm)
-                       jour[3],  # heure fin (hh:mm)
-                       jour[4],  # pas (hh:mm)
-                       str(self.param['angle_vision']),     # 89.9 par defaut
-                       self._composer_nom(self.chemin_meteo_diffus, i),
-                       self._composer_nom(self.var['flux_sol_diffus'], i)] 
-                       # fonction (0 => W/m2) 
-                         
-                retcode = subprocess.call(com,
-                                        stdout = self.fichier_sortie, 
-                                        stderr = self.fichier_sortie)
-                self.historique_commande.append(com)
-
-        if fichier_meteo and nb_transmission == -1:
-            for i, jour in enumerate(self.liste_jours):
-                
-                com = ['masques_ciel_lum_meteo',
-                       self.scene_cir,             #
-                       self.masque_cir,            #
-                       self.carac['transmittance'],    #
-                       self.ciel_cir,              #
-                       self.ciel_angle_solide_val,   #
-                       jour[2],  # heure debut (hh:mm)
-                       jour[3],  # heure fin (hh:mm)
-                       jour[4],  # pas (hh:mm)
-                       self._composer_nom(self.luminance_ciel_val, i),
-                       str(self.param['angle_vision']),     # 89.9 par defaut
-                       str(nb_transmission),       # fonction (-1 => toutes)
-                       self._composer_nom(self.chemin_meteo_diffus, i),
-                       self._composer_nom(self.var['flux_sol_diffus'],i)] 
-                       # fonction (0 => W/m2) 
-
-                retcode = subprocess.call(com,
-                                        stdout = self.fichier_sortie, 
-                                        stderr = self.fichier_sortie)
-                self.historique_commande.append(com)
-                self.bak.append(com)
- 
-        chrono.fin()
- 
-        return retcode
-
-    def calculer_flux_sol_total(self, geo = None):
-        """
-        realise la somme des flux directs et diffus pour obtenir le flux
-        total. Utilise val_op_val
-        """
-        for suffix in self.liste_ts_sol:
-            if geo:
-                flux_sol_direct = read_val(self.var['flux_sol_direct'] + '_' + suffix, geom=geo)
-                flux_sol_diffus = read_val(self.var['flux_sol_diffus'] + '_' + suffix, geom=geo)
-                flux_sol_total = flux_sol_direct+ flux_sol_diffus
-                write_val(self.var['flux_sol_total'] + '_' + suffix, geo, flux_sol_total)
-                retcode = 0
-            else:
-                com = ['val_op_val',
-                       self.var['flux_sol_direct'] + '_' + suffix,
-                       '+',
-                       self.var['flux_sol_diffus'] + '_' + suffix,
-                       self.var['flux_sol_total'] + '_' + suffix]
-                retcode = subprocess.call(com,
-                                          stdout = self.fichier_sortie, 
-                                          stderr = self.fichier_sortie)
-                self.historique_commande.append(com)
-
-        return retcode
-
-    def calculer_flux_solaires(self, 
-                               geo = None,
-                               nb_transmission = -1, 
-                               fichier_meteo = None):
-        """
-        macro : calcul des flux solaires direct, diffus, et total
-        """
-        
-        chrono = Chrono('calculer_flux_solaires', 'solCommande') 
-        self.calculer_flux_sol_direct(nb_transmission = nb_transmission, 
-                                      fichier_meteo = fichier_meteo)
-        self.calculer_flux_sol_diffus(nb_transmission = nb_transmission, 
-                                      fichier_meteo = fichier_meteo)
-        self.calculer_flux_sol_total(geo = geo)
-        
-        chrono.fin()
-
-    def calculer_fac_form(self, 
-                        transparence = False, 
+    def calculer_fac_form(self,
                         epsilon = 0.001):
 
         """
@@ -559,27 +334,15 @@ class SolCommand:
         """
         
         chrono = Chrono('calculer_fac_form', 'solCommande')
-        if transparence:
-            com = ['facform_lum',
-                 self.scene_cir,
-                 self.masque_cir,
-                 self.carac['transmittance'],
-                 str(0),
-                 self.facform,
-                 self.carac['ffIn'],
-                 self.carac['ffOut'],
-                 str(epsilon)]
 
-
-        else:
-            com = ['facform',
-                 self.scene_cir,
-                 self.masque_cir,
-                 str(0),
-                 self.facform,
-                 self.carac['ffIn'],
-                 self.carac['ffOut'],
-                 str(epsilon)]
+        com = [self.tools.facform,
+                self.scene_cir,
+                self.masque_cir,
+                str(0),
+                self.facform,
+                self.carac['ffIn'],
+                self.carac['ffOut'],
+                str(epsilon)]
 
         retcode = subprocess.call(com,
                                 stdout = self.fichier_sortie, 
@@ -594,7 +357,7 @@ class SolCommand:
         """
         calcul du facteur de vue du ciel
         """
-        com = ['facform_ciel',
+        com = [self.tools.facform_ciel,
              self.scene_cir,
              self.masque_cir,
              self.ciel_cir,
@@ -622,7 +385,7 @@ class SolCommand:
 
         for suffix in self.liste_ts_sol:
             chro_chro = Chrono('chro', 'chro')
-            com = ['radiosite',
+            com = [self.tools.radiosite,
                     self.var['flux_sol_total'] + '_' + suffix,
                     self.carac['albedo'],
                     self.facform,
@@ -644,7 +407,7 @@ class SolCommand:
                 write_val(self.var['ecl_diffus'] + '_' + suffix, geo, ecl_diffus)
                 retcode2 = 0
             else:
-                com = ['val_op_val',
+                com = [self.tools.val_op_val,
                        self.var['ecl_inc_total'] + '_' + suffix,
                        '-',
                        self.var['flux_sol_direct'] + '_' + suffix,

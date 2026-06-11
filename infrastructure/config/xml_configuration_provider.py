@@ -18,6 +18,7 @@ from pathlib import Path
 from xml.dom import minidom
 
 from application.ports.configuration_provider import ConfigurationProvider
+from config.external_tools import build_tools_from_bin_dir
 from config.runtime import build_runtime_paths
 from domain.simulation_definition import SimulationBootstrap, InputFiles, SimulationSettings
 
@@ -63,6 +64,10 @@ class XmlConfigurationProvider(ConfigurationProvider):
         # Derive canonical runtime paths.
         paths = build_runtime_paths(sim_folder)
 
+        external_tools = build_tools_from_bin_dir(
+            Path("/home/sol_user/solene_refactoring/legacy/native/common_c/bin")
+        )
+
         # New bootstrap shape: all discovered source files are grouped under
         # InputFiles instead of being spread as loose top-level fields.
         input_files = InputFiles(
@@ -77,6 +82,7 @@ class XmlConfigurationProvider(ConfigurationProvider):
             settings=settings,
             input_files=input_files,
             paths=paths,
+            external_tools=external_tools,
         )
 
     def _find_single_file(self, folder: Path, suffix: str) -> Path:

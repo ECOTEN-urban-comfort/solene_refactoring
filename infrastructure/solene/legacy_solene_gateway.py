@@ -45,6 +45,7 @@ class LegacySoleneGateway(SoleneGateway):
             str(bootstrap.paths.simul_sol_dir),
             bootstrap.paths.case_name,
             surface_model_profile,
+            tools=bootstrap.external_tools,
         )
 
         scene_cir_path = Path(str(sol_command.scene_cir) + ".cir")
