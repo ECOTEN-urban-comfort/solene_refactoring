@@ -500,7 +500,6 @@ class CirFile:
         n_point = 0
         print(' ', end=' ')
         for face in range(len(self.cir)):
-            sys.stdout.write('+')
             contours = cir[face]['contours']
             normale = cir[face]['normale']
             ligne_face = []
@@ -558,7 +557,6 @@ class CirFile:
         n_point = 0
         print('=', end=' ')
         for face in range(len(self.cir)):
-            sys.stdout.write('+')
             contours = cir[face]['contours']
             normale = cir[face]['normale']
             ligne_face = []

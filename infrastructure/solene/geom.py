@@ -295,8 +295,6 @@ class Geom:
         chrono = Chrono('connecter_triangle_triangle', 'geom')
         tableau_connectivite_triangles = []
         for i in range(self.n_triangles):
-            if i % 50 == 0:             # affiche l'avancement
-                sys.stdout.write('+')
 
             triangles = self.triangles.points[i]
 
@@ -344,8 +342,6 @@ class Geom:
         normale = self.triangles.normale
 
         for i in range(self.n_triangles):
-            if i % 50 == 0:             # affiche l'avancement
-                sys.stdout.write('+')
 
             points_tri = set(self.triangles.points[i])
             ligne_conn_bis = []
@@ -437,8 +433,6 @@ class Geom:
 
         len_face = len(face)
         for i in range(len_face):
-            if i % 50 == 0:             # affiche l'avancement
-                sys.stdout.write('+')
 
             bu = self._trouver_tetra_connecte(face, elem, lien_elem, i)
             if len(bu) == 0:

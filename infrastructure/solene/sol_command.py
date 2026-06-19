@@ -2,7 +2,7 @@ import os
 import subprocess
 import time
 
-from config.external_tools import CommonCExternalTools, SoleneExternalTools
+from config.external_tools import CommonCExternalTools
 from infrastructure.solene.utils import Chrono, ecrire_fichier
 from infrastructure.solene.sol_file import *
 from infrastructure.solene.profiles.surface_model_profile import SurfaceModelProfile
