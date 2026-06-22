@@ -114,6 +114,7 @@ class SimulationPhase(str, Enum):
     GEOMETRY_EXTRACTED = "geometry_extracted"
     GEOMETRY_BUILT = "geometry_built"
     SOLENE_ENVIRONMENT_READY = "solene_environment_ready"
+    SOLENE_RUNTIME_PREPARED = "solene_runtime_prepared"
     COUPLING_INITIALIZED = "coupling_initialized"
     RUNNING = "running"
     POSTPROCESSING = "postprocessing"
@@ -382,6 +383,7 @@ class SimulationState:
     geometry_extraction: StepStatus = StepStatus.NOT_STARTED
     geometry_building: StepStatus = StepStatus.NOT_STARTED
     solene_environment_creation: StepStatus = StepStatus.NOT_STARTED
+    solene_shared_preparation: StepStatus = StepStatus.NOT_STARTED
     coupling_initialization: StepStatus = StepStatus.NOT_STARTED
     solene_run: StepStatus = StepStatus.NOT_STARTED
     saturne_run: StepStatus = StepStatus.NOT_STARTED

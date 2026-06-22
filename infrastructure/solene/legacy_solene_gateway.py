@@ -36,9 +36,7 @@ class LegacySoleneGateway(SoleneGateway):
         solene_geometry = self._require_solene_geometry(state)
         bootstrap = state.require_bootstrap_definition()
 
-        surface_model_profile = get_surface_model_profile(
-            bootstrap.settings.surface_model
-        )
+        surface_model_profile = bootstrap.surface_model
 
         # Recreate the minimum Solene command/runtime context needed for .cir export.
         sol_command = SolCommand(
@@ -116,7 +114,6 @@ class LegacySoleneGateway(SoleneGateway):
     def prepare_shared_runtime(
         self,
         environment: LegacySoleneEnvironment,
-        state: SimulationState,
     ) -> None:
         """
         Execute Solene runtime preparation common to all air models.

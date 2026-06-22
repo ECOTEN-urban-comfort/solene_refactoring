@@ -56,7 +56,7 @@ class SoleneService:
                     "Cannot prepare shared Solene runtime before environment exists."
                 )
 
-            self.gateway.prepare_shared_runtime(environment, state)
+            self.gateway.prepare_shared_runtime(environment)
 
         except Exception as exc:
             state.set_step_status("solene_shared_preparation", StepStatus.FAILED)

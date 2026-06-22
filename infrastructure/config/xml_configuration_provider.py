@@ -72,7 +72,7 @@ class XmlConfigurationProvider(ConfigurationProvider):
         paths = build_runtime_paths(sim_folder)
 
         external_tools = build_tools_from_bin_dir(
-            Path("/home/sol_user/solene_refactoring/infrastructure/common_c/bin")
+            Path("/home/sol_user/solene_refactoring/common_c_tools/bin")
         )
 
         # New bootstrap shape: all discovered source files are grouped under
@@ -90,7 +90,7 @@ class XmlConfigurationProvider(ConfigurationProvider):
             input_files=input_files,
             paths=paths,
             external_tools=external_tools,
-            air_model_definition=air_model_definition,
+            air_model=air_model_definition,
             surface_model=surface_model_profile,
         )
 
