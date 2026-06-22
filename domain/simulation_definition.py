@@ -17,6 +17,8 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from config.external_tools import CommonCExternalTools
+from domain.air_model_definition import AirModelDefinition
+from infrastructure.solene.profiles.surface_model_profile import SurfaceModelProfile
 from domain.workspace import RuntimePaths
 
 @dataclass(frozen=True)
@@ -89,3 +91,5 @@ class SimulationBootstrap:
     input_files: InputFiles
     paths: RuntimePaths
     external_tools: CommonCExternalTools
+    air_model: AirModelDefinition
+    surface_model: SurfaceModelProfile

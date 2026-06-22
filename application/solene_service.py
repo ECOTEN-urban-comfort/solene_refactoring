@@ -1,9 +1,6 @@
 from application.ports.solene_gateway import SoleneGateway
 from domain.simulation_state import SimulationPhase, SimulationState, StepStatus
-
-LEGACY_SOLENE_GEOMETRY = "legacy_solene_geometry"
-LEGACY_SOLENE_ENVIRONMENT = "legacy_solene_environment"
-
+from domain.artifact_keys import LEGACY_SOLENE_GEOMETRY, LEGACY_SOLENE_ENVIRONMENT
 
 class SoleneService:
     """
@@ -43,4 +40,29 @@ class SoleneService:
         state.set_step_status("solene_environment_creation", StepStatus.DONE)
         state.set_phase(SimulationPhase.SOLENE_ENVIRONMENT_READY)
 
+        return state
+
+    def prepare_shared_runtime(self, state: SimulationState) -> SimulationState:
+        """
+        Execute the shared Solene runtime preparation that is common for all
+        air models and happens after environment creation.
+        """
+        try:
+            state.set_step_status("solene_shared_preparation", StepStatus.IN_PROGRESS)
+
+            environment = state.results.get(LEGACY_SOLENE_ENVIRONMENT)
+            if environment is None:
+                raise ValueError(
+                    "Cannot prepare shared Solene runtime before environment exists."
+                )
+
+            self.gateway.prepare_shared_runtime(environment, state)
+
+        except Exception as exc:
+            state.set_step_status("solene_shared_preparation", StepStatus.FAILED)
+            state.set_validity(False, str(exc))
+            return state
+
+        state.set_step_status("solene_shared_preparation", StepStatus.DONE)
+        state.set_phase(SimulationPhase.SOLENE_RUNTIME_PREPARED)
         return state

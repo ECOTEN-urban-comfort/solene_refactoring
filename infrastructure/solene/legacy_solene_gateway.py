@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from application.ports.solene_gateway import SoleneGateway
-from domain.artifact_keys import LEGACY_SOLENE_GEOMETRY, LEGACY_TIME_STEP, METEO_LIST
+from domain.artifact_keys import LEGACY_SOLENE_GEOMETRY, LEGACY_SOLENE_ENVIRONMENT, LEGACY_TIME_STEP, METEO_LIST
 from domain.simulation_state import SimulationState
 from domain.solene import LegacySoleneEnvironment, SoleneExportArtifacts
 from infrastructure.solene.profiles.registry import get_surface_model_profile
@@ -89,7 +89,6 @@ class LegacySoleneGateway(SoleneGateway):
         # Note: this step is only fully faithful once TimeStep and meteo import
         # are also migrated into the new architecture.
         time_step = state.results.get(LEGACY_TIME_STEP)
-        bootstrap = state.require_bootstrap_definition()
         surface_model = bootstrap.settings.surface_model
 
         sol_env = SolEnv(
@@ -113,6 +112,29 @@ class LegacySoleneGateway(SoleneGateway):
             resul_sat=resul_sat,
             sol_env=sol_env,
         )
+    
+    def prepare_shared_runtime(
+        self,
+        environment: LegacySoleneEnvironment,
+        state: SimulationState,
+    ) -> None:
+        """
+        Execute Solene runtime preparation common to all air models.
+        """
+        sol_command = environment.sol_command
+        sol_env = environment.sol_env
+
+        sol_env.creer_descripteur_solaires()
+        sol_env.creer_descripteur_veg()
+
+        # pokud už je meteo list navázaný, tady jen využití
+        sol_command.calculer_luminance_ciel()
+        sol_command.calculer_flux_solaires()
+        sol_command.calculer_fac_form()
+        sol_command.calculer_fac_form_ciel()
+        sol_command.calculer_radiosite()
+
+        return
 
     def _require_solene_geometry(self, state: SimulationState):
         solene_geometry = state.results.get(LEGACY_SOLENE_GEOMETRY)

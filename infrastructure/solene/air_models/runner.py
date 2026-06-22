@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 import numpy as np
 
-from domain.simulation.air_model_definition import AirModelDefinition
+from domain.air_model_definition import AirModelDefinition
 from infrastructure.solene.air_models.formulas import (
     wind_speed_at_height,
     ashrae_hc,

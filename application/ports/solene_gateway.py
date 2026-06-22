@@ -6,16 +6,20 @@ from domain.solene import LegacySoleneEnvironment
 
 class SoleneGateway(Protocol):
     """
-    Application-facing contract for Solene runtime preparation.
+    Application-facing contract for Solene runtime setup.
 
-    This port covers the first Solene-specific step after geometry extraction:
-        - exporting Solene geometry files,
-        - creating result containers,
-        - creating the legacy SolEnv object,
-        - wiring meteorological input if available.
+    This port currently covers:
+        - environment creation after Solene geometry exists,
+        - shared runtime preparation common to all air models.
     """
 
     def create_environment(self, state: SimulationState) -> LegacySoleneEnvironment:
         """
         Create the first Solene runtime environment for the current run.
+        """
+
+    def prepare_shared_runtime(self, environment: LegacySoleneEnvironment, state: SimulationState) -> None:
+        """
+        Execute the shared Solene runtime preparation that is common for all
+        air models and happens after environment creation.
         """

@@ -21,6 +21,8 @@ from application.ports.configuration_provider import ConfigurationProvider
 from config.external_tools import build_tools_from_bin_dir
 from config.runtime import build_runtime_paths
 from domain.simulation_definition import SimulationBootstrap, InputFiles, SimulationSettings
+from infrastructure.solene.air_models.registry import get_air_model_definition
+from infrastructure.solene.profiles.registry import get_surface_model_profile
 
 
 class XmlConfigurationProvider(ConfigurationProvider):
@@ -61,6 +63,11 @@ class XmlConfigurationProvider(ConfigurationProvider):
         # Load typed settings from sim_settings.xml.
         settings = self._load_settings(sim_settings_file)
 
+        # Resolve typed air-model definition from XML settings.
+        air_model_definition = get_air_model_definition(settings.air_model)
+
+        surface_model_profile = get_surface_model_profile(settings.surface_model)
+
         # Derive canonical runtime paths.
         paths = build_runtime_paths(sim_folder)
 
@@ -83,6 +90,8 @@ class XmlConfigurationProvider(ConfigurationProvider):
             input_files=input_files,
             paths=paths,
             external_tools=external_tools,
+            air_model_definition=air_model_definition,
+            surface_model=surface_model_profile,
         )
 
     def _find_single_file(self, folder: Path, suffix: str) -> Path:
