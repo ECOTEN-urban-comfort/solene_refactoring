@@ -1,45 +1,48 @@
 from dataclasses import dataclass
 
-from domain.air_model_definition import AirModelDefinition
-from infrastructure.solene.air_models.runner import (
-    AirModelRunConfig,
-    AirModelRunner,
-)
+from domain.artifact_keys import LEGACY_SOLENE_ENVIRONMENT
+from domain.simulation_state import SimulationPhase, SimulationState, StepStatus
+from infrastructure.solene.air_models.runner import AirModelRunConfig, AirModelRunner
 
 
 @dataclass
 class AirModelService:
     runner: AirModelRunner
 
-    def run(
-        self,
-        sim,
-        air_model: AirModelDefinition,
-        *,
-        ts_coupl: int,
-        hc_init: float,
-        z_ref_m: float = 10.0,
-        z_target_m: float = 1.5,
-        z0_m: float = 0.4,
-    ) -> None:
-        config = AirModelRunConfig(
-            ts_coupl=ts_coupl,
-            hc_init=hc_init,
-            z_ref_m=z_ref_m,
-            z_target_m=z_target_m,
-            z0_m=z0_m,
-        )
+    def run(self, state: SimulationState) -> SimulationState:
+        """
+        Execute the selected air-model branch on top of an already prepared
+        Solene environment.
+        """
+        try:
+            state.set_step_status("air_model_execution", StepStatus.IN_PROGRESS)
 
-        self.runner.run(
-            sim=sim,
-            air_model=air_model,
-            config=config,
-        )
+            bootstrap = state.require_bootstrap_definition()
+            environment = state.results.get(LEGACY_SOLENE_ENVIRONMENT)
+            if environment is None:
+                raise ValueError(
+                    "Cannot execute air model before Solene environment exists."
+                )
 
-    def run_from_bootstrap(self, sim, bootstrap) -> None:
-        self.run(
-            sim,
-            bootstrap.air_model,
-            ts_coupl=bootstrap.settings.ts_coupl,
-            hc_init=bootstrap.settings.hc_init,
-        )
+            air_model = bootstrap.air_model
+
+            config = AirModelRunConfig(
+                ts_coupl=bootstrap.settings.ts_coupl,
+                temp_init=bootstrap.settings.temp_init,
+                hc_init=bootstrap.settings.hc_init,
+            )
+
+            self.runner.run(
+                environment=environment,
+                air_model=air_model,
+                config=config,
+            )
+
+        except Exception as exc:
+            state.set_step_status("air_model_execution", StepStatus.FAILED)
+            state.set_validity(False, str(exc))
+            return state
+
+        state.set_step_status("air_model_execution", StepStatus.DONE)
+        state.set_phase(SimulationPhase.AIR_MODEL_EXECUTED)
+        return state

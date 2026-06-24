@@ -1,7 +1,8 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
+from infrastructure.solene.timeStep import TimeStep
 from domain.geometry import LegacySoleneGeometry
 
 
@@ -41,3 +42,6 @@ class LegacySoleneEnvironment:
     resul_sol: Any
     resul_sat: Any
     sol_env: Any
+    time_step: TimeStep | None = None
+    meteo_list: list[dict[str, Any]] = field(default_factory=list)
+    meteo: dict[str, dict[str, Any]] = field(default_factory=dict)

@@ -32,4 +32,7 @@ LEGACY_EXTRACTED_GEOMETRY = "legacy_extracted_geometry"
 LEGACY_SOLENE_GEOMETRY = "legacy_solene_geometry"
 LEGACY_SOLENE_ENVIRONMENT = "legacy_solene_environment"
 LEGACY_TIME_STEP = "legacy_time_step"
+LEGACY_COUPLED_RUNTIME = "legacy_coupled_runtime"
 METEO_LIST = "meteo_list"
+METEO_DIC = "meteo_dic"
+
