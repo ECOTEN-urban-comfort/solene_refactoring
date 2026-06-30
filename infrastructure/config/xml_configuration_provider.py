@@ -142,6 +142,12 @@ class XmlConfigurationProvider(ConfigurationProvider):
             if not nodes or nodes[0].firstChild is None:
                 raise ValueError(f"Missing XML tag: {tag}")
             return nodes[0].firstChild.data.strip()
+        
+        def optional_text(tag: str, default: str) -> str:
+            nodes = doc.getElementsByTagName(tag)
+            if not nodes or nodes[0].firstChild is None:
+                return default
+            return nodes[0].firstChild.data.strip()
 
         return SimulationSettings(
             begin_day=int(text("begin_day")),
@@ -158,4 +164,7 @@ class XmlConfigurationProvider(ConfigurationProvider):
             iter_init=int(text("iter_init")),
             iter_foll=int(text("iter_foll")),
             cores_used=int(text("cores_used")),
+            temp_init=float(optional_text("temp_init", "20.0")),
+            hc_init=float(optional_text("hc_init", "5.0")),
+            meteo_file_type=optional_text("meteo_file_type", "ONEVU"),
         )

@@ -1,16 +1,19 @@
 from pathlib import Path
 
 from application.ports.solene_gateway import SoleneGateway
-from domain.artifact_keys import LEGACY_SOLENE_GEOMETRY
+from domain.artifact_keys import LEGACY_SOLENE_GEOMETRY, LEGACY_EXTRACTED_GEOMETRY
 from domain.simulation_state import SimulationState
-from domain.solene import LegacySoleneEnvironment, SoleneExportArtifacts
+from domain.solene import LegacySoleneEnvironment
+from domain.geometry import SoleneGeometryArtifacts
 
 from infrastructure.solene.sol_command import SolCommand
+from infrastructure.saturne.sat_command import SatCommand
 from infrastructure.solene.data import Data
 from infrastructure.solene.sol_env import SolEnv
-from infrastructure.solene.sol_file import write_cir
 from infrastructure.solene.timeStep import TimeStep
 import infrastructure.solene.meteo as meteo_obj
+from infrastructure.solene.hdfFile import MedFile
+from infrastructure.solene.famille import importer_familles_xml, Familles
 
 class LegacySoleneGateway(SoleneGateway):
     """
@@ -32,12 +35,42 @@ class LegacySoleneGateway(SoleneGateway):
     - coupling with Saturne.
     """
 
+    def extract_familles(
+        self,
+        state: SimulationState,
+    ) -> Familles:
+        """
+        Unified technical geometry gateway.
+
+        This adapter currently owns:
+            - deterministic staging of geometry-related inputs,
+            - legacy `.cpl` MED geometry cache access,
+            - first legacy MED/family/material extraction.
+        """
+        prepared = self._require_prepared_inputs(state)
+
+        # Step 1: extract MED geometry using the old reader.
+        med_file = MedFile(str(prepared.staged_med_file))
+        geom_med = med_file.extraire_geom()
+
+        # Step 2: load family definitions from XML.
+        bootstrap = state.require_bootstrap_definition()
+        surface_model = bootstrap.settings.surface_model
+        familles = importer_familles_xml(str(prepared.staged_famille_file), surface_model)
+
+        # Step 3: enrich family library with materials.
+        familles.importer_materiaux_from_xml(str(prepared.staged_materiau_file))
+
+        # Step 4: bind family numbers extracted from MED.
+        familles.attribuer_num_familles(geom_med.familles)
+
+        return familles
+
     def create_environment(self, state: SimulationState) -> LegacySoleneEnvironment:
-        solene_geometry = self._require_solene_geometry(state)
+        geometry = self._require_solene_geometry(state)
         bootstrap = state.require_bootstrap_definition()
 
         surface_model_profile = bootstrap.surface_model
-        surface_model_name = bootstrap.settings.surface_model
 
         sol_command = SolCommand(
             str(bootstrap.paths.simul_sol_dir),
@@ -46,60 +79,39 @@ class LegacySoleneGateway(SoleneGateway):
             tools=bootstrap.external_tools,
         )
 
+        sat_command = SatCommand(
+            str(bootstrap.paths.simul_sat_dir),
+            bootstrap.paths.case_name,
+        )
+
         time_step, meteo_list, meteo = self._build_time_step_and_meteo(
             bootstrap=bootstrap,
             sol_command=sol_command,
         )
 
-        scene_cir_path = Path(str(sol_command.scene_cir) + ".cir")
-        masque_cir_path = Path(str(sol_command.masque_cir) + ".cir")
+        geom_sol = self._load_geom(geometry.geom_sol_cpl, "geom_sol")
+        geom_med = self._load_geom(geometry.geom_med_cpl, "geom_med")
 
-        if not (scene_cir_path.is_file() and masque_cir_path.is_file()):
-            if solene_geometry.geom_sol is None:
-                raise ValueError(
-                    "Cannot export Solene scene CIR because geom_sol is missing."
-                )
-
-            if solene_geometry.geom_sol_masque is None:
-                raise ValueError(
-                    "Cannot export Solene mask CIR because geom_sol_masque is missing."
-                )
-
-            write_cir(
-                name=sol_command.masque_cir,
-                geom=solene_geometry.geom_sol_masque,
-                faces=True,
-            )
-            write_cir(
-                name=sol_command.scene_cir,
-                geom=solene_geometry.geom_sol,
-                faces=False,
-            )
-
-        export_artifacts = SoleneExportArtifacts(
-            scene_cir=scene_cir_path,
-            masque_cir=masque_cir_path,
-        )
-
-        resul_sol = Data(geom=solene_geometry.geom_sol, type="2D")
-        resul_sat = Data(geom=solene_geometry.geom_med, type="3D")
+        resul_sol = Data(geom=geom_sol, type="2D")
+        resul_sat = Data(geom=geom_med, type="3D")
 
         sol_env = SolEnv(
             sol_command,
-            solene_geometry.geom_sol,
-            surface_model_name,
+            geom_sol,
+            bootstrap.settings.surface_model,
             data=resul_sol,
             timeStep=time_step,
-            familles=solene_geometry.extracted_geometry.familles,
+            familles=state.results[LEGACY_EXTRACTED_GEOMETRY].familles,
         )
 
         if meteo_list:
             sol_env.definir_meteo_liste(meteo_list)
 
         return LegacySoleneEnvironment(
-            solene_geometry=solene_geometry,
-            export_artifacts=export_artifacts,
+            solene_geometry=geometry,
             sol_command=sol_command,
+            sat_command=sat_command,
+            familles=state.results[LEGACY_EXTRACTED_GEOMETRY].familles,
             resul_sol=resul_sol,
             resul_sat=resul_sat,
             sol_env=sol_env,
@@ -120,9 +132,10 @@ class LegacySoleneGateway(SoleneGateway):
             sol_command.definir_liste_jours(time_step.liste_jours)
             sol_command.liste_ts_sol = time_step.liste_ts_sol
 
-        meteo_all = parse_meteo_file(
+        meteo_type = getattr(bootstrap.settings, "meteo_file_type", "ONEVU")
+        meteo_all = meteo_obj.parse_meteo_file(
             bootstrap.input_files.meteo_file,
-            bootstrap.settings.meteo_file_type,
+            meteo_type,
         )
 
         for heure_s in time_step.liste_ts:
@@ -136,21 +149,7 @@ class LegacySoleneGateway(SoleneGateway):
 
         return time_step, meteo_list, meteo
 
-    def _parse_meteo_file(self, fichier_meteo: str, type_meteo: str):
-        if type_meteo == "RT":
-            return meteo_obj.parser_fichier_meteo_RT(fichier_meteo)
-        if type_meteo == "ONEVU":
-            return meteo_obj.parser_fichier_meteo_ONEVU(fichier_meteo)
-        if type_meteo == "HEPIA":
-            return meteo_obj.parser_fichier_meteo_HEPIA(fichier_meteo)
-        if type_meteo == "Khaled":
-            return meteo_obj.parser_fichier_meteo_khaled(fichier_meteo)
-        if type_meteo == "ILYES":
-            return meteo_obj.parser_fichier_meteo_ILYES(fichier_meteo)
-
-        raise ValueError(f"Unsupported meteo file type: {type_meteo}")
-
-    def _require_solene_geometry(self, state: SimulationState):
+    def _require_solene_geometry(self, state: SimulationState) -> SoleneGeometryArtifacts:
         solene_geometry = state.results.get(LEGACY_SOLENE_GEOMETRY)
         if solene_geometry is None:
             raise ValueError(

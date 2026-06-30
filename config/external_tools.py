@@ -7,21 +7,24 @@ import platform
 
 @dataclass(frozen=True)
 class CommonCExternalTools:
-    """
-    Resolved paths to legacy native executables from common_c.
-    """
-
+    geode_ciel: Path
     angl_solid: Path
     facform: Path
     facform_ciel: Path
-    geode_ciel: Path
-    luminance_ciel_temps: Path
-    masques_ciel_lum: Path
     masques_sol_lum: Path
+    masques_ciel_lum: Path
     radiosite: Path
     rot: Path
-    surf_cont: Path
     val_op_val: Path
+    surf_cont: Path
+    luminance_ciel_temps: Path
+
+    temp_dir: Path
+    solene_home: Path
+
+    simulation_ts_energie_bat_azam: Path
+    simulation_ts_energie_bat_bb5: Path
+    simulation_ts_energie_bat_mixture: Path
 
 
 def _platform_dir_name() -> str:
@@ -72,6 +75,17 @@ def build_tools_from_bin_dir(bin_root: Path) -> CommonCExternalTools:
         rot=_require_file(platform_dir / f"rot{suffix}"),
         surf_cont=_require_file(platform_dir / f"surf_cont{suffix}"),
         val_op_val=_require_file(platform_dir / f"val_op_val{suffix}"),
+
+        temp_dir=Path("/home/sol_user/solene_refactoring/common_c_tools/temp/"),
+        solene_home=Path("/home/sol_user/solene_refactoring/common_c_tools/exe/"),
+
+        simulation_ts_energie_bat_azam=_require_file(platform_dir / f"simulation_Ts_EnergieBat_azam.exe"),
+        simulation_ts_energie_bat_bb5=_require_file(platform_dir / f"simulation_Ts_EnergieBat_bb5.exe"),
+        simulation_ts_energie_bat_mixture=_require_file(platform_dir / f"simulation_Ts_EnergieBat_mixture.exe"),
+
+        #simulation_ts_energie_bat_azam=_require_file(platform_dir / "simulation_Ts_EnergieBat_azam"),
+        #simulation_ts_energie_bat_bb5=_require_file(platform_dir / "simulation_Ts_EnergieBat_bb5"),
+        #simulation_ts_energie_bat_mixture=_require_file(platform_dir / "simulation_Ts_EnergieBat_mixture"),
     )
 
 
@@ -103,4 +117,11 @@ def build_tools_from_legacy_exe_dir(exe_dir: Path) -> CommonCExternalTools:
         rot=_require_file(exe_dir / f"rot{suffix}"),
         surf_cont=_require_file(exe_dir / f"surf_cont{suffix}"),
         val_op_val=_require_file(exe_dir / f"val_op_val{suffix}"),
+
+        temp_dir=Path("/home/sol_user/solene_refactoring/common_c_tools/temp/"),
+        solene_home=Path("/home/sol_user/solene_refactoring/common_c_tools/exe/"),
+
+        simulation_ts_energie_bat_azam=_require_file(exe_dir / f"simulation_Ts_EnergieBat_azam{suffix}"),
+        simulation_ts_energie_bat_bb5=_require_file(exe_dir / f"simulation_Ts_EnergieBat_bb5{suffix}"),
+        simulation_ts_energie_bat_mixture=_require_file(exe_dir / f"simulation_Ts_EnergieBat_mixture{suffix}"),
     )

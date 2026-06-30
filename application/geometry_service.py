@@ -28,6 +28,7 @@ from domain.artifact_keys import (
     PREPARED_GEOMETRY_INPUTS,
     LEGACY_EXTRACTED_GEOMETRY,
     LEGACY_SOLENE_GEOMETRY,
+    FAMILLES
 )
 from domain.simulation_state import (
     ArtifactRef,
@@ -118,20 +119,20 @@ class GeometryService:
     
     def extract_legacy_geometry(self, state: SimulationState) -> SimulationState:
         try:
-            state.set_step_status("geometry_extraction", StepStatus.IN_PROGRESS)
+            state.set_step_status("familles_extraction", StepStatus.IN_PROGRESS)
             self._require_geometry_initialized(state)
 
-            extracted = self.gateway.extract_geometry(state)
+            familles = self.gateway.extract_familles(state)
 
-            state.results[LEGACY_EXTRACTED_GEOMETRY] = extracted
+            state.results[FAMILLES] = familles
 
         except Exception as exc:
-            state.set_step_status("geometry_extraction", StepStatus.FAILED)
+            state.set_step_status("familles_extraction", StepStatus.FAILED)
             state.set_validity(False, str(exc))
             return state
 
-        state.set_step_status("geometry_extraction", StepStatus.DONE)
-        state.set_phase(SimulationPhase.GEOMETRY_EXTRACTED)
+        state.set_step_status("familles_extraction", StepStatus.DONE)
+        state.set_phase(SimulationPhase.FAMILLES_EXTRACTED)
         return state
     
     def build_solene_geometry(self, state: SimulationState) -> SimulationState:

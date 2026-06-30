@@ -52,6 +52,9 @@ class SimulationSettings:
     iter_init: int
     iter_foll: int
     cores_used: int
+    temp_init: float = 20.0
+    hc_init: float = 5.0
+    meteo_file_type: str = "ONEVU"
 
     @property
     def interval(self) -> list[int]:

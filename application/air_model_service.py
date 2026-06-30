@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+import traceback
 
 from domain.artifact_keys import LEGACY_SOLENE_ENVIRONMENT
 from domain.simulation_state import SimulationPhase, SimulationState, StepStatus
@@ -39,8 +40,10 @@ class AirModelService:
             )
 
         except Exception as exc:
+            full_tb = "".join(traceback.format_exception(type(exc), exc, exc.__traceback__))
+
             state.set_step_status("air_model_execution", StepStatus.FAILED)
-            state.set_validity(False, str(exc))
+            state.set_validity(False, full_tb)
             return state
 
         state.set_step_status("air_model_execution", StepStatus.DONE)

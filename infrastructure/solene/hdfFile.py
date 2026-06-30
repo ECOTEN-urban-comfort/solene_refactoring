@@ -184,13 +184,11 @@ class MedFile(HdfFile):
             self.geom.n_triangles = len(self.geom.triangles.points)
             self.geom.n_tetras = len(self.geom.tetras.points)
 
-            if self.med_version_maj == 2:
-                if self.med_version_min == 3 and self.med_version_rel == 6:
-                    self.extraire_familles_2_3_6()
-                elif self.med_version_min == 3 and self.med_version_rel == 4:
-                    self.extraire_familles_2_3_4()
-            elif self.med_version_maj == 3 or self.med_version_maj == 4:
-                self.extraire_familles_2_3_6()
+            if self.med_version_maj == 4:
+                self.extraire_familles_4()
+            else:
+                raise ValueError("Invalid med version, the only valid version is 4.X")
+
 
         self.hdf.close()
         chrono.fin()
@@ -198,24 +196,7 @@ class MedFile(HdfFile):
         return self.geom
 
     def extraire_chemins(self):
-        if self.med_version_maj == 2:
-            noeud_maillage = self.hdf.list_nodes('/ENS_MAA')[0]
-            self.nom_maillage = noeud_maillage._v_pathname.split('/')[-1]
-
-            self.points = '/ENS_MAA/%s/NOE/COO' % self.nom_maillage
-
-            self.pointsTE4 = '/ENS_MAA/%s/MAI/TE4/NOD' % self.nom_maillage
-            self.familleTE4 = '/ENS_MAA/%s/MAI/TE4/FAM' % self.nom_maillage
-
-            self.pointsTR3 = '/ENS_MAA/%s/MAI/TR3/NOD' % self.nom_maillage
-            self.familleTR3 = '/ENS_MAA/%s/MAI/TR3/FAM' % self.nom_maillage
-
-            self.pointsSE2 = '/ENS_MAA/%s/MAI/SE2/NOD' % self.nom_maillage
-            self.familleSE2 = '/ENS_MAA/%s/MAI/SE2/FAM' % self.nom_maillage
-
-            self.liste_famille = '/ENS_MAA/%s/FAS/ELEME' % self.nom_maillage
-
-        elif self.med_version_maj == 3 or self.med_version_maj == 4:
+        if self.med_version_maj == 4:
             noeud_maillage = self.hdf.list_nodes('/ENS_MAA')[0]
             self.nom_maillage = noeud_maillage._v_pathname.split('/')[-1]
             noeud_sous_maillage = self.hdf.list_nodes(
@@ -236,60 +217,13 @@ class MedFile(HdfFile):
 
             self.liste_famille = '/FAS/%s/ELEME' % self.nom_maillage
 
-    def extraire_dic_familles_2_3_4(self):
-        lst_nodes = self.hdf.list_nodes(self.liste_famille)
-        dic_fam = {}
-        lst_nom_familles = []
-        for node in lst_nodes:
-            if 'GRO' in node._v_children:
-                gro = node._v_children['GRO']
-                if 'NOM' in gro._v_children:
-                    tab_nom = gro._v_children['NOM'].read()
-                    nom = tab_to_str(tab_nom)
-                    if nom not in lst_nom_familles:
-                        lst_nom_familles.append(nom)
-                if 'NUM' in node._v_attrs._v_attrnames:
-                    fam_num = node._f_getAttr('NUM')
-                    dic_fam[fam_num] = nom
-        self.lst_nom_familles = lst_nom_familles
-        self.lien_num_fam = dic_fam
+        else:
+            raise ValueError("Invalid med version, the only valid version is 4.X")
 
-    def extraire_familles_2_3_4(self):
-        self.extraire_dic_familles_2_3_4()
-        for i in range(len(self.lst_nom_familles)):
-            self.geom.familles[self.lst_nom_familles[i]] = i
-        for i in range(self.geom.n_triangles):
-            fam_old = self.geom.triangles.famille[i]
-            nom_fam = self.lien_num_fam[fam_old]
-            self.geom.triangles.famille[i] = self.geom.familles[nom_fam]
-        for i in range(self.geom.n_tetras):
-            fam_old = self.geom.tetras.famille[i]
-            nom_fam = self.lien_num_fam[fam_old]
-            self.geom.tetras.famille[i] = self.geom.familles[nom_fam]
-
-    def extraire_familles_2_3_6(self):
+    def extraire_familles_4(self):
         for key in self.hdf.list_nodes(self.liste_famille):
             key = key._v_pathname.split('/')[-1].split('_')
             self.geom.familles[key[-1]] = key[1]
-
-    def extraire_temperature(self):
-        if self.med_version_maj == 3:
-            chemin = self.hdf.list_nodes('/CHA/TempC')[0]._v_pathname + '/MAI.TE4/MED_NO_PROFILE_INTERNAL'
-            # chemin = '/CHA/TempC/00000000000000000018-0000000000000000001/MAI.TE4/MED_NO_PROFILE_INTERNAL'
-            # chemin = '/CHA/TempC/00000000000000000101-0000000000000000001/MAI.TE4/MED_NO_PROFILE_INTERNAL'
-        else:
-            chemin = '/CHA/TempC/MAI.TE4/                   5                  -1/Volume fluide'
-        noeud = self.hdf.list_nodes(chemin)[0]
-        return noeud.read()
-
-    def extraire_vitesse(self):
-        if self.med_version_maj == 3:
-            chemin = self.hdf.list_nodes('/CHA/Velocity')[0]._v_pathname + '/MAI.TE4/MED_NO_PROFILE_INTERNAL'
-            # chemin = '/CHA/Velocity/00000000000000000018-0000000000000000001/MAI.TE4/MED_NO_PROFILE_INTERNAL'
-        else:
-            chemin = '/CHA/Vitesse/MAI.TE4/                   5                  -1/Volume fluide'
-        noeud = self.hdf.list_nodes(chemin)[0]
-        return noeud.read()
 
 class CplFile(HdfFile):
 

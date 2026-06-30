@@ -36,3 +36,4 @@ LEGACY_COUPLED_RUNTIME = "legacy_coupled_runtime"
 METEO_LIST = "meteo_list"
 METEO_DIC = "meteo_dic"
 
+FAMILLES = "familles"

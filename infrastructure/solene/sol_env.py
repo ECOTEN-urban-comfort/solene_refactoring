@@ -276,7 +276,7 @@ class SolEnv:
         self._creer_meteo_sol()
         self._creer_option_resul()
 
-        if self.profile.enable_water_descriptors:
+        if self.SolCommand.profile.enable_water_descriptors:
             self._creer_h_eau_sol()
             self._creer_dt_arrosage_sol()
             self._creer_h_eau_sol_init()
@@ -294,12 +294,12 @@ class SolEnv:
     def _iter_t_init_variable_names(self):
         names = ["Tse"]
 
-        if self.profile.enable_tp_outputs:
+        if self.SolCommand.profile.enable_tp_outputs:
             names.extend(["Tp1", "Tp2"])
 
         names.extend(["Tn1", "Tn2", "Ta", "Tse_veg"])
 
-        if self.profile.enable_extra_transient_nodes:
+        if self.SolCommand.profile.enable_extra_transient_nodes:
             names.extend([f"TN{i}" for i in range(3, 22)])
 
         return names
@@ -329,7 +329,7 @@ class SolEnv:
         self._creer_meteo_sol(dic_meteo={"i_jour": jour})
 
     def _creer_meteo_sol(self, dic_meteo=None):
-        meteo_sol_dic = dict(self.profile.meteo_sol_file_defaults)
+        meteo_sol_dic = dict(self.SolCommand.profile.meteo_sol_defaults)
 
         if dic_meteo:
             meteo_sol_dic.update(dic_meteo)

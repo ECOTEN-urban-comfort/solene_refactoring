@@ -7,7 +7,7 @@ from typing import Any
 import os
 from math import pi, sqrt, sin
 
-from timeStep import convertir_ts_sol_liste, ecrire_ts_sol
+from infrastructure.solene.timeStep import convertir_ts_sol_liste, ecrire_ts_sol
 
 
 SUPPORTED_METEO_TYPES = {"RT", "ONEVU", "HEPIA", "Khaled", "ILYES"}
@@ -240,3 +240,16 @@ def HR_to_HS(Tair, HR):
     p_sat = 610.7 * (1 + sqrt(2) * sin(T_radian / 3)) ** 8.827
     HS = (0.622 * p_sat * HR) / (101325 - (0.378 * p_sat * HR))
     return HS
+
+def parse_meteo_file(fichier_meteo, type_meteo):
+    if type_meteo == "RT":
+        return parser_fichier_meteo_RT(fichier_meteo)
+    if type_meteo == "ONEVU":
+        return parser_fichier_meteo_ONEVU(fichier_meteo)
+    if type_meteo == "HEPIA":
+        return parser_fichier_meteo_HEPIA(fichier_meteo)
+    if type_meteo == "Khaled":
+        return parser_fichier_meteo_khaled(fichier_meteo)
+    if type_meteo == "ILYES":
+        return parser_fichier_meteo_ILYES(fichier_meteo)
+    raise ValueError(f"Unsupported meteo file type: {type_meteo}")

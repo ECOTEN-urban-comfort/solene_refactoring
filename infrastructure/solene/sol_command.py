@@ -1,6 +1,7 @@
 import os
 import subprocess
 import time
+from pathlib import Path
 
 from config.external_tools import CommonCExternalTools
 from infrastructure.solene.utils import Chrono, ecrire_fichier
@@ -56,8 +57,10 @@ class SolCommand:
         profile: SurfaceModelProfile,
         tools: CommonCExternalTools,
     ) -> None:
+        
         self.profile = profile
         self.tools = tools
+        Path(self.tools.temp_dir).mkdir(parents=True, exist_ok=True)
         self.nom_cas = nom_cas
         self.chemin_simul_sol = chemin_sim
 
@@ -244,7 +247,8 @@ class SolCommand:
 	     
         retcode = subprocess.call(com, 
 						stdout = self.fichier_sortie, 
-						stderr = self.fichier_sortie)
+						stderr = self.fichier_sortie,
+                        env=self._legacy_env(),)
         self.historique_commande.append(com)
 
         if creation_angle_solide:
@@ -252,19 +256,37 @@ class SolCommand:
 
         return retcode
 
+    def _legacy_env(self) -> dict[str, str]:
+        env = os.environ.copy()
+
+        tool_dir = str(Path(self.tools.geode_ciel).parent)
+        env["PATH"] = tool_dir + os.pathsep + env.get("PATH", "")
+
+        temp_dir = str(self.tools.temp_dir)
+        solene_home = str(self.tools.solene_home)
+
+        env["SOLENETEMP"] = temp_dir
+
+        env["SOLENEHOME"] = solene_home
+
+        Path(temp_dir).mkdir(parents=True, exist_ok=True)
+        Path(solene_home).mkdir(parents=True, exist_ok=True)
+        return env
+
     def creer_angle_solide(self):
         """
         création des angles solides
         
         appelle la commande externe 'angl_solid'
         """
-        com = [self.tools.angl_solid,
+        com = [str(self.tools.angl_solid),
              self.ciel_cir,
              self.ciel_angle_solide_val]
 
         retcode = subprocess.call(com,
 						stdout = self.fichier_sortie, 
-						stderr = self.fichier_sortie)
+						stderr = self.fichier_sortie,
+                        env=self._legacy_env(),)
         self.historique_commande.append(com)
         
         return retcode
@@ -275,11 +297,11 @@ class SolCommand:
         
         appelle lea commande externe 'surf_cont'
         """
-        com = [self.tools.surf_cont,
+        com = [str(self.tools.surf_cont),
              self.scene_cir,
              self.carac['surface']]
              
-        retcode = subprocess.call(com)
+        retcode = subprocess.call(com, env=self._legacy_env(),)
         self.historique_commande.append(com)
         
         return retcode
@@ -299,7 +321,7 @@ class SolCommand:
 
         """
         for i, jour in enumerate(self.liste_jours):
-            com = [self.tools.luminance_ciel_temps,
+            com = [str(self.tools.luminance_ciel_temps),
                    self.ciel_cir,
                    str(self.param['latitude']),
                    str(self.param['longitude']),
@@ -313,11 +335,12 @@ class SolCommand:
                    self._composer_nom(self.luminance_ciel_val,i)]
             
             if format_num: 
-                com[0] = self.tools.luminance_ciel
+                com[0] = str(self.tools.luminance_ciel)
              
             retcode = subprocess.call(com,
                                     stdout = self.fichier_sortie, 
-                                    stderr = self.fichier_sortie)
+                                    stderr = self.fichier_sortie,
+                                    env=self._legacy_env(),)
             self.historique_commande.append(com)
 
 
@@ -342,7 +365,7 @@ class SolCommand:
         if self.param['transparence'] and fichier_meteo == None:
             for i, jour in enumerate(self.liste_jours):
                 
-                com = [self.tools.masques_sol_lum,
+                com = [str(self.tools.masques_sol_lum),
                        self.scene_cir,             #
                        self.masque_cir,            #
                        self.carac['transmittance'],    #
@@ -359,7 +382,8 @@ class SolCommand:
                 
                 retcode = subprocess.call(com,
                                         stdout = self.fichier_sortie, 
-                                        stderr = self.fichier_sortie)
+                                        stderr = self.fichier_sortie,
+                                        env=self._legacy_env(),)
                 self.historique_commande.append(com)     
        
         if self.param['transparence'] == False:
@@ -368,7 +392,7 @@ class SolCommand:
         if fichier_meteo and nb_transmission == 0:
             for i, jour in enumerate(self.liste_jours):
                 
-                com = [self.tools.energie_solaire_directe_meteo,
+                com = [str(self.tools.energie_solaire_directe_meteo),
                        self.scene_cir,
                        self._composer_nom(self.masque_mas, jour),
                        self._composerJJMM(jour),
@@ -378,12 +402,13 @@ class SolCommand:
                        self._composer_nom(self.chemin_meteo_direct, i),
                        str(self.param['latitude']),
                        self._composer_nom(self.var['flux_sol_direct'], i)]
-                print(com)
+       
 
                
                 retcode = subprocess.call(com,
                                         stdout = self.fichier_sortie, 
-                                        stderr = self.fichier_sortie)
+                                        stderr = self.fichier_sortie,
+                                        env=self._legacy_env(),)
                 
                 self.historique_commande.append(com)       
 
@@ -391,7 +416,7 @@ class SolCommand:
             for i, jour in enumerate(self.liste_jours):
                 
                 # masques_sol_lum_meteo source code does not exist even in the vast cerema zip
-                com = [self.tools.masques_sol_lum_meteo,
+                com = [str(self.tools.masques_sol_lum_meteo),
                        self.scene_cir,             #
                        self.masque_cir,            #
                        self.carac['transmittance'],    #
@@ -409,7 +434,8 @@ class SolCommand:
                 if execute:
                     retcode = subprocess.call(com,
                                               stdout = self.fichier_sortie, 
-                                              stderr = self.fichier_sortie)
+                                              stderr = self.fichier_sortie,
+                                              env=self._legacy_env(),)
                 else:
                     retcode = 0
                 self.historique_commande.append(com)
@@ -439,7 +465,7 @@ class SolCommand:
         if self.param['transparence'] and fichier_meteo == None:
             for i, jour in enumerate(self.liste_jours):
                 
-                com = [self.tools.masques_ciel_lum,
+                com = [str(self.tools.masques_ciel_lum),
                        self.scene_cir,             #
                        self.masque_cir,            #
                        self.carac['transmittance'],    #
@@ -454,16 +480,17 @@ class SolCommand:
                        self._composer_nom(self.var['flux_sol_diffus'], i),
                        str(self.param['opt_lumiere'])]        # fonction (0 => W/m2) 
                 
-
+           
                 retcode = subprocess.call(com,
                                         stdout = self.fichier_sortie, 
-                                        stderr = self.fichier_sortie)
+                                        stderr = self.fichier_sortie,
+                                        env=self._legacy_env(),)
                 self.historique_commande.append(com)
                 
         if fichier_meteo and nb_transmission == 0:
             for i, jour in enumerate(self.liste_jours):
                 
-                com = [self.tools.energie_solaire_diffuse_meteo,
+                com = [str(self.tools.energie_solaire_diffuse_meteo),
                        self.scene_cir,             #
                        self.masque_cir,            #
                        self.ciel_cir,              #
@@ -479,14 +506,15 @@ class SolCommand:
                          
                 retcode = subprocess.call(com,
                                         stdout = self.fichier_sortie, 
-                                        stderr = self.fichier_sortie)
+                                        stderr = self.fichier_sortie,
+                                        env=self._legacy_env(),)
                 self.historique_commande.append(com)
 
         if fichier_meteo and nb_transmission == -1:
             for i, jour in enumerate(self.liste_jours):
                 
                 # masques_ciel_lum_meteo does not exist even in the vast cerema zip
-                com = [self.tools.masques_ciel_lum_meteo,
+                com = [str(self.tools.masques_ciel_lum_meteo),
                        self.scene_cir,             #
                        self.masque_cir,            #
                        self.carac['transmittance'],    #
@@ -504,7 +532,8 @@ class SolCommand:
 
                 retcode = subprocess.call(com,
                                         stdout = self.fichier_sortie, 
-                                        stderr = self.fichier_sortie)
+                                        stderr = self.fichier_sortie,
+                                        env=self._legacy_env(),)
                 self.historique_commande.append(com)
                 self.bak.append(com)
  
@@ -525,14 +554,15 @@ class SolCommand:
                 write_val(self.var['flux_sol_total'] + '_' + suffix, geo, flux_sol_total)
                 retcode = 0
             else:
-                com = [self.tools.val_op_val,
+                com = [str(self.tools.val_op_val),
                        self.var['flux_sol_direct'] + '_' + suffix,
                        '+',
                        self.var['flux_sol_diffus'] + '_' + suffix,
                        self.var['flux_sol_total'] + '_' + suffix]
                 retcode = subprocess.call(com,
                                           stdout = self.fichier_sortie, 
-                                          stderr = self.fichier_sortie)
+                                          stderr = self.fichier_sortie,
+                                          env=self._legacy_env(),)
                 self.historique_commande.append(com)
 
         return retcode
@@ -563,24 +593,29 @@ class SolCommand:
         appelle la fonction externe 'facform' si transparence = False (defaut)
         'facform_ciel' si transparence = True
         """
+        facform_path = Path(f"{self.facform}.fac")
         
-        chrono = Chrono('calculer_fac_form', 'solCommande')
+        if not facform_path.exists():
+            chrono = Chrono('calculer_fac_form', 'solCommande')
 
-        com = [self.tools.facform,
-                self.scene_cir,
-                self.masque_cir,
-                str(0),
-                self.facform,
-                self.carac['ffIn'],
-                self.carac['ffOut'],
-                str(epsilon)]
+            com = [str(self.tools.facform),
+                    self.scene_cir,
+                    self.masque_cir,
+                    str(0),
+                    self.facform,
+                    self.carac['ffIn'],
+                    self.carac['ffOut'],
+                    str(epsilon)]
 
-        retcode = subprocess.call(com,
-                                stdout = self.fichier_sortie, 
-                                stderr = self.fichier_sortie)
-        self.historique_commande.append(com)
-                
-        chrono.fin()
+            retcode = subprocess.call(com,
+                                    stdout = self.fichier_sortie, 
+                                    stderr = self.fichier_sortie,
+                                    env=self._legacy_env(),)
+            self.historique_commande.append(com)
+                    
+            chrono.fin()
+        else:
+            return
 
         return retcode
     
@@ -588,14 +623,14 @@ class SolCommand:
         """
         calcul du facteur de vue du ciel
         """
-        com = [self.tools.facform_ciel,
+        com = [str(self.tools.facform_ciel),
              self.scene_cir,
              self.masque_cir,
              self.ciel_cir,
                str(self.param['angle_vision']),
              self.carac['ffSky']]
 
-        retcode = subprocess.call(com)
+        retcode = subprocess.call(com, env=self._legacy_env(),)
         self.historique_commande.append(com)
 
         return retcode
@@ -616,7 +651,7 @@ class SolCommand:
 
         for suffix in self.liste_ts_sol:
             chro_chro = Chrono('chro', 'chro')
-            com = [self.tools.radiosite,
+            com = [str(self.tools.radiosite),
                     self.var['flux_sol_total'] + '_' + suffix,
                     self.carac['albedo'],
                     self.facform,
@@ -628,7 +663,8 @@ class SolCommand:
                     valeur_arret]
             retcode1 = subprocess.call(com,
                                        stdout = self.poubelle, 
-                                       stderr = self.fichier_sortie)
+                                       stderr = self.fichier_sortie,
+                                       env=self._legacy_env(),)
             self.historique_commande.append(com)
             
             if geo:
@@ -638,7 +674,7 @@ class SolCommand:
                 write_val(self.var['ecl_diffus'] + '_' + suffix, geo, ecl_diffus)
                 retcode2 = 0
             else:
-                com = [self.tools.val_op_val,
+                com = [str(self.tools.val_op_val),
                        self.var['ecl_inc_total'] + '_' + suffix,
                        '-',
                        self.var['flux_sol_direct'] + '_' + suffix,
@@ -646,7 +682,8 @@ class SolCommand:
                 
                 retcode2 = subprocess.call(com,
                                            stdout = self.poubelle,
-                                           stderr = self.fichier_sortie)
+                                           stderr = self.fichier_sortie,
+                                           env=self._legacy_env(),)
                 self.historique_commande.append(com)        
                 
                 chro_chro.fin()
@@ -663,7 +700,7 @@ class SolCommand:
                                   terminal = True):
         
         if meteo:
-            self.definir_meteo_ts(suffixe_apres, t_ciel = False)
+            self._definir_meteo_ts(suffixe_apres, t_ciel = False)
         
         com = [nom_commande,
                str(self.pas_de_temps),
@@ -739,9 +776,10 @@ class SolCommand:
         if terminal:
             retcode = subprocess.call(com,
                                       stdout = self.fichier_sortie, 
-                                      stderr = self.fichier_sortie)
+                                      stderr = self.fichier_sortie,
+                                      env=self._legacy_env(),)
         else:
-            retcode = subprocess.call(com)
+            retcode = subprocess.call(com, env=self._legacy_env(),)
                                           
         return retcode
     
@@ -865,7 +903,11 @@ class SolCommand:
             **options,
         )
 
-        lst_cle = self._build_ts_energie_bat_key_order(**options)
+        lst_cle = self._build_ts_energie_bat_key_order(
+            simulation_batiment=simulation_batiment,
+            simulation_vegetation=simulation_vegetation,
+            **options,
+        )
 
         self._ecrire_commande_Ts_EnergieBat_common(dic_com, lst_cle)
 
@@ -1001,9 +1043,23 @@ class SolCommand:
     def _ecrire_commande_Ts_EnergieBat_common(self, dic_com, lst_cle):
         texte = ""
         for cle in lst_cle:
-            texte += f"{dic_com[cle]}\n"
+            texte += f"{cle}\t{dic_com[cle]}\n"
 
         ecrire_fichier(self.fichier_commande, texte)
+
+    def _get_ts_energie_bat_executable(self) -> str:
+        mapping = {
+            "azam": self.tools.simulation_ts_energie_bat_azam,
+            "bb5": self.tools.simulation_ts_energie_bat_bb5,
+            "mixture": self.tools.simulation_ts_energie_bat_mixture,
+        }
+
+        try:
+            return str(mapping[self.profile.name])
+        except KeyError as exc:
+            raise ValueError(
+                f"Unsupported surface model for Ts/EnergieBat executable: {self.profile.name}"
+            ) from exc
 
     def simulation_Ts_EnergieBat_new(self,
                                      suffixe_avant, 
@@ -1011,7 +1067,6 @@ class SolCommand:
                                      simulation_batiment = True,
                                      simulation_vegetation = True,
                                      meteo = False, 
-                                     nom_commande = None,
                                      verbose = False,
                                      args_plus = None,
                                      terminal = False):
@@ -1019,9 +1074,11 @@ class SolCommand:
 
         chrono = Chrono('simulation_Ts_EnergieBat', 'solCommande')
         if meteo:
-            self.definir_meteo_ts(suffixe_apres, t_ciel = False)
+            self._definir_meteo_ts(suffixe_apres, t_ciel = False)
 
         self.ecrire_commande_Ts_EnergieBat(suffixe_avant, suffixe_apres, simulation_batiment, simulation_vegetation)
+
+        nom_commande = self._get_ts_energie_bat_executable()
 
         com = [nom_commande,
                self.fichier_commande]
@@ -1040,7 +1097,8 @@ class SolCommand:
         else:
             retcode = subprocess.call(com,
                                       stdout = self.fichier_sortie, 
-                                      stderr = self.fichier_sortie)
+                                      stderr = self.fichier_sortie,
+                                      env=self._legacy_env(),)
         self.historique_commande.append(com)
         if (simulation_batiment):
             self.check_nan(self.var['Tnoeud'] + '_' + suffixe_apres + '.txt')

@@ -2,21 +2,11 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
+from domain.geometry import SoleneGeometryArtifacts
 from infrastructure.solene.timeStep import TimeStep
-from domain.geometry import LegacySoleneGeometry
-
-
-@dataclass(frozen=True)
-class SoleneExportArtifacts:
-    """
-    Result of exporting Solene geometry files needed by the legacy Solene runtime.
-
-    This wraps the two .cir files produced by the equivalent of
-    `exporter_geom_solene()`.
-    """
-    scene_cir: Path
-    masque_cir: Path
-
+from infrastructure.solene.sol_command import SolCommand
+from infrastructure.solene.sol_env import SolEnv
+from infrastructure.saturne.sat_command import SatCommand
 
 @dataclass(frozen=True)
 class LegacySoleneEnvironment:
@@ -36,12 +26,14 @@ class LegacySoleneEnvironment:
     At this stage we still use legacy objects directly, but we want the application
     layer to hold one typed result rather than a loose set of unrelated variables.
     """
-    solene_geometry: LegacySoleneGeometry
-    export_artifacts: SoleneExportArtifacts
-    sol_command: Any
+    solene_geometry: SoleneGeometryArtifacts
+    sol_command: SolCommand
+    sat_command: SatCommand
+    familles: Any
     resul_sol: Any
     resul_sat: Any
-    sol_env: Any
+    sol_env: SolEnv
     time_step: TimeStep | None = None
     meteo_list: list[dict[str, Any]] = field(default_factory=list)
     meteo: dict[str, dict[str, Any]] = field(default_factory=dict)
+    n_proc_saturne: int = 1

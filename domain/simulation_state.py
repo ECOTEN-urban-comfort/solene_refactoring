@@ -111,12 +111,13 @@ class SimulationPhase(str, Enum):
     """
     BOOTSTRAPPING = "bootstrapping"
     GEOMETRY_INITIALIZED = "geometry_initialized"
-    GEOMETRY_EXTRACTED = "geometry_extracted"
+    FAMILLES_EXTRACTED = "familles_extracted"
     GEOMETRY_BUILT = "geometry_built"
     SOLENE_ENVIRONMENT_READY = "solene_environment_ready"
     SOLENE_RUNTIME_PREPARED = "solene_runtime_prepared"
     AIR_MODEL_EXECUTED = "air_model_executed"
     COUPLING_INITIALIZED = "coupling_initialized"
+    SATUNE_INITIALIZED = "saturne_initialized"
     RUNNING = "running"
     POSTPROCESSING = "postprocessing"
 
@@ -381,7 +382,7 @@ class SimulationState:
     # execution status without losing visibility of the overall run stage.
     bootstrapping: StepStatus = StepStatus.NOT_STARTED
     geometry_initialization: StepStatus = StepStatus.NOT_STARTED
-    geometry_extraction: StepStatus = StepStatus.NOT_STARTED
+    familles_extraction: StepStatus = StepStatus.NOT_STARTED
     geometry_building: StepStatus = StepStatus.NOT_STARTED
     solene_environment_creation: StepStatus = StepStatus.NOT_STARTED
     solene_shared_preparation: StepStatus = StepStatus.NOT_STARTED
