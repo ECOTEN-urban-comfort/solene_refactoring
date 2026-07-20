@@ -1,0 +1,5 @@
+<map id="cs_navsto_ac_t" name="cs_navsto_ac_t">
+<area shape="rect" id="node1" title="Set of parameters specific for solving the Navier&#45;Stokes system with the &quot;artificial compressibility&quot;..." alt="" coords="62,145,177,223"/>
+<area shape="rect" id="node2" href="$structcs__equation__t.html" title="Main structure to handle the discretization and the resolution of an equation." alt="" coords="5,5,108,83"/>
+<area shape="rect" id="node3" href="$structcs__property__t.html" title="Structure associated to the definition of a property relying on the cs_xdef_t structure." alt="" coords="133,5,234,83"/>
+</map>

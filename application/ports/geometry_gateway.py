@@ -16,8 +16,10 @@
 
 from typing import Any, Protocol
 
-from domain.geometry import LegacyExtractedGeometry, LegacySoleneGeometry, PreparedGeometryInputs
+from domain.geometry import PreparedGeometryInputs, SoleneGeometryArtifacts
+from domain.simulation_definition import SimulationBootstrap
 from domain.simulation_state import SimulationState
+from infrastructure.solene.famille import Familles
 
 
 class GeometryGateway(Protocol):
@@ -37,40 +39,20 @@ class GeometryGateway(Protocol):
         Prepare staged geometry-related inputs for technical processing.
         """
 
-    def extract_geometry(
+    def extract_families(
         self,
-        state: SimulationState,
-    ) -> LegacyExtractedGeometry:
+        bootstrap: SimulationBootstrap,
+        prepared: PreparedGeometryInputs,
+    ) -> Familles:
         """
         Execute the first legacy MED/family/material extraction step.
         """
 
-    def has_saved_med_geometry(self, prepared_inputs: PreparedGeometryInputs) -> bool:
-        """
-        Return True if the cached volumetric MED geometry already exists.
-        """
-
-    def load_saved_med_geometry(self, prepared_inputs: PreparedGeometryInputs) -> Any:
-        """
-        Load the cached volumetric MED geometry from persistence.
-
-        Returns:
-        - Any: the legacy geometry object (`Geom`) restored from `.cpl`.
-        """
-
-    def save_med_geometry(
-        self,
-        prepared_inputs: PreparedGeometryInputs,
-        geom_med: Any,
-    ) -> None:
-        """
-        Persist the current volumetric MED geometry to the cache.
-        """
-
     def build_solene_geometry(
         self,
-        state: SimulationState,
-    ) -> LegacySoleneGeometry:
+        prepared: PreparedGeometryInputs,
+        families: Familles,
+    ) -> SoleneGeometryArtifacts:
         """
         Execute the Solene-side geometry branch.
 

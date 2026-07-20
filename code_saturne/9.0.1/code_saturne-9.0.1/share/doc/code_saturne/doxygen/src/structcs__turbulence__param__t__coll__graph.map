@@ -1,0 +1,7 @@
+<map id="cs_turbulence_param_t" name="cs_turbulence_param_t">
+<area shape="rect" id="node1" title="Structure storing the parameters related to the resolution of the turbulence modelling...." alt="" coords="230,292,387,369"/>
+<area shape="rect" id="node2" href="$structcs__turb__model__t.html" title="Turbulence model general options descriptor." alt="" coords="5,27,124,207"/>
+<area shape="rect" id="node3" href="$structcs__turb__rans__model__t.html" title="RANS turbulence model descriptor." alt="" coords="148,5,299,229"/>
+<area shape="rect" id="node4" href="$structcs__turb__les__model__t.html" title="LES turbulence model descriptor." alt="" coords="323,79,465,156"/>
+<area shape="rect" id="node5" href="$structcs__turb__ref__values__t.html" title=" " alt="" coords="489,71,632,163"/>
+</map>

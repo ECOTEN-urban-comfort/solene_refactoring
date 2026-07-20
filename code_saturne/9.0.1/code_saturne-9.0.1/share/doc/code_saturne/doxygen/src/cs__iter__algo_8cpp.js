@@ -1,0 +1,28 @@
+var cs__iter__algo_8cpp =
+[
+    [ "cs_iter_algo_check_warning", "cs__iter__algo_8cpp.html#a42f272441f99edfa3e8a734cd51b827a", null ],
+    [ "cs_iter_algo_create", "cs__iter__algo_8cpp.html#a7c041ff04329ef5739056830af358905", null ],
+    [ "cs_iter_algo_create_with_settings", "cs__iter__algo_8cpp.html#a8db594763b59944874663617736619c3", null ],
+    [ "cs_iter_algo_free", "cs__iter__algo_8cpp.html#ac94db4a37e45269c15a7b7246f58ba22", null ],
+    [ "cs_iter_algo_get_anderson_param", "cs__iter__algo_8cpp.html#a6edd61498560fcbcb86eea1d6ffe9460", null ],
+    [ "cs_iter_algo_get_cvg_status", "cs__iter__algo_8cpp.html#a71e6ee06fff8cd1af817e992438ebd42", null ],
+    [ "cs_iter_algo_get_n_inner_iter", "cs__iter__algo_8cpp.html#afe6fd1a20ded48a1977427d5b21bb98a", null ],
+    [ "cs_iter_algo_get_n_iter", "cs__iter__algo_8cpp.html#a99d2f81184e3e6eef4099ac6c379d728", null ],
+    [ "cs_iter_algo_get_normalization", "cs__iter__algo_8cpp.html#ad0a5eee6cc10332caafee0559295afa0", null ],
+    [ "cs_iter_algo_get_residual", "cs__iter__algo_8cpp.html#ad5e6be1c588fdb716c32c1bc8122e19c", null ],
+    [ "cs_iter_algo_log_cvg", "cs__iter__algo_8cpp.html#a4cfd458d53467de52d778a88452fe4fb", null ],
+    [ "cs_iter_algo_release_anderson_arrays", "cs__iter__algo_8cpp.html#a4e1c702656258188d5cf5a2419d2323e", null ],
+    [ "cs_iter_algo_reset", "cs__iter__algo_8cpp.html#a3b4a84a2d174ce25f3f12f7fb4e4f710", null ],
+    [ "cs_iter_algo_set_anderson_param", "cs__iter__algo_8cpp.html#ade984d7dc76d1b3c50e4ac34c48f3a3a", null ],
+    [ "cs_iter_algo_set_cvg_param", "cs__iter__algo_8cpp.html#ae76a247d13dc01a5c381fcb13038e7db", null ],
+    [ "cs_iter_algo_set_cvg_status", "cs__iter__algo_8cpp.html#a95fd2248f5093d3cee63e479ffd394a9", null ],
+    [ "cs_iter_algo_set_initial_residual", "cs__iter__algo_8cpp.html#a71c13cdd7cef56006ce0e6056ee0933b", null ],
+    [ "cs_iter_algo_set_normalization", "cs__iter__algo_8cpp.html#ab69629bf0671dc72441876ce3bde650c", null ],
+    [ "cs_iter_algo_set_tolerance", "cs__iter__algo_8cpp.html#a45a813ed7fa1906a9f13a56403a1d05c", null ],
+    [ "cs_iter_algo_set_verbosity", "cs__iter__algo_8cpp.html#a9df32af82b8b3d7f2bb2fa14765e2cb2", null ],
+    [ "cs_iter_algo_update_anderson", "cs__iter__algo_8cpp.html#acbbf0a9af48cd2119190470108037d1b", null ],
+    [ "cs_iter_algo_update_cvg_tol_auto", "cs__iter__algo_8cpp.html#a7e2f1fc7fa42c20234e8eea2854986f1", null ],
+    [ "cs_iter_algo_update_cvg_tol_given", "cs__iter__algo_8cpp.html#ae5d8dc4992465c8ec077cb780c549ea9", null ],
+    [ "cs_iter_algo_update_inner_iters", "cs__iter__algo_8cpp.html#aa8ec11a2c47a29abacdbe036cb5a78fc", null ],
+    [ "cs_iter_algo_update_residual", "cs__iter__algo_8cpp.html#ab06a9f6924999a189a25fa01d0f9cc6a", null ]
+];

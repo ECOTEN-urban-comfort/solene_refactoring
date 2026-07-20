@@ -1,0 +1,4 @@
+<map id="Containers to Fortran array pointers." name="Containers to Fortran array pointers.">
+<area shape="rect" id="node1" title="An array of one of these derived types can be used to manage a set of pointers (Fortran not allow arr..." alt="" coords="180,5,325,45"/>
+<area shape="rect" id="node2" href="$group__pointer__variables.html" title=" " alt="" coords="5,5,132,45"/>
+</map>

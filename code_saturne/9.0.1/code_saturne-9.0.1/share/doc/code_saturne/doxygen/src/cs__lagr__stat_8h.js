@@ -1,0 +1,65 @@
+var cs__lagr__stat_8h =
+[
+    [ "cs_lagr_stat_options_t", "structcs__lagr__stat__options__t.html", "structcs__lagr__stat__options__t" ],
+    [ "cs_lagr_moment_e_data_t", "cs__lagr__stat_8h.html#a96ef8e98db6a37433b786b0c169e700c", null ],
+    [ "cs_lagr_moment_m_data_t", "cs__lagr__stat_8h.html#ae6b539af1728d7b307672bc5a48eb40a", null ],
+    [ "cs_lagr_moment_p_data_t", "cs__lagr__stat_8h.html#a2ed0dfe67c844c6909941b73390a378c", null ],
+    [ "cs_lagr_stat_group_t", "cs__lagr__stat_8h.html#a582e2672db3bbb29cf53132f568963c5", [
+      [ "CS_LAGR_STAT_GROUP_PARTICLE", "cs__lagr__stat_8h.html#a582e2672db3bbb29cf53132f568963c5a6791fe25b874c513a8dcca7aa5de9ed1", null ],
+      [ "CS_LAGR_STAT_GROUP_TRACKING_EVENT", "cs__lagr__stat_8h.html#a582e2672db3bbb29cf53132f568963c5a2d0a8ea3cc8a1a8c2803037098a95199", null ],
+      [ "CS_LAGR_STAT_GROUP_N_GROUPS", "cs__lagr__stat_8h.html#a582e2672db3bbb29cf53132f568963c5af33728d78bf3b9a1366e8edad168fc69", null ]
+    ] ],
+    [ "cs_lagr_stat_moment_t", "cs__lagr__stat_8h.html#a54d6ff3423859008c5472e7f31d8d074", [
+      [ "CS_LAGR_MOMENT_MEAN", "cs__lagr__stat_8h.html#a54d6ff3423859008c5472e7f31d8d074af0bfa593e812b7b9b6fd6ddd02936c6f", null ],
+      [ "CS_LAGR_MOMENT_VARIANCE", "cs__lagr__stat_8h.html#a54d6ff3423859008c5472e7f31d8d074a194fe841aafe50c35e0322fe15e4ecfe", null ]
+    ] ],
+    [ "cs_lagr_stat_restart_t", "cs__lagr__stat_8h.html#a338be885df6dd9c7ffdefe78df86b2d7", [
+      [ "CS_LAGR_MOMENT_RESTART_RESET", "cs__lagr__stat_8h.html#a338be885df6dd9c7ffdefe78df86b2d7adfb1749253e019e26e1fd29c0c159a90", null ],
+      [ "CS_LAGR_MOMENT_RESTART_AUTO", "cs__lagr__stat_8h.html#a338be885df6dd9c7ffdefe78df86b2d7addea33d08cd2d920f823a607beed3015", null ],
+      [ "CS_LAGR_MOMENT_RESTART_EXACT", "cs__lagr__stat_8h.html#a338be885df6dd9c7ffdefe78df86b2d7a708eba0e24a55c783c53cabdf6bc4fde", null ]
+    ] ],
+    [ "cs_lagr_stat_type_t", "cs__lagr__stat_8h.html#a2d3cad369b155d5739c3e2d95d67f6ad", [
+      [ "CS_LAGR_STAT_CUMULATIVE_WEIGHT", "cs__lagr__stat_8h.html#a2d3cad369b155d5739c3e2d95d67f6ada091c9cc92188d1390b17d68e71c852a1", null ],
+      [ "CS_LAGR_STAT_VOLUME_FRACTION", "cs__lagr__stat_8h.html#a2d3cad369b155d5739c3e2d95d67f6ada0721e351537bbd3ba4df56e81ca2ef4a", null ],
+      [ "CS_LAGR_STAT_E_CUMULATIVE_WEIGHT", "cs__lagr__stat_8h.html#a2d3cad369b155d5739c3e2d95d67f6ada2a9f666a0fc9ce1d791c0387c7a764b3", null ],
+      [ "CS_LAGR_STAT_RESUSPENSION_CUMULATIVE_WEIGHT", "cs__lagr__stat_8h.html#a2d3cad369b155d5739c3e2d95d67f6ada688f273ea39d1f5c526b36bb7e3d6692", null ],
+      [ "CS_LAGR_STAT_FOULING_CUMULATIVE_WEIGHT", "cs__lagr__stat_8h.html#a2d3cad369b155d5739c3e2d95d67f6adaa8494b8146b2cb2b7f853af6c76852e5", null ],
+      [ "CS_LAGR_STAT_MASS_FLUX", "cs__lagr__stat_8h.html#a2d3cad369b155d5739c3e2d95d67f6ada9f211917ee752e99e91c28a27cf525d4", null ],
+      [ "CS_LAGR_STAT_RESUSPENSION_MASS_FLUX", "cs__lagr__stat_8h.html#a2d3cad369b155d5739c3e2d95d67f6ada33174703c2bf4fd298416900c187e00d", null ],
+      [ "CS_LAGR_STAT_FOULING_MASS_FLUX", "cs__lagr__stat_8h.html#a2d3cad369b155d5739c3e2d95d67f6ada658a3ce6ffe60113b41790691eafc269", null ],
+      [ "CS_LAGR_STAT_IMPACT_ANGLE", "cs__lagr__stat_8h.html#a2d3cad369b155d5739c3e2d95d67f6adab4047dd05412dfdd525e6dff6f30e64e", null ],
+      [ "CS_LAGR_STAT_IMPACT_VELOCITY", "cs__lagr__stat_8h.html#a2d3cad369b155d5739c3e2d95d67f6adac70040e7b0915ee506352242700ad8e1", null ],
+      [ "CS_LAGR_STAT_FOULING_DIAMETER", "cs__lagr__stat_8h.html#a2d3cad369b155d5739c3e2d95d67f6adad8f80f011c408e756041cf54bdfab0cf", null ],
+      [ "CS_LAGR_STAT_FOULING_COKE_FRACTION", "cs__lagr__stat_8h.html#a2d3cad369b155d5739c3e2d95d67f6adaf2da3e680b5a60f0e59fb8f1220e1e67", null ],
+      [ "CS_LAGR_STAT_ATTR", "cs__lagr__stat_8h.html#a2d3cad369b155d5739c3e2d95d67f6ada3952b18561bc18e0ee423c214276629c", null ]
+    ] ],
+    [ "cs_lagr_stat_accumulator_define", "cs__lagr__stat_8h.html#a0c9abea473dfc66c878dd1e977b0c9b9", null ],
+    [ "cs_lagr_stat_activate", "cs__lagr__stat_8h.html#a812bb07c5dde1861487bed44af676627", null ],
+    [ "cs_lagr_stat_activate_attr", "cs__lagr__stat_8h.html#a1877f0668ba2995db2a266c458398b24", null ],
+    [ "cs_lagr_stat_activate_time_moment", "cs__lagr__stat_8h.html#ac09031e5c06e3746366d835ecc6b0d38", null ],
+    [ "cs_lagr_stat_deactivate", "cs__lagr__stat_8h.html#aca410d3f9252d8a33a2f92584f59552e", null ],
+    [ "cs_lagr_stat_deactivate_attr", "cs__lagr__stat_8h.html#a29496f154fd978264880a21b7ef4ca12", null ],
+    [ "cs_lagr_stat_event_define", "cs__lagr__stat_8h.html#a56ff2a7156ab94b708a7561be9fb3c61", null ],
+    [ "cs_lagr_stat_finalize", "cs__lagr__stat_8h.html#a790e602231f65a784b716a01eb97266c", null ],
+    [ "cs_lagr_stat_get_age", "cs__lagr__stat_8h.html#af233421c375768124060c6d9f53731c9", null ],
+    [ "cs_lagr_stat_get_moment", "cs__lagr__stat_8h.html#a8e62e1a7364a3e4218beef24b346c4d3", null ],
+    [ "cs_lagr_stat_get_moment_age", "cs__lagr__stat_8h.html#a8285a3aed53a9aab17ee0654731b7c22", null ],
+    [ "cs_lagr_stat_get_stat_weight", "cs__lagr__stat_8h.html#a988d512ca41f4906befa4c01f1d1231c", null ],
+    [ "cs_lagr_stat_initialize", "cs__lagr__stat_8h.html#a7bd0063b97eb7b6dfd103e6e92166a40", null ],
+    [ "cs_lagr_stat_is_active", "cs__lagr__stat_8h.html#ae20ed145006d3a8f43db734c3c6e64f6", null ],
+    [ "cs_lagr_stat_log_iteration", "cs__lagr__stat_8h.html#a522b9c0fd06ef2ce2a2d92698b9abada", null ],
+    [ "cs_lagr_stat_log_setup", "cs__lagr__stat_8h.html#aaf3beab16e60cce087dff9672918e459", null ],
+    [ "cs_lagr_stat_map_cell_dt", "cs__lagr__stat_8h.html#a50be7c3221ba9b34fddaf0f8e85b6426", null ],
+    [ "cs_lagr_stat_mesh_define", "cs__lagr__stat_8h.html#aea8d3be164eea323b28ec9ab701b0e66", null ],
+    [ "cs_lagr_stat_particle_define", "cs__lagr__stat_8h.html#a27d6ec00b5447a00372ae0aa9e39e5d9", null ],
+    [ "cs_lagr_stat_prepare", "cs__lagr__stat_8h.html#a84d4e967e166e7d843d1bae31b91f9af", null ],
+    [ "cs_lagr_stat_restart_read", "cs__lagr__stat_8h.html#ac23ad83cc7776c580bbc77afb502f8dc", null ],
+    [ "cs_lagr_stat_restart_write", "cs__lagr__stat_8h.html#a994da603fd3e71215b7080f627cfea68", null ],
+    [ "cs_lagr_stat_time_moment_define", "cs__lagr__stat_8h.html#a7f41e4132b85569a9b8c4bca44e411d3", null ],
+    [ "cs_lagr_stat_type_by_name", "cs__lagr__stat_8h.html#abb110edd012a2a110819a6baa3c761bd", null ],
+    [ "cs_lagr_stat_type_from_attr_id", "cs__lagr__stat_8h.html#a914bde1d80446256d3c53efecebcc69a", null ],
+    [ "cs_lagr_stat_type_to_attr_id", "cs__lagr__stat_8h.html#aaa340bc67043bb30be974091045dc27f", null ],
+    [ "cs_lagr_stat_update", "cs__lagr__stat_8h.html#ac4c720d0c0807d0d2f08df809d498aa8", null ],
+    [ "cs_lagr_stat_update_event", "cs__lagr__stat_8h.html#a5abe0c783e0a2fa5bfdfe91512b97bd3", null ],
+    [ "cs_glob_lagr_stat_options", "cs__lagr__stat_8h.html#abdc1e8b72c05c6a000c3cedb9479e081", null ]
+];

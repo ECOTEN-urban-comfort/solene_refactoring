@@ -1,0 +1,4 @@
+<map id="cs_property_data_t" name="cs_property_data_t">
+<area shape="rect" id="node1" title="Structure storing the evaluation of a property and its related data." alt="" coords="5,145,139,325"/>
+<area shape="rect" id="node2" href="$structcs__property__t.html" title="Structure associated to the definition of a property relying on the cs_xdef_t structure." alt="" coords="21,5,123,83"/>
+</map>

@@ -2,7 +2,6 @@ from dataclasses import dataclass
 import numpy as np
 
 from domain.air_model_definition import AirModelDefinition
-from domain.solene import LegacySoleneEnvironment
 from infrastructure.solene.air_models.formulas import (
     wind_speed_at_height,
     ashrae_hc,
@@ -10,7 +9,10 @@ from infrastructure.solene.air_models.formulas import (
     vehrencamp_hc,
     nusselt_hc,
 )
+from infrastructure.solene.sol_command import SolCommand
+from infrastructure.solene.sol_env import SolEnv
 from infrastructure.solene.sol_file import read_val, write_val
+from infrastructure.solene.timeStep import TimeStep
 
 
 @dataclass(frozen=True)
@@ -26,31 +28,33 @@ class AirModelRunConfig:
 class AirModelRunner:
     def run(
         self,
-        environment: LegacySoleneEnvironment,
         air_model: AirModelDefinition,
         config: AirModelRunConfig,
+        sol_command: SolCommand,
+        sol_env: SolEnv,
+        time_step: TimeStep,
+        meteo: dict[str, dict[str, float]]
     ) -> None:
         if air_model.hc_mode == "scalar":
-            self._run_scalar_hc_model(environment, air_model, config)
+            self._run_scalar_hc_model(air_model, config, sol_command, sol_env, time_step)
             return
 
         if air_model.hc_mode == "per_triangle":
-            self._run_per_triangle_hc_model(environment, air_model, config)
+            self._run_per_triangle_hc_model(air_model, config, sol_command, sol_env, time_step, meteo)
             return
 
         raise ValueError(f"Unsupported hc_mode: {air_model.hc_mode}")
 
     def _run_scalar_hc_model(
         self,
-        environment: LegacySoleneEnvironment,
         air_model: AirModelDefinition,
         config: AirModelRunConfig,
+        sol_command: SolCommand,
+        sol_env: SolEnv,
+        time_step: TimeStep,
+
     ) -> None:
-        time_step = environment.time_step
-        meteo_list = environment.meteo_list
-        meteo = environment.meteo
-        sol_env = environment.sol_env
-        sol_command = environment.sol_command
+        meteo_list = sol_env.meteo_liste
 
         if time_step is None:
             raise ValueError("Air model execution requires initialized TimeStep.")
@@ -104,15 +108,15 @@ class AirModelRunner:
 
     def _run_per_triangle_hc_model(
         self,
-        environment: LegacySoleneEnvironment,
         air_model: AirModelDefinition,
         config: AirModelRunConfig,
+        sol_command: SolCommand,
+        sol_env: SolEnv,
+        time_step: TimeStep,
+        meteo: dict[str, dict[str, float]]
     ) -> None:
-        time_step = environment.time_step
-        meteo_list = environment.meteo_list
-        meteo = environment.meteo
-        sol_env = environment.sol_env
-        sol_command = environment.sol_command
+
+        meteo_list = sol_env.meteo_liste
 
         if time_step is None:
             raise ValueError("Air model execution requires initialized TimeStep.")

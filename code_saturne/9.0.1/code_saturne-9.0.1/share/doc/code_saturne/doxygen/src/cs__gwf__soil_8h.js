@@ -1,0 +1,46 @@
+var cs__gwf__soil_8h =
+[
+    [ "cs_gwf_soil_vgm_spf_param_t", "structcs__gwf__soil__vgm__spf__param__t.html", "structcs__gwf__soil__vgm__spf__param__t" ],
+    [ "cs_gwf_soil_vgm_tpf_param_t", "struct__gwf__soil__vgm__tpf__param__t.html", "struct__gwf__soil__vgm__tpf__param__t" ],
+    [ "cs_gwf_soil_t", "struct__gwf__soil__t.html", "struct__gwf__soil__t" ],
+    [ "cs_gwf_soil_free_param_t", "cs__gwf__soil_8h.html#af6c6cfed8e71a2ed42443129a5fe9171", null ],
+    [ "cs_gwf_soil_tpf_eval_t", "cs__gwf__soil_8h.html#a97ddf007627e62de4ad25b0830a43026", null ],
+    [ "cs_gwf_soil_update_t", "cs__gwf__soil_8h.html#a9ae3c5889ec34e9442e3c7b66a1b4eca", null ],
+    [ "cs_gwf_soil_join_type_t", "cs__gwf__soil_8h.html#af3549a7ffa6f88fa354d4149779c0f2d", [
+      [ "CS_GWF_SOIL_JOIN_NOTHING", "cs__gwf__soil_8h.html#af3549a7ffa6f88fa354d4149779c0f2da8e6e14eb7192c29a2425f150e61a26ca", null ],
+      [ "CS_GWF_SOIL_JOIN_C1_HYPERBOLIC", "cs__gwf__soil_8h.html#af3549a7ffa6f88fa354d4149779c0f2da2996c0e7160551e2361063c124cf55c3", null ],
+      [ "CS_GWF_SOIL_JOIN_C1_EXPONENTIAL", "cs__gwf__soil_8h.html#af3549a7ffa6f88fa354d4149779c0f2da5a5b1c8e54089f218b2297d8bb00eaf4", null ],
+      [ "CS_GWF_SOIL_JOIN_C1_POLY_ORDER2", "cs__gwf__soil_8h.html#af3549a7ffa6f88fa354d4149779c0f2da155a6de1344c7e1463f60066821130d0", null ],
+      [ "CS_GWF_SOIL_N_JOINS", "cs__gwf__soil_8h.html#af3549a7ffa6f88fa354d4149779c0f2da7654df379b5a0efd0b2c6b0c8470660d", null ]
+    ] ],
+    [ "cs_gwf_soil_state_t", "cs__gwf__soil_8h.html#a3447be9fbdcebc5c5b16676a88a6d8db", [
+      [ "CS_GWF_SOIL_STATE_SATURATED", "cs__gwf__soil_8h.html#a3447be9fbdcebc5c5b16676a88a6d8dba430deeb567ad4184437878b0a98a359a", null ],
+      [ "CS_GWF_SOIL_STATE_UNSATURATED", "cs__gwf__soil_8h.html#a3447be9fbdcebc5c5b16676a88a6d8dba2a20c317912e2d04478d434213934380", null ],
+      [ "CS_GWF_SOIL_STATE_DRY", "cs__gwf__soil_8h.html#a3447be9fbdcebc5c5b16676a88a6d8dbaa7c7d730c1b4a19e4bd94cf24481effc", null ],
+      [ "CS_GWF_SOIL_N_STATES", "cs__gwf__soil_8h.html#a3447be9fbdcebc5c5b16676a88a6d8dbad0845097f31e30ea448c158440e8a83b", null ]
+    ] ],
+    [ "cs_gwf_get_n_soils", "cs__gwf__soil_8h.html#a2deab4df027fe49c61714d7211b05ebb", null ],
+    [ "cs_gwf_soil_build_dual_porous_volume", "cs__gwf__soil_8h.html#ab61bc94e3a72c502247942b04d5554bd", null ],
+    [ "cs_gwf_soil_by_id", "cs__gwf__soil_8h.html#a1d2fe1a93af35bb36f678c94779e4c78", null ],
+    [ "cs_gwf_soil_by_name", "cs__gwf__soil_8h.html#a38c5b76c998f837ca4e2acfe90c3ab8c", null ],
+    [ "cs_gwf_soil_create", "cs__gwf__soil_8h.html#a440c2c819e2673718213bbdccdbd3dd7", null ],
+    [ "cs_gwf_soil_define_shared_properties", "cs__gwf__soil_8h.html#aa4bd9c214d048b547688950e80c07e70", null ],
+    [ "cs_gwf_soil_define_sspf_property", "cs__gwf__soil_8h.html#acabb428e24b8a6ae1e6a94a89683a881", null ],
+    [ "cs_gwf_soil_finalize_setup", "cs__gwf__soil_8h.html#a364df6ec1ec1d1675ceda295cd0747f5", null ],
+    [ "cs_gwf_soil_free_all", "cs__gwf__soil_8h.html#a48eb1b22aacc93d1e58e861b8cb81989", null ],
+    [ "cs_gwf_soil_get_cell2soil", "cs__gwf__soil_8h.html#acae415ef9c96bdd643b90387fdd18d86", null ],
+    [ "cs_gwf_soil_get_dual_porous_volume", "cs__gwf__soil_8h.html#ad90dcafa55142a73747f5105bb19f54e", null ],
+    [ "cs_gwf_soil_get_permeability_max_dim", "cs__gwf__soil_8h.html#ab9a96ceadfbb196a7da3c59d4124e7ba", null ],
+    [ "cs_gwf_soil_get_porosity", "cs__gwf__soil_8h.html#ad9caa751f0594d542f5899d8bfdf4eec", null ],
+    [ "cs_gwf_soil_get_saturated_moisture", "cs__gwf__soil_8h.html#a0033d5357b9b5564d835400999500921", null ],
+    [ "cs_gwf_soil_get_soil_state", "cs__gwf__soil_8h.html#a129608c1b95d5b55b097b8885a6d67ca", null ],
+    [ "cs_gwf_soil_get_zone", "cs__gwf__soil_8h.html#ae740c75c1632841f7e0b32566e3ff42e", null ],
+    [ "cs_gwf_soil_log_setup", "cs__gwf__soil_8h.html#ae4756f7b8099ce5453bb8ca40931dbaf", null ],
+    [ "cs_gwf_soil_set_joining_poly_order", "cs__gwf__soil_8h.html#afca3d27225bf3ba1ebaf49c5f7b6c5aa", null ],
+    [ "cs_gwf_soil_set_user_model_param", "cs__gwf__soil_8h.html#a0246d8a128ca8401ab98ce1d5fea2239", null ],
+    [ "cs_gwf_soil_set_vgm_spf_param", "cs__gwf__soil_8h.html#aad87a52dc652239bd289524f8867da36", null ],
+    [ "cs_gwf_soil_set_vgm_tpf_advanced_param", "cs__gwf__soil_8h.html#a73bf1fc414fcf512ca99bb7d7b4737fb", null ],
+    [ "cs_gwf_soil_set_vgm_tpf_param", "cs__gwf__soil_8h.html#af2f159e28934e633d32351b4d0f6b4d1", null ],
+    [ "cs_gwf_soil_update", "cs__gwf__soil_8h.html#a6f2f016b349c28b25bb229aeea8c39a7", null ],
+    [ "cs_gwf_soil_update_soil_state", "cs__gwf__soil_8h.html#a8ba03dd7e05567d6f4733d1267b765eb", null ]
+];

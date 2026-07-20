@@ -18,7 +18,7 @@ from pathlib import Path
 from xml.dom import minidom
 
 from application.ports.configuration_provider import ConfigurationProvider
-from config.external_tools import build_tools_from_bin_dir
+from config.external_tools import build_saturne_external_tools, build_tools_from_bin_dir
 from config.runtime import build_runtime_paths
 from domain.simulation_definition import SimulationBootstrap, InputFiles, SimulationSettings
 from infrastructure.solene.air_models.registry import get_air_model_definition
@@ -75,6 +75,13 @@ class XmlConfigurationProvider(ConfigurationProvider):
             Path("/home/sol_user/solene_refactoring/common_c_tools/bin")
         )
 
+        saturne_tools = build_saturne_external_tools(
+            Path(
+                "/home/sol_user/solene_refactoring/code_saturne/"
+                "9.0.1/code_saturne-9.0.1"
+            )
+        )
+
         # New bootstrap shape: all discovered source files are grouped under
         # InputFiles instead of being spread as loose top-level fields.
         input_files = InputFiles(
@@ -92,6 +99,7 @@ class XmlConfigurationProvider(ConfigurationProvider):
             external_tools=external_tools,
             air_model=air_model_definition,
             surface_model=surface_model_profile,
+            saturne_tools=saturne_tools,
         )
 
     def _find_single_file(self, folder: Path, suffix: str) -> Path:

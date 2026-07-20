@@ -1,0 +1,25 @@
+var cs__hho__builder_8cpp =
+[
+    [ "_dp3", "cs__hho__builder_8cpp.html#a297276616990dea330fc0c359e7b8545", null ],
+    [ "_mv3", "cs__hho__builder_8cpp.html#a7a9c90900beb75344acd1f64b2a1b35b", null ],
+    [ "CS_HHO_BUILDER_DBG", "cs__hho__builder_8cpp.html#a17d7e65b27ae79fd83b1466d58e250a9", null ],
+    [ "_add_contrib_mcg", "cs__hho__builder_8cpp.html#afe2f5a8b12f21657109a1db7470fe7e6", null ],
+    [ "_add_contrib_mf_cg", "cs__hho__builder_8cpp.html#aec22e9f960e7467b0502b6ff03f731d1", null ],
+    [ "_add_tetra_reduction", "cs__hho__builder_8cpp.html#a8962b594b5fc0b400bf61a623afc19fd", null ],
+    [ "_add_tetra_reduction_v", "cs__hho__builder_8cpp.html#a1fe31bf44369fda493f73f7be1df3dcf", null ],
+    [ "_add_tetra_to_reco_op", "cs__hho__builder_8cpp.html#ae9dcdb80d3b411199cd7c71bee017a55", null ],
+    [ "_add_tria_reduction", "cs__hho__builder_8cpp.html#af46cca22ace92eb5990c258215ebc073", null ],
+    [ "_add_tria_reduction_v", "cs__hho__builder_8cpp.html#ae3a90d904574ba41975e3576c5cc787b", null ],
+    [ "_add_tria_to_reco_op", "cs__hho__builder_8cpp.html#abc2f0c8ad499f74ced4a80ec198a2478", null ],
+    [ "_compute_mcg", "cs__hho__builder_8cpp.html#aa6d1b73c79e37720f4a4d9a6ecc5089c", null ],
+    [ "_fill_vol_reco_op", "cs__hho__builder_8cpp.html#a4168e2447bd81a2abef96330e73631b5", null ],
+    [ "cs_hho_builder_cellwise_setup", "cs__hho__builder_8cpp.html#afedbe5d38de89655ffe43409ffaecc8d", null ],
+    [ "cs_hho_builder_compute_dirichlet", "cs__hho__builder_8cpp.html#a5853bdd28895ed3f1ecd3f5b4111a544", null ],
+    [ "cs_hho_builder_compute_dirichlet_v", "cs__hho__builder_8cpp.html#a3341df0e57eceb4fd5bbb4140748c4f1", null ],
+    [ "cs_hho_builder_compute_grad_reco", "cs__hho__builder_8cpp.html#a3c51ce56a028d908fd6c16fbca21bd79", null ],
+    [ "cs_hho_builder_create", "cs__hho__builder_8cpp.html#acc1137218c5d5bdfbbd0e849831e3851", null ],
+    [ "cs_hho_builder_diffusion", "cs__hho__builder_8cpp.html#a769e5170bf43c3b3d153895495f995fc", null ],
+    [ "cs_hho_builder_free", "cs__hho__builder_8cpp.html#a14ba869c744b8119ff7c30849de331cd", null ],
+    [ "cs_hho_builder_reduction_from_analytic", "cs__hho__builder_8cpp.html#ae2ac721b1495c76f6108bc24778e98b3", null ],
+    [ "cs_hho_builder_reduction_from_analytic_v", "cs__hho__builder_8cpp.html#afc544ae7fb78050510ca1a2da8204640", null ]
+];

@@ -1,0 +1,4 @@
+<map id="cs_combustion_bc_inlet_t" name="cs_combustion_bc_inlet_t">
+<area shape="rect" id="node1" title="Inlet definition for gas combustion." alt="" coords="5,336,179,501"/>
+<area shape="rect" id="node2" href="$structcs__zone__t.html" title=" " alt="" coords="15,5,169,273"/>
+</map>

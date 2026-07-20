@@ -1,0 +1,6 @@
+<map id="cs_hodge_t" name="cs_hodge_t">
+<area shape="rect" id="node1" title="Structure associated to a discrete Hodge operator *." alt="" coords="67,388,156,465"/>
+<area shape="rect" id="node2" href="$structcs__hodge__param__t.html" title="Structure storing all metadata/parameters related to the usage of a discrete Hodge operator." alt="" coords="5,175,137,296"/>
+<area shape="rect" id="node3" href="$structcs__property__data__t.html" title="Structure storing the evaluation of a property and its related data." alt="" coords="162,145,295,325"/>
+<area shape="rect" id="node4" href="$structcs__property__t.html" title="Structure associated to the definition of a property relying on the cs_xdef_t structure." alt="" coords="178,5,279,83"/>
+</map>

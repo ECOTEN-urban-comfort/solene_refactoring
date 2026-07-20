@@ -1,7 +1,6 @@
 from dataclasses import dataclass
 import traceback
 
-from domain.artifact_keys import LEGACY_SOLENE_ENVIRONMENT
 from domain.simulation_state import SimulationPhase, SimulationState, StepStatus
 from infrastructure.solene.air_models.runner import AirModelRunConfig, AirModelRunner
 
@@ -19,8 +18,7 @@ class AirModelService:
             state.set_step_status("air_model_execution", StepStatus.IN_PROGRESS)
 
             bootstrap = state.require_bootstrap_definition()
-            environment = state.results.get(LEGACY_SOLENE_ENVIRONMENT)
-            if environment is None:
+            if state.sol_command is None or state.sol_env is None or state.time_step is None:
                 raise ValueError(
                     "Cannot execute air model before Solene environment exists."
                 )
@@ -34,9 +32,12 @@ class AirModelService:
             )
 
             self.runner.run(
-                environment=environment,
                 air_model=air_model,
                 config=config,
+                sol_command=state.sol_command,
+                sol_env=state.sol_env,
+                time_step=state.time_step,
+                meteo=state.meteo,
             )
 
         except Exception as exc:

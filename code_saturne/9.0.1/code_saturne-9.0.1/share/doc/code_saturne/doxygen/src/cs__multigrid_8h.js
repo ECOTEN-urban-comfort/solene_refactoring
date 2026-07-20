@@ -1,0 +1,35 @@
+var cs__multigrid_8h =
+[
+    [ "cs_multigrid_t", "cs__multigrid_8h.html#a20ba2184cfbebea6a7afaf39591bcb9c", null ],
+    [ "cs_multigrid_type_t", "cs__multigrid_8h.html#a3b23c80fb91f5738452a2eb9490cecc0", [
+      [ "CS_MULTIGRID_V_CYCLE", "cs__multigrid_8h.html#a3b23c80fb91f5738452a2eb9490cecc0a9aa1b73d46f2515ceb7a5f43a13721a0", null ],
+      [ "CS_MULTIGRID_K_CYCLE", "cs__multigrid_8h.html#a3b23c80fb91f5738452a2eb9490cecc0a282f405864331d8f27c4e9085e9347f5", null ],
+      [ "CS_MULTIGRID_K_CYCLE_HPC", "cs__multigrid_8h.html#a3b23c80fb91f5738452a2eb9490cecc0a67db203fd60bd636b5f5bb1052fe2ea9", null ],
+      [ "CS_MULTIGRID_N_TYPES", "cs__multigrid_8h.html#a3b23c80fb91f5738452a2eb9490cecc0a3e7048159d24ae3d0b69cbcbfe97b7f8", null ]
+    ] ],
+    [ "cs_multigrid_copy", "cs__multigrid_8h.html#a51ff347147ead50dacf9dcc67c6289b5", null ],
+    [ "cs_multigrid_create", "cs__multigrid_8h.html#a977d9c54c2f463604233f9996dd19330", null ],
+    [ "cs_multigrid_define", "cs__multigrid_8h.html#a417bb41269f6b2d1c766fdfd7b8cc0a2", null ],
+    [ "cs_multigrid_destroy", "cs__multigrid_8h.html#ae31eaf72dd1de54c61f0a5420a4ae146", null ],
+    [ "cs_multigrid_error_post_and_abort", "cs__multigrid_8h.html#a9ad734b5ceb005af3df80945dceddca2", null ],
+    [ "cs_multigrid_finalize", "cs__multigrid_8h.html#ad86a8eeaaf1bdbcbe9af780483423977", null ],
+    [ "cs_multigrid_free", "cs__multigrid_8h.html#aa48e2ee74cd3c06682127002719b4a6c", null ],
+    [ "cs_multigrid_get_grid", "cs__multigrid_8h.html#a9f8b9318ae6502fc39fcb63b9e16fa5b", null ],
+    [ "cs_multigrid_get_merge_options", "cs__multigrid_8h.html#a3d5b1ea120634a19f22e484fad957870", null ],
+    [ "cs_multigrid_initialize", "cs__multigrid_8h.html#ab54bce1cea4866288f2f19a7b5078dad", null ],
+    [ "cs_multigrid_log", "cs__multigrid_8h.html#ac40354b8b5e89bdeb5367868e154aa43", null ],
+    [ "cs_multigrid_need_msr", "cs__multigrid_8h.html#aa53082aea05e5c72132af9836c6d79b0", null ],
+    [ "cs_multigrid_pc_create", "cs__multigrid_8h.html#a5f3a565b8c47572f64aabbbe157a2367", null ],
+    [ "cs_multigrid_set_coarsening_options", "cs__multigrid_8h.html#a5c6f0b0bc5fc0ae407da9cfbdf935eb8", null ],
+    [ "cs_multigrid_set_coarsening_options_fine_grid", "cs__multigrid_8h.html#a1001359f4e46869d9b41c3230b7eeeaf", null ],
+    [ "cs_multigrid_set_max_cycles", "cs__multigrid_8h.html#ad78e9bd29dacabdcab21259eaf054bbc", null ],
+    [ "cs_multigrid_set_max_grid_level_for_device", "cs__multigrid_8h.html#a3e383b5c13dc81448220bb792da08191", null ],
+    [ "cs_multigrid_set_merge_options", "cs__multigrid_8h.html#a81d0644403b2d62cad668bb0aa6d6f6e", null ],
+    [ "cs_multigrid_set_plot_options", "cs__multigrid_8h.html#a9762eecfe0031676918305e0d0d37fa9", null ],
+    [ "cs_multigrid_set_solver_options", "cs__multigrid_8h.html#aa3fcf31a4edfc5d849804b9e0b137c3e", null ],
+    [ "cs_multigrid_set_solver_options_d", "cs__multigrid_8h.html#a1e8ffd1de2e99dcc8c93924f5d4f5f12", null ],
+    [ "cs_multigrid_setup", "cs__multigrid_8h.html#a0e4cf3fdd9e9d4815d15acbda7156021", null ],
+    [ "cs_multigrid_setup_conv_diff", "cs__multigrid_8h.html#a10962cab04d538d25afd671c650d3351", null ],
+    [ "cs_multigrid_solve", "cs__multigrid_8h.html#a6805fcd393efdad18978368b1f6e99bb", null ],
+    [ "cs_multigrid_type_name", "cs__multigrid_8h.html#adb7c93e65e03d5203327b3484735d519", null ]
+];

@@ -1,0 +1,59 @@
+
+
+
+
+            SUMMARY OF MED CONFIGURATION
+            ============================
+
+General Information:
+-------------------
+
+                   MED Version : 4.1.1 
+                   HDF Version : "HDF5 library version: 1.10.6" 
+                  Configured on: Thu Mar 26 22:36:00 UTC 2026
+                  Configured by: sol_user@buildkitsandbox
+                    Host system: x86_64-unknown-linux-gnu
+              Uname information: Linux buildkitsandbox 6.6.87.2-microsoft-standard-WSL2 #1 SMP PREEMPT_DYNAMIC Thu Jun  5 18:30:46 UTC 2025 x86_64 x86_64 x86_64 GNU/Linux
+                      Libraries: static, shared
+             Installation point: /home/sol_user/code_saturne/9.0.1/med-4.1.1
+
+Compiling Options:
+------------------
+                     C Compiler: /usr/bin/cc
+                         CFLAGS: -g -O2
+                       CPPFLAGS: 
+               Shared Libraries: yes
+               Static Libraries: yes
+                Extra libraries:  
+#          Fortran Compiler F77 :  (F77 var. used to build MED library interface)
+#       Fortran Compiler FFLAGS :  (FFLAGS var. used to build MED library interface)
+#        Fortran Compiler FLIBS :  (FLIBS var. used to build MED library interface)
+                    med_int is : long (based on fortran integer size (if fortran is enabled))
+                   C++ Compiler: /usr/bin/c++
+                   C++ Flags   : -g -O2
+                hdf5 CPP_FLAGS : -DH5_USE_16_API -I/home/sol_user/code_saturne/9.0.1/hdf5-1.10.6/include
+                  hdf5 LDFLAGS : -L/home/sol_user/code_saturne/9.0.1/hdf5-1.10.6/lib
+                        h5dump : /home/sol_user/code_saturne/9.0.1/hdf5-1.10.6/bin/h5dump
+                    hdf5 is // : no
+                        Python : Python not available
+			  Swig : SWIG not available.
+
+Features:
+---------
+
+                              Error Messages : yes
+      Return an error if a MED file contains 
+  an object of a previous data model version 
+ which is not managable by a MED3.0 function : yes (may be time/cpu consuming for files 
+                                                    containing fields with many computation steps )
+
+#                  Compiling F90 tests suite : 
+#          FC used to compile MED .f90 tests :     
+#    FCFLAGSS used to compile MED .f90 tests : 
+#    FCLIBS   used to compile MED .f90 tests : 
+
+    FTLDFLAGS var. for linking Fortran tests : 
+      FTLIBS var.  for linking Fortran tests : 
+
+                      Tk/wish used for xmdump : 
+

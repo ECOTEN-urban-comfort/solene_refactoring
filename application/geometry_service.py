@@ -26,10 +26,9 @@ from domain.artifact_keys import (
     STAGED_MATERIAU_XML,
     PREPARED_INPUT_ARTIFACT,
     PREPARED_GEOMETRY_INPUTS,
-    LEGACY_EXTRACTED_GEOMETRY,
-    LEGACY_SOLENE_GEOMETRY,
-    FAMILLES
+    BUILT_GEOMETRY_ARTIFACTS,
 )
+from domain.geometry import PreparedGeometryInputs
 from domain.simulation_state import (
     ArtifactRef,
     SimulationPhase,
@@ -106,7 +105,7 @@ class GeometryService:
             )
 
             # Store the technical preparation result for the next adapter step.
-            state.results[PREPARED_GEOMETRY_INPUTS] = prepared
+            state.geometry_ref[PREPARED_GEOMETRY_INPUTS] = prepared
 
         except Exception as exc:
             state.set_step_status("geometry_initialization", StepStatus.FAILED)
@@ -117,21 +116,22 @@ class GeometryService:
         state.set_phase(SimulationPhase.GEOMETRY_INITIALIZED)
         return state
     
-    def extract_legacy_geometry(self, state: SimulationState) -> SimulationState:
+    def extract_families(self, state: SimulationState) -> SimulationState:
         try:
-            state.set_step_status("familles_extraction", StepStatus.IN_PROGRESS)
-            self._require_geometry_initialized(state)
+            state.set_step_status("families_extraction", StepStatus.IN_PROGRESS)
 
-            familles = self.gateway.extract_familles(state)
+            prepared_geometry = self._require_prepared_inputs(state)
+            bootstrap = state.require_bootstrap_definition()
+            families = self.gateway.extract_families(bootstrap, prepared_geometry)
 
-            state.results[FAMILLES] = familles
+            state.families = families
 
         except Exception as exc:
-            state.set_step_status("familles_extraction", StepStatus.FAILED)
+            state.set_step_status("families_extraction", StepStatus.FAILED)
             state.set_validity(False, str(exc))
             return state
 
-        state.set_step_status("familles_extraction", StepStatus.DONE)
+        state.set_step_status("families_extraction", StepStatus.DONE)
         state.set_phase(SimulationPhase.FAMILLES_EXTRACTED)
         return state
     
@@ -142,14 +142,16 @@ class GeometryService:
         try:
             state.set_step_status("geometry_building", StepStatus.IN_PROGRESS)
 
-            extracted = state.results.get(LEGACY_EXTRACTED_GEOMETRY)
-            if extracted is None:
+            prepared_geometry = self._require_prepared_inputs(state)
+            families = state.families
+
+            if prepared_geometry is None or families is None:
                 raise ValueError(
-                    "Cannot build Solene-side geometry before legacy MED extraction."
+                    "Cannot build Solene-side geometry before legacy MED extraction and family definition."
                 )
 
-            solene_geometry = self.gateway.build_solene_geometry(state)
-            state.results[LEGACY_SOLENE_GEOMETRY] = solene_geometry
+            solene_geometry = self.gateway.build_solene_geometry(prepared_geometry, families)
+            state.geometry_ref[BUILT_GEOMETRY_ARTIFACTS] = solene_geometry
 
         except Exception as exc:
             state.set_step_status("geometry_building", StepStatus.FAILED)
@@ -202,20 +204,13 @@ class GeometryService:
                 f"Artifact '{artifact_key}' points to a missing file: {artifact.path}"
             )
         
-    def _require_geometry_initialized(self, state: SimulationState) -> None:
+    def _require_prepared_inputs(self, state: SimulationState) -> PreparedGeometryInputs:
         """
-        Ensure the previous application milestone completed successfully.
-
-        The extraction step depends on the technical staging prepared by the
-        previous geometry-initialization boundary.
+        Ensure geometry preparation already ran before extraction starts.
         """
-        if not state.geometry_initialization == StepStatus.DONE:
-            raise ValueError(
-                "Geometry extraction cannot run before geometry initialization succeeds."
-            )
-
-        prepared = state.results.get(PREPARED_GEOMETRY_INPUTS)
+        prepared = state.geometry_ref.get("prepared_geometry_inputs")
         if prepared is None:
             raise ValueError(
-                "Prepared geometry inputs are missing from SimulationState.results."
+                "Prepared geometry inputs are missing; run geometry preparation first."
             )
+        return prepared

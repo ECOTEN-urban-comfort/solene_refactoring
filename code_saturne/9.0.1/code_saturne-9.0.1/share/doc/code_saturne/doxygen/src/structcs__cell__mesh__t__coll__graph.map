@@ -1,0 +1,5 @@
+<map id="cs_cell_mesh_t" name="cs_cell_mesh_t">
+<area shape="rect" id="node1" title="Set of local quantities and connectivities related to a mesh cell." alt="" coords="48,204,161,428"/>
+<area shape="rect" id="node2" href="$structcs__quant__t.html" title=" " alt="" coords="5,5,92,112"/>
+<area shape="rect" id="node3" href="$structcs__nvec3__t.html" title=" " alt="" coords="116,13,205,105"/>
+</map>

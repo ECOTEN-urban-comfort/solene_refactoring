@@ -1,6 +1,7 @@
 from application.ports.solene_gateway import SoleneGateway
+from domain.geometry import SoleneGeometryArtifacts
 from domain.simulation_state import SimulationPhase, SimulationState, StepStatus
-from domain.artifact_keys import LEGACY_SOLENE_GEOMETRY, LEGACY_SOLENE_ENVIRONMENT
+from domain.artifact_keys import BUILT_GEOMETRY_ARTIFACTS
 
 class SoleneService:
     """
@@ -23,14 +24,21 @@ class SoleneService:
         try:
             state.set_step_status("solene_environment_creation", StepStatus.IN_PROGRESS)
 
-            solene_geometry = state.results.get(LEGACY_SOLENE_GEOMETRY)
-            if solene_geometry is None:
+            geometry = state.geometry_ref.get(BUILT_GEOMETRY_ARTIFACTS)
+            bootstrap = state.require_bootstrap_definition()
+            families = state.families
+
+            if bootstrap is None or geometry is None or families is None:
                 raise ValueError(
-                    "Cannot create Solene environment before Solene-side geometry exists."
+                    "Cannot create Solene environment before Solene-side prerequisites are available."
                 )
 
-            environment = self.gateway.create_environment(state)
-            state.results[LEGACY_SOLENE_ENVIRONMENT] = environment
+            sol_command, sat_command, sol_env, time_step, meteo = self.gateway.create_environment(bootstrap, geometry, families)
+            state.sol_command = sol_command
+            state.sat_command = sat_command
+            state.sol_env = sol_env
+            state.time_step = time_step
+            state.meteo = meteo
 
         except Exception as exc:
             state.set_step_status("solene_environment_creation", StepStatus.FAILED)
@@ -49,14 +57,14 @@ class SoleneService:
         """
         try:
             state.set_step_status("solene_shared_preparation", StepStatus.IN_PROGRESS)
-
-            environment = state.results.get(LEGACY_SOLENE_ENVIRONMENT)
-            if environment is None:
+            sol_command = state.sol_command
+            sol_env = state.sol_env
+            if sol_command is None or sol_env is None:
                 raise ValueError(
                     "Cannot prepare shared Solene runtime before environment exists."
                 )
 
-            self.gateway.prepare_shared_runtime(environment)
+            self.gateway.prepare_shared_runtime(sol_command, sol_env)
 
         except Exception as exc:
             state.set_step_status("solene_shared_preparation", StepStatus.FAILED)
@@ -66,3 +74,11 @@ class SoleneService:
         state.set_step_status("solene_shared_preparation", StepStatus.DONE)
         state.set_phase(SimulationPhase.SOLENE_RUNTIME_PREPARED)
         return state
+    
+    def _require_solene_geometry(self, state: SimulationState) -> SoleneGeometryArtifacts:
+        solene_geometry = state.geometry_ref.get(BUILT_GEOMETRY_ARTIFACTS)
+        if solene_geometry is None:
+            raise ValueError(
+                "Solene-side geometry is missing; build it before creating the Solene environment."
+            )
+        return solene_geometry

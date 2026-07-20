@@ -1,0 +1,6 @@
+<map id="cs_gui_volume_meg_context_t" name="cs_gui_volume_meg_context_t">
+<area shape="rect" id="node1" title=" " alt="" coords="37,623,240,700"/>
+<area shape="rect" id="node2" href="$structcs__zone__t.html" title=" " alt="" coords="5,292,160,560"/>
+<area shape="rect" id="node3" href="$structcs__field__t.html" title="Field descriptor." alt="" coords="184,314,288,538"/>
+<area shape="rect" id="node4" href="$structcs__field__bc__coeffs__t.html" title="Field boundary condition descriptor (for variables)" alt="" coords="165,5,307,229"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="cs_equation_system_param_t" name="cs_equation_system_param_t">
+<area shape="rect" id="node1" title="Main structure storing the parameter settings." alt="" coords="33,520,175,759"/>
+<area shape="rect" id="node2" href="$structcs__property__t.html" title="Structure associated to the definition of a property relying on the cs_xdef_t structure." alt="" coords="5,285,107,362"/>
+<area shape="rect" id="node3" href="$structcs__param__sles__t.html" title="Structure storing all metadata related to the resolution of a linear system with an iterative solver." alt="" coords="131,189,282,457"/>
+<area shape="rect" id="node4" href="$structcs__param__convergence__t.html" title="Set of parameters to check the convergence (or the divergence) of an iterative process (tolerances or..." alt="" coords="121,5,292,127"/>
+</map>

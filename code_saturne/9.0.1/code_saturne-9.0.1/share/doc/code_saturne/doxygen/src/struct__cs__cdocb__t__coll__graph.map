@@ -1,0 +1,15 @@
+<map id="cs_cdocb_scaleq_t" name="cs_cdocb_scaleq_t">
+<area shape="rect" id="node1" title=" " alt="" coords="464,1244,615,1571"/>
+<area shape="rect" id="node2" href="$structcs__hodge__t.html" title="Structure associated to a discrete Hodge operator *." alt="" coords="184,1016,273,1093"/>
+<area shape="rect" id="node3" href="$structcs__hodge__param__t.html" title="Structure storing all metadata/parameters related to the usage of a discrete Hodge operator." alt="" coords="5,700,137,821"/>
+<area shape="rect" id="node4" href="$structcs__property__data__t.html" title="Structure storing the evaluation of a property and its related data." alt="" coords="162,671,295,851"/>
+<area shape="rect" id="node5" href="$structcs__property__t.html" title="Structure associated to the definition of a property relying on the cs_xdef_t structure." alt="" coords="158,329,259,406"/>
+<area shape="rect" id="node6" href="$structcs__cdo__system__helper__t.html" title=" " alt="" coords="617,663,784,858"/>
+<area shape="rect" id="node9" href="$structcs__saddle__solver__t.html" title=" " alt="" coords="472,928,607,1181"/>
+<area shape="rect" id="node7" href="$structcs__cdo__system__block__t.html" title=" " alt="" coords="635,307,798,428"/>
+<area shape="rect" id="node8" href="$structcs__cdo__system__block__info__t.html" title=" " alt="" coords="641,5,793,171"/>
+<area shape="rect" id="node10" href="$structcs__param__saddle__t.html" title="Structure storing all metadata related to the resolution of a saddle&#45;point linear system...." alt="" coords="341,656,476,865"/>
+<area shape="rect" id="node11" href="$structcs__param__convergence__t.html" title="Set of parameters to check the convergence (or the divergence) of an iterative process (tolerances or..." alt="" coords="399,27,570,149"/>
+<area shape="rect" id="node12" href="$structcs__param__sles__t.html" title="Structure storing all metadata related to the resolution of a linear system with an iterative solver." alt="" coords="409,233,560,501"/>
+<area shape="rect" id="node13" href="$structcs__iter__algo__t.html" title="Structure to handle the convergence of an iterative algorithm." alt="" coords="547,525,649,632"/>
+</map>

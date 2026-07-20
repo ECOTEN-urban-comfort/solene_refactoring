@@ -16,7 +16,7 @@
 from dataclasses import dataclass
 from pathlib import Path
 
-from config.external_tools import CommonCExternalTools
+from config.external_tools import CommonCExternalTools, SaturneExternalTools
 from domain.air_model_definition import AirModelDefinition
 from infrastructure.solene.profiles.surface_model_profile import SurfaceModelProfile
 from domain.workspace import RuntimePaths
@@ -96,3 +96,4 @@ class SimulationBootstrap:
     external_tools: CommonCExternalTools
     air_model: AirModelDefinition
     surface_model: SurfaceModelProfile
+    saturne_tools: SaturneExternalTools

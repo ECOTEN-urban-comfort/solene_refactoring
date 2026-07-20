@@ -1,0 +1,35 @@
+var cs__mem_8h =
+[
+    [ "cs_alloc_mode", "cs__mem_8h.html#a95b7c79d8a5b96cbdebd810a0f3debbe", null ],
+    [ "cs_alloc_mode_read_mostly", "cs__mem_8h.html#a9d9e6291575ea418b2e5d40a78eb3006", null ],
+    [ "cs_associate_device_ptr", "cs__mem_8h.html#a775a0fbc9d93c167eea7f9eb0169614c", null ],
+    [ "cs_disassociate_device_ptr", "cs__mem_8h.html#a89f02c5b053dc9a3040b746355eb402d", null ],
+    [ "CS_FREE", "cs__mem_8h.html#a1305a683ffa7d97ca334f9b9860d9dea", null ],
+    [ "CS_MALLOC", "cs__mem_8h.html#ac896f25e54a3bf215963ac7689f0c7b5", null ],
+    [ "CS_MALLOC_HD", "cs__mem_8h.html#a819c5d8e6c33d98cb4802ea1ee67a5c3", null ],
+    [ "cs_mem_advise_set_read_mostly", "cs__mem_8h.html#a0d9bc3a8720012edd246cacf701995f9", null ],
+    [ "cs_mem_advise_unset_read_mostly", "cs__mem_8h.html#a22b324f86af5f4656055a56b02453678", null ],
+    [ "CS_MEMALIGN", "cs__mem_8h.html#a49dfaa8dd24a2f811cdf580b27ba25ed", null ],
+    [ "CS_REALLOC", "cs__mem_8h.html#aa5764e6f3209fd15798fc24579e88f1a", null ],
+    [ "CS_REALLOC_HD", "cs__mem_8h.html#a2aff1d0b5622f832f4f49af3c2ef9109", null ],
+    [ "cs_set_alloc_mode", "cs__mem_8h.html#a802af2705ca055099573598429e7ea9d", null ],
+    [ "cs_set_alloc_mode_r", "cs__mem_8h.html#a1e0307aec7c4ce97f7293d3c71a453ec", null ],
+    [ "cs_alloc_mode_t", "cs__mem_8h.html#ae4e6db1712d61f0570af15479443e8b1", [
+      [ "CS_ALLOC_HOST", "cs__mem_8h.html#ae4e6db1712d61f0570af15479443e8b1a012f95ac8a955f474ae32b7dc593cd73", null ],
+      [ "CS_ALLOC_HOST_DEVICE", "cs__mem_8h.html#ae4e6db1712d61f0570af15479443e8b1a88286cb2ee0c46b9444b92b5fdb61e7c", null ],
+      [ "CS_ALLOC_HOST_DEVICE_PINNED", "cs__mem_8h.html#ae4e6db1712d61f0570af15479443e8b1a7d4bdc14873fd9617483893c803a306f", null ],
+      [ "CS_ALLOC_HOST_DEVICE_SHARED", "cs__mem_8h.html#ae4e6db1712d61f0570af15479443e8b1a80a9070509017670c2aba5f13ef35ee1", null ],
+      [ "CS_ALLOC_DEVICE", "cs__mem_8h.html#ae4e6db1712d61f0570af15479443e8b1ac830a5b89d04c23487a206c52e33adac", null ]
+    ] ],
+    [ "cs_check_device_ptr", "cs__mem_8h.html#ab8ec12bc55abd5e12f6e403fe6cfb70f", null ],
+    [ "cs_get_device_ptr", "cs__mem_8h.html#add971a960159c2f26da6218cf2953761", null ],
+    [ "cs_get_device_ptr_const", "cs__mem_8h.html#a6c84d69b057bcb66003df8110ca0d4a3", null ],
+    [ "cs_get_device_ptr_const_pf", "cs__mem_8h.html#a008acadcaf653bbbb887ae5502a9d1ef", null ],
+    [ "cs_mem_is_device_ptr", "cs__mem_8h.html#a25838704a1e1e487f3ab8028dcd4a7b8", null ],
+    [ "cs_mem_stats", "cs__mem_8h.html#ab6f19ccf85cca0d70fc1b63e77cf051b", null ],
+    [ "cs_prefetch_d2h", "cs__mem_8h.html#a4e3ccc0be8b2b61c604f6d0613d31873", null ],
+    [ "cs_prefetch_h2d", "cs__mem_8h.html#aa7f8b641028e8da24a6b6a6c9faf3b8f", null ],
+    [ "cs_sync_d2h", "cs__mem_8h.html#a836c7521cd2678d5e213f87d83d9e706", null ],
+    [ "cs_sync_d2h_if_needed", "cs__mem_8h.html#ad68493274d1b1f86a19455595d00e1fb", null ],
+    [ "cs_sync_h2d", "cs__mem_8h.html#ad953b4c7adf0524c45d88f01934f21df", null ]
+];

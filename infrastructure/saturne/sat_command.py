@@ -18,14 +18,16 @@ Modified in 5/14/2026
 """
 
 import os
+from pathlib import Path
 import time
 import xml.dom.minidom
 
 import subprocess
 import numpy as np
 
-from utils import ecrire_fichier, lst2str, couper_ligne_f77, couper_ligne_cpp,lst2str2
-from xmlFile import XmlFile
+from infrastructure.solene.utils import ecrire_fichier, lst2str, couper_ligne_f77, couper_ligne_cpp
+from infrastructure.solene.xmlFile import XmlFile
+from infrastructure.saturne.templates import SaturneTemplateRepository
 
 import threading
 import queue
@@ -33,31 +35,9 @@ import queue
 
 
 JOIN = os.path.join
-CHEMIN_TMP_SATURNE = JOIN('/home', os.environ['USER'], 'tmp_Saturne')
 
 PARAM_METEO = ['T', 'v', 'direction', 'w']
 
-ICI = os.path.split(__file__)[0]
-
-##################################
-## SATURNE 9 inputs
-##################################
-
-F_CS_SOURCETERMS = open(os.path.join(ICI, 'satsubroutines', 'cs_user_source_terms.cpp'), 'r')
-CS_SOURCETERMS = F_CS_SOURCETERMS.read()
-F_CS_SOURCETERMS.close()
-
-F_CS_BOUNDARY = open(os.path.join(ICI, 'satsubroutines', 'cs_user_boundary_conditions.f90'), 'r')
-CS_BOUNDARY = F_CS_BOUNDARY.read()
-F_CS_BOUNDARY.close()
-
-F_CS_POSTPROCESS = open(os.path.join(ICI, 'satsubroutines', 'cs_user_postprocess.cpp'), 'r')
-CS_POSTPROCESS = F_CS_POSTPROCESS.read()
-F_CS_POSTPROCESS.close()
-
-F_SATURNE_XML = open(os.path.join(ICI, 'satsubroutines', 'saturne3.xml'), 'r')
-SATURNE_3_XML = F_SATURNE_XML.read()
-F_SATURNE_XML.close()
 
 
 ##############################
@@ -230,13 +210,29 @@ def parse_listing_tab(ligne):
 ##############################
 
 class SatCommand:
-    """
-    Saturn simulation control class
-    """
-    def __init__(self, chemin_sim, nom_cas, creer = False,case = 'CASE1'):
+    def __init__(
+        self,
+        chemin_sim: str | Path,
+        nom_cas: str,
+        *,
+        code_saturne_executable: str | Path,
+        tmp_saturne_dir: str | Path,
+        template_repo: SaturneTemplateRepository | None = None,
+        creer: bool = False,
+        case: str = "CASE1",
+    ) -> None:
 
         self.nom_cas = nom_cas.upper()
         self.case1 = case
+        self.code_saturne_executable = Path(code_saturne_executable)
+        self.template_repo = template_repo or SaturneTemplateRepository()
+
+        self.tmp_saturne_dir = (
+            Path(tmp_saturne_dir)
+            if tmp_saturne_dir is not None
+            else chemin_sim.parent / "tmpSaturne"
+        )
+        self.tmp_saturne_dir.mkdir(parents=True, exist_ok=True)
 
         # paths to Saturn's output  file tree
         self.chemins = {}
@@ -288,12 +284,11 @@ class SatCommand:
         self.iteration = 200
         
         # Code Saturne subroutines
-        self.cs_boundary_perso = CS_BOUNDARY
-        self.cs_sourceterms_perso = CS_SOURCETERMS
-        self.cs_postprocess_perso = CS_POSTPROCESS
+        self.cs_boundary_perso = self.template_repo.load().cs_user_boundary_conditions
+        self.cs_sourceterms_perso = self.template_repo.load().cs_user_source_terms
+        self.cs_postprocess_perso = self.template_repo.load().cs_user_postprocessing
         # Code Saturne Setup/Config XML
-        self.saturne_xml_perso = SATURNE_3_XML
-
+        self.saturne_xml_perso = self.template_repo.load().saturne_xml
         # definition des familles pour les subroutines
         self.sat_familles = {}
 
@@ -344,25 +339,16 @@ class SatCommand:
             + toute l'arborescente avec l'executable : code_saturne create
         """
         
-        print('\n  CREATION DU CAS SATURNE')
         ici = os.path.realpath(os.path.curdir)
         try:
             if not os.path.isdir(self.chemins['sim']):
                 os.mkdir(self.chemins['sim'])
-                print('\t creation repertoire -simulSat-')
-                print('\t -> ', self.chemins['sim'])
         except OSError:
             print('\t ! probleme creation repertoire -simulsat-')
 
         if not os.path.isdir(self.chemins['mesh']):
-            print('\t creation de l arborescence de Saturne')
-            print('\t -> SHELL: "code_saturne create -s %s"' % self.nom_cas)
-            print('.'*30)
             os.chdir(self.chemins['sim'])
-            subprocess.call(['code_saturne', 'create', '-s', self.nom_cas])
-            print('.'*30)
-            print('\t -> fin SHELL: "code_saturne create -s %s"' % self.nom_cas)
-            print()
+            subprocess.call([self.code_saturne_executable, 'create', '-s', self.nom_cas])
             os.makedirs(self.chemins['echange'])
             
         else:
@@ -518,13 +504,10 @@ class SatCommand:
         os.chdir(self.chemins['data'])
         nom_param = os.path.split(self.chemins['conf_xml'])[1]   
         if terminal:
-            com = ['gnome-terminal', '-e', 'code_saturne run -p %s'%nom_param, '&']
+            com = ['gnome-terminal', '-e', f'{self.code_saturne_executable} run -p {nom_param}', '&']
         else:
-            com = ['code_saturne', 'run', '--nprocs', str(self.processors_number) , '-p', nom_param]
-            # self.simu = subprocess.Popen(com) # incase issues in the future
-            self.simulation_error = None
-            self.simu = subprocess.Popen(com, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, bufsize=1)
-            threading.Thread( target=self._monitor_simulation_output, daemon=True ).start()
+            com = [self.code_saturne_executable, 'run', '--nprocs', str(self.processors_number) , '-p', nom_param]
+
         os.chdir(ici)
 
     def _monitor_simulation_output(self):
@@ -606,7 +589,7 @@ class SatCommand:
         """
         if time_simul:
             rep_tmp = '%s.%s.%s' % (self.nom_cas, self.case1, time_simul)
-            self.chemins['tmp'] = JOIN(CHEMIN_TMP_SATURNE, rep_tmp)
+            self.chemins['tmp'] = JOIN(self.tmp_saturne_dir, rep_tmp)
 
         self.chemins['listing'] = JOIN(self.chemins['resu'], self.start_time, 'listing')
         

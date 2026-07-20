@@ -1,0 +1,5 @@
+<map id="cs_param_saddle_t" name="cs_param_saddle_t">
+<area shape="rect" id="node1" title="Structure storing all metadata related to the resolution of a saddle&#45;point linear system...." alt="" coords="23,535,158,744"/>
+<area shape="rect" id="node2" href="$structcs__param__convergence__t.html" title="Set of parameters to check the convergence (or the divergence) of an iterative process (tolerances or..." alt="" coords="5,5,176,127"/>
+<area shape="rect" id="node3" href="$structcs__param__sles__t.html" title="Structure storing all metadata related to the resolution of a linear system with an iterative solver." alt="" coords="171,189,322,457"/>
+</map>

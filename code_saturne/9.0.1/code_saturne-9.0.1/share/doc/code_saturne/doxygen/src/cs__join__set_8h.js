@@ -1,0 +1,25 @@
+var cs__join__set_8h =
+[
+    [ "cs_join_dump_array", "cs__join__set_8h.html#a413e6c8a2c4b7fb5b00d7d0c919ff936", null ],
+    [ "cs_join_eset_check_size", "cs__join__set_8h.html#a47cb30c89fd9b5bd20be394214417d3e", null ],
+    [ "cs_join_eset_clean", "cs__join__set_8h.html#ad872ee051fdb54ac2b3c8d84b9d87111", null ],
+    [ "cs_join_eset_create", "cs__join__set_8h.html#afbad67d3642e6a49bc59af21a85580d3", null ],
+    [ "cs_join_eset_destroy", "cs__join__set_8h.html#a4d755f782e58e34c8831bacda65a3cc4", null ],
+    [ "cs_join_gset_clean", "cs__join__set_8h.html#acfe748d8d5e15d963eae5c9138f71cb9", null ],
+    [ "cs_join_gset_clean_from_array", "cs__join__set_8h.html#abfbcd8d837d94750b73f053022834297", null ],
+    [ "cs_join_gset_compress", "cs__join__set_8h.html#a81e13d0edd93441d6c03402397e18074", null ],
+    [ "cs_join_gset_copy", "cs__join__set_8h.html#a8e39029473ad0eb72067d6e62c7858a3", null ],
+    [ "cs_join_gset_create", "cs__join__set_8h.html#a6a5411f978f47128216dd89e0de2f490", null ],
+    [ "cs_join_gset_create_by_equiv", "cs__join__set_8h.html#a7390b4ae87d0745bf3b37aa2ba16ff1c", null ],
+    [ "cs_join_gset_create_from_tag", "cs__join__set_8h.html#a46abf91309171423fc68a88ff96dc668", null ],
+    [ "cs_join_gset_destroy", "cs__join__set_8h.html#a948dcfd1d94f2e3be8ec1042789a3a2d", null ],
+    [ "cs_join_gset_dump", "cs__join__set_8h.html#ab4b05963f6bf622e46de845242abe109", null ],
+    [ "cs_join_gset_invert", "cs__join__set_8h.html#a5f1cbf96b4a7f088f3fdc8ba2899d973", null ],
+    [ "cs_join_gset_merge_elts", "cs__join__set_8h.html#ab41d01e7df0de3f71b415c56d23e33b6", null ],
+    [ "cs_join_gset_single_order", "cs__join__set_8h.html#a3202f603410af492742ce93b33c27ce9", null ],
+    [ "cs_join_gset_sort_elts", "cs__join__set_8h.html#a29bff25e619b8175daae9767dd3b56cf", null ],
+    [ "cs_join_gset_sort_sublist", "cs__join__set_8h.html#a391b73eed8752cd6d2a80ed884caccf6", null ],
+    [ "cs_join_rset_create", "cs__join__set_8h.html#ac5eb95d91c63c06c5f7a2615c9b10170", null ],
+    [ "cs_join_rset_destroy", "cs__join__set_8h.html#a4026a885512b10e44c4068a0d4639b0a", null ],
+    [ "cs_join_rset_resize", "cs__join__set_8h.html#a025980812a02d907cbfd637473a1ad9a", null ]
+];

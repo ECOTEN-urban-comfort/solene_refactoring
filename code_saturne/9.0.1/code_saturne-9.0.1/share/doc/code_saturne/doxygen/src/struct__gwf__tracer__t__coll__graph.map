@@ -1,0 +1,6 @@
+<map id="cs_gwf_tracer_t" name="cs_gwf_tracer_t">
+<area shape="rect" id="node1" title=" " alt="" coords="55,579,225,1008"/>
+<area shape="rect" id="node2" href="$structcs__field__t.html" title="Field descriptor." alt="" coords="24,292,128,516"/>
+<area shape="rect" id="node3" href="$structcs__field__bc__coeffs__t.html" title="Field boundary condition descriptor (for variables)" alt="" coords="5,5,147,229"/>
+<area shape="rect" id="node4" href="$structcs__equation__t.html" title="Main structure to handle the discretization and the resolution of an equation." alt="" coords="153,365,255,443"/>
+</map>

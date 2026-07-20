@@ -1,0 +1,10 @@
+<map id="cs_equation_builder_t" name="cs_equation_builder_t">
+<area shape="rect" id="node1" title=" " alt="" coords="271,733,422,1265"/>
+<area shape="rect" id="node2" href="$structcs__cdo__system__helper__t.html" title=" " alt="" coords="23,432,190,627"/>
+<area shape="rect" id="node3" href="$structcs__cdo__system__block__t.html" title=" " alt="" coords="5,233,168,355"/>
+<area shape="rect" id="node4" href="$structcs__cdo__system__block__info__t.html" title=" " alt="" coords="11,5,163,171"/>
+<area shape="rect" id="node5" href="$structcs__iter__algo__t.html" title="Structure to handle the convergence of an iterative algorithm." alt="" coords="222,476,325,583"/>
+<area shape="rect" id="node6" href="$structcs__param__convergence__t.html" title="Set of parameters to check the convergence (or the divergence) of an iterative process (tolerances or..." alt="" coords="192,233,363,355"/>
+<area shape="rect" id="node7" href="$structcs__cdo__bc__face__t.html" title=" " alt="" coords="349,417,489,641"/>
+<area shape="rect" id="node8" href="$structcs__timer__counter__t.html" title=" " alt="" coords="513,491,647,568"/>
+</map>

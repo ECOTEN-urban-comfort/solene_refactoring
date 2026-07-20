@@ -1,0 +1,28 @@
+var namespaceparall =
+[
+    [ "cs_parall_allgather_r", "interfaceparall_1_1cs__parall__allgather__r.html", "interfaceparall_1_1cs__parall__allgather__r" ],
+    [ "parall_bcast_i", "interfaceparall_1_1parall__bcast__i.html", "interfaceparall_1_1parall__bcast__i" ],
+    [ "parall_bcast_r", "interfaceparall_1_1parall__bcast__r.html", "interfaceparall_1_1parall__bcast__r" ],
+    [ "parbar", "interfaceparall_1_1parbar.html", "interfaceparall_1_1parbar" ],
+    [ "parbci", "interfaceparall_1_1parbci.html", "interfaceparall_1_1parbci" ],
+    [ "parbcr", "interfaceparall_1_1parbcr.html", "interfaceparall_1_1parbcr" ],
+    [ "parcmn", "interfaceparall_1_1parcmn.html", "interfaceparall_1_1parcmn" ],
+    [ "parcmx", "interfaceparall_1_1parcmx.html", "interfaceparall_1_1parcmx" ],
+    [ "parcpt", "interfaceparall_1_1parcpt.html", "interfaceparall_1_1parcpt" ],
+    [ "parfpt", "interfaceparall_1_1parfpt.html", "interfaceparall_1_1parfpt" ],
+    [ "parimn", "interfaceparall_1_1parimn.html", "interfaceparall_1_1parimn" ],
+    [ "parimx", "interfaceparall_1_1parimx.html", "interfaceparall_1_1parimx" ],
+    [ "parism", "interfaceparall_1_1parism.html", "interfaceparall_1_1parism" ],
+    [ "parmax", "interfaceparall_1_1parmax.html", "interfaceparall_1_1parmax" ],
+    [ "parmin", "interfaceparall_1_1parmin.html", "interfaceparall_1_1parmin" ],
+    [ "parmnl", "interfaceparall_1_1parmnl.html", "interfaceparall_1_1parmnl" ],
+    [ "parmxl", "interfaceparall_1_1parmxl.html", "interfaceparall_1_1parmxl" ],
+    [ "parrmn", "interfaceparall_1_1parrmn.html", "interfaceparall_1_1parrmn" ],
+    [ "parrmx", "interfaceparall_1_1parrmx.html", "interfaceparall_1_1parrmx" ],
+    [ "parrsm", "interfaceparall_1_1parrsm.html", "interfaceparall_1_1parrsm" ],
+    [ "parsom", "interfaceparall_1_1parsom.html", "interfaceparall_1_1parsom" ],
+    [ "paragv", "namespaceparall.html#a0f5a752c0903295287c8a02576473be3", null ],
+    [ "irangp", "group__parall.html#ga77fe56a9acf4fc4a56b5d5ab878b7d4f", null ],
+    [ "nrangp", "group__parall.html#gae5edcc567069ffdf3587ab52bde179b7", null ],
+    [ "thr_n_min", "group__parall.html#ga1eca207d15b2b51b084a53662e633407", null ]
+];

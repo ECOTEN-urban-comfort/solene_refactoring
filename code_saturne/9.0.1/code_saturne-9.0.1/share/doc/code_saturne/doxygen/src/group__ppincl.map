@@ -1,0 +1,10 @@
+<map id="General module for specific physics" name="General module for specific physics">
+<area shape="rect" id="node1" href="$group__boundary__conditions.html" title=" " alt="" coords="189,5,329,31"/>
+<area shape="rect" id="node2" href="$group__choice.html" title=" " alt="" coords="198,55,321,95"/>
+<area shape="rect" id="node3" href="$group__common.html" title=" " alt="" coords="222,120,297,145"/>
+<area shape="rect" id="node4" href="$group__compressible.html" title=" " alt="" coords="185,170,333,210"/>
+<area shape="rect" id="node5" href="$group__enthalpy.html" title=" " alt="" coords="193,234,325,274"/>
+<area shape="rect" id="node6" href="$group__gas__mixture.html" title=" " alt="" coords="211,299,307,324"/>
+<area shape="rect" id="node7" href="$group__modelling.html" title=" " alt="" coords="193,348,326,373"/>
+<area shape="rect" id="node8" title=" " alt="" coords="5,170,137,210"/>
+</map>

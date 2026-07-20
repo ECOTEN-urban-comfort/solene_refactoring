@@ -1,0 +1,8 @@
+<map id="cs_gwf_sspf_t" name="cs_gwf_sspf_t">
+<area shape="rect" id="node1" title="Structure to handle the modelling of a single&#45;phase flows in a porous media considered as saturated." alt="" coords="218,579,325,656"/>
+<area shape="rect" id="node2" href="$structcs__equation__t.html" title="Main structure to handle the discretization and the resolution of an equation." alt="" coords="5,365,108,443"/>
+<area shape="rect" id="node3" href="$structcs__gwf__darcy__flux__t.html" title="Structure to handle a Darcy flux." alt="" coords="132,365,275,443"/>
+<area shape="rect" id="node4" href="$structcs__property__t.html" title="Structure associated to the definition of a property relying on the cs_xdef_t structure." alt="" coords="299,365,401,443"/>
+<area shape="rect" id="node5" href="$structcs__field__t.html" title="Field descriptor." alt="" coords="433,292,537,516"/>
+<area shape="rect" id="node6" href="$structcs__field__bc__coeffs__t.html" title="Field boundary condition descriptor (for variables)" alt="" coords="414,5,555,229"/>
+</map>

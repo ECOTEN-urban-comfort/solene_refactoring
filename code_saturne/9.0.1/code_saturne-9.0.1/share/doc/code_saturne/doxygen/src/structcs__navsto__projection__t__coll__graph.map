@@ -1,0 +1,6 @@
+<map id="cs_navsto_projection_t" name="cs_navsto_projection_t">
+<area shape="rect" id="node1" title="Set of parameters specific for solving the Navier&#45;Stokes system with an incremental projection algori..." alt="" coords="28,608,184,700"/>
+<area shape="rect" id="node2" href="$structcs__equation__t.html" title="Main structure to handle the discretization and the resolution of an equation." alt="" coords="5,365,108,443"/>
+<area shape="rect" id="node3" href="$structcs__field__t.html" title="Field descriptor." alt="" coords="133,292,237,516"/>
+<area shape="rect" id="node4" href="$structcs__field__bc__coeffs__t.html" title="Field boundary condition descriptor (for variables)" alt="" coords="114,5,255,229"/>
+</map>

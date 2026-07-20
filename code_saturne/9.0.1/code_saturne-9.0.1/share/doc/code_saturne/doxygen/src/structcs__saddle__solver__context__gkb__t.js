@@ -1,0 +1,25 @@
+var structcs__saddle__solver__context__gkb__t =
+[
+    [ "alpha", "structcs__saddle__solver__context__gkb__t.html#a47b955ff50bd3d43381882b0e33efab1", null ],
+    [ "beta", "structcs__saddle__solver__context__gkb__t.html#a8f8a543d9a22a89184c8914f15eff742", null ],
+    [ "d", "structcs__saddle__solver__context__gkb__t.html#ad50aa9fb563acdbaded0550b0971dc90", null ],
+    [ "init_sles", "structcs__saddle__solver__context__gkb__t.html#a0bbb8cf8704e8d7a55a7c4dc58ea1fab", null ],
+    [ "inv_m22", "structcs__saddle__solver__context__gkb__t.html#a6d5b8648b135ed31bb014216600405ec", null ],
+    [ "m12_vector_multiply", "structcs__saddle__solver__context__gkb__t.html#a15ff58b04db371567fd76ecadae3f9e2", null ],
+    [ "m12q", "structcs__saddle__solver__context__gkb__t.html#a6aac8c8aa5f3fe56bef9df6b757a5d18", null ],
+    [ "m21_adj", "structcs__saddle__solver__context__gkb__t.html#a80377f4b7eda517f8a76077676921a6f", null ],
+    [ "m21_val", "structcs__saddle__solver__context__gkb__t.html#a87f0a601033455912e5670ec2c8d3fa5", null ],
+    [ "m21_vector_multiply", "structcs__saddle__solver__context__gkb__t.html#aa900b2700300e86aa260e175fa714e57", null ],
+    [ "m21v", "structcs__saddle__solver__context__gkb__t.html#a63ae4e5c4e7f9ecfd8e13d88cceeacb8", null ],
+    [ "m22", "structcs__saddle__solver__context__gkb__t.html#a83811b8b760f76340e149b4ecaff46ef", null ],
+    [ "q", "structcs__saddle__solver__context__gkb__t.html#ab29d255a43a1507d2e351c7c983ca6f7", null ],
+    [ "rhs_tilda", "structcs__saddle__solver__context__gkb__t.html#a0f59a7389addf453e89d2d12797fafc4", null ],
+    [ "square_norm_b11", "structcs__saddle__solver__context__gkb__t.html#ad738f2a1246029c47bad6a781479561d", null ],
+    [ "v", "structcs__saddle__solver__context__gkb__t.html#afe214d0992d6fa68b1654afc6cf911c0", null ],
+    [ "w", "structcs__saddle__solver__context__gkb__t.html#af176be8b8fde6de74e99291b50cbdda3", null ],
+    [ "x1_tilda", "structcs__saddle__solver__context__gkb__t.html#acddb31707ced81f775428a253148e0aa", null ],
+    [ "zeta", "structcs__saddle__solver__context__gkb__t.html#a6a632a6f7b4a22c0290d85b9431b6cba", null ],
+    [ "zeta_array", "structcs__saddle__solver__context__gkb__t.html#a75fadc1ddcdd8fe8952c8eec3d1b2441", null ],
+    [ "zeta_size", "structcs__saddle__solver__context__gkb__t.html#ac0c7b90c356ce001994efbdbc12b08bb", null ],
+    [ "zeta_square_sum", "structcs__saddle__solver__context__gkb__t.html#a007a3466b55010e0d475a679f827d982", null ]
+];

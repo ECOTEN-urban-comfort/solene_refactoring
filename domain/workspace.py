@@ -53,3 +53,4 @@ class RuntimePaths:
     post_dir: Path
     simul_sol_dir: Path
     simul_sat_dir: Path
+    tmp_saturne_dir: Path

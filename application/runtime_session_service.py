@@ -64,7 +64,6 @@ class RuntimeSessionService:
         state = SimulationState(
             run_id=self._build_run_id(),
             workspace=bootstrap.paths.case_root,
-            configuration_fingerprint=self._build_configuration_fingerprint(bootstrap),
             phase=SimulationPhase.BOOTSTRAPPING,
             definition=bootstrap,
             artifacts=self._build_initial_artifacts(bootstrap),
@@ -145,46 +144,3 @@ class RuntimeSessionService:
         explicit early because SimulationState is meant to travel across services.
         """
         return f"run-{uuid4().hex[:12]}"
-
-    def _build_configuration_fingerprint(
-        self,
-        bootstrap: SimulationBootstrap,
-    ) -> str:
-        """
-        Build a stable fingerprint of the loaded case definition.
-
-        This is also new compared with the legacy script. It is useful later for:
-            - restart validation
-            - invalidating stale artifacts
-            - checking whether outputs belong to the same effective inputs
-        """
-        settings = bootstrap.settings
-
-        payload = {
-            "settings": {
-                "begin_day": settings.begin_day,
-                "begin_month": settings.begin_month,
-                "begin_hour": settings.begin_hour,
-                "end_day": settings.end_day,
-                "end_month": settings.end_month,
-                "end_hour": settings.end_hour,
-                "latitude": settings.latitude,
-                "longitude": settings.longitude,
-                "surface_model": settings.surface_model,
-                "air_model": settings.air_model,
-                "ts_coupl": settings.ts_coupl,
-                "iter_init": settings.iter_init,
-                "iter_foll": settings.iter_foll,
-                "cores_used": settings.cores_used,
-            },
-            "input_files": {
-                "med_file": str(bootstrap.input_files.med_file.resolve()),
-                "meteo_file": str(bootstrap.input_files.meteo_file.resolve()),
-                "sim_settings_file": str(bootstrap.input_files.sim_settings_file.resolve()),
-                "famille_file": str(bootstrap.input_files.famille_file.resolve()),
-                "materiau_file": str(bootstrap.input_files.materiau_file.resolve()),
-            },
-        }
-
-        raw = json.dumps(payload, sort_keys=True).encode("utf-8")
-        return sha256(raw).hexdigest()[:16]

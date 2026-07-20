@@ -1,0 +1,4 @@
+<map id="cs_coal_bc_inlet_t" name="cs_coal_bc_inlet_t">
+<area shape="rect" id="node1" title="Inlet definition for pulverized coal combustion." alt="" coords="17,336,148,589"/>
+<area shape="rect" id="node2" href="$structcs__zone__t.html" title=" " alt="" coords="5,5,160,273"/>
+</map>

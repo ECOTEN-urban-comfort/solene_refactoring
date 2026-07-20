@@ -1,0 +1,4 @@
+<map id="cs_gwf_t" name="cs_gwf_t">
+<area shape="rect" id="node1" title="Main set of parameters/structures to manage the groundwater flow (GWF) module. This is an explicit de..." alt="" coords="5,160,124,355"/>
+<area shape="rect" id="node2" href="$structcs__property__t.html" title="Structure associated to the definition of a property relying on the cs_xdef_t structure." alt="" coords="14,5,115,83"/>
+</map>

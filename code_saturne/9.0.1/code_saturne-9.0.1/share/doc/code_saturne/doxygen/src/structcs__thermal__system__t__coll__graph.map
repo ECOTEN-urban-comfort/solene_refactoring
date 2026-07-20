@@ -1,0 +1,7 @@
+<map id="cs_thermal_system_t" name="cs_thermal_system_t">
+<area shape="rect" id="node1" title=" " alt="" coords="110,637,257,773"/>
+<area shape="rect" id="node2" href="$structcs__equation__t.html" title="Main structure to handle the discretization and the resolution of an equation." alt="" coords="5,365,108,443"/>
+<area shape="rect" id="node3" href="$structcs__property__t.html" title="Structure associated to the definition of a property relying on the cs_xdef_t structure." alt="" coords="133,365,234,443"/>
+<area shape="rect" id="node4" href="$structcs__field__t.html" title="Field descriptor." alt="" coords="278,292,382,516"/>
+<area shape="rect" id="node5" href="$structcs__field__bc__coeffs__t.html" title="Field boundary condition descriptor (for variables)" alt="" coords="259,5,401,229"/>
+</map>

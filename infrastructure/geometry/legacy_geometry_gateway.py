@@ -21,9 +21,9 @@ from typing import Any
 from pathlib import Path
 
 from application.ports.geometry_gateway import GeometryGateway
-from domain.geometry import LegacyExtractedGeometry, LegacySoleneGeometry, PreparedGeometryInputs, SoleneGeometryArtifacts
+from domain.geometry import PreparedGeometryInputs, SoleneGeometryArtifacts
+from domain.simulation_definition import SimulationBootstrap
 from domain.simulation_state import SimulationState
-from domain.artifact_keys import FAMILLES
 from infrastructure.solene.hdfFile import MedFile, CplFile
 from infrastructure.solene.sol_file import write_cir
 from infrastructure.solene.famille import importer_familles_xml, Familles
@@ -92,30 +92,11 @@ class LegacyGeometryGateway(GeometryGateway):
             sauvegarde_dir=sauvegarde_dir,
             simul_sol_dir=simul_sol_dir
         )
-    
-    def has_saved_med_geometry(self, state: SimulationState) -> bool:
-        prepared = self._require_prepared_inputs(state)
-        return prepared.sauvegarde_geom_med.is_file()
 
-    def load_saved_med_geometry(self, state: SimulationState) -> Any:
-        prepared = self._require_prepared_inputs(state)
-
-        geom_cpl = CplFile(str(prepared.sauvegarde_geom_med))
-        geom_cpl.charger_geom()
-
-        geom_med = geom_cpl.geom
-        geom_med.nom = "geom_med"
-        return geom_med
-
-    def save_med_geometry(self, state: SimulationState, geom_med: Any) -> None:
-        prepared = self._require_prepared_inputs(state)
-
-        geom_cpl = CplFile(str(prepared.sauvegarde_geom_med), geom_med)
-        geom_cpl.enregistrer_geom()
-
-    def extract_familles(
+    def extract_families(
         self,
-        state: SimulationState,
+        bootstrap: SimulationBootstrap,
+        prepared: PreparedGeometryInputs,
     ) -> Familles:
         """
         Unified technical geometry gateway.
@@ -125,14 +106,12 @@ class LegacyGeometryGateway(GeometryGateway):
             - legacy `.cpl` MED geometry cache access,
             - first legacy MED/family/material extraction.
         """
-        prepared = self._require_prepared_inputs(state)
 
         # Step 1: extract MED geometry using the old reader.
         med_file = MedFile(str(prepared.staged_med_file))
         geom_med = med_file.extraire_geom()
 
         # Step 2: load family definitions from XML.
-        bootstrap = state.require_bootstrap_definition()
         surface_model = bootstrap.settings.surface_model
         familles = importer_familles_xml(str(prepared.staged_famille_file), surface_model)
 
@@ -146,8 +125,9 @@ class LegacyGeometryGateway(GeometryGateway):
     
     def build_solene_geometry(
         self,
-        state: SimulationState,
-    ) -> LegacySoleneGeometry:
+        prepared: PreparedGeometryInputs,
+        families: Familles,
+    ) -> SoleneGeometryArtifacts:
         """
         Refactored equivalent of the Solene-side geometry branch in
         `SimulationCouplee.initialiser_med(...)`.
@@ -163,16 +143,17 @@ class LegacyGeometryGateway(GeometryGateway):
             - SolCommand path handling
             - SolEnv creation
         """
-        prepared = self._require_prepared_inputs(state)
-        familles = state.results[FAMILLES]
-        carac_classe = familles.carac_classe
+        carac_classe = families.carac_classe
 
         if self._has_solene_geometry_artifacts(prepared):
             return SoleneGeometryArtifacts(
-                geom_med_cpl=prepared.sauvegarde_geom_med,
-                geom_sol_cpl=prepared.sauvegarde_geom_sol,
+                geom_med_cpl=prepared.geom_med_cpl,
+                geom_sol_cpl=prepared.geom_sol_cpl,
                 scene_cir=prepared.scene_cir,
                 masque_cir=prepared.masque_cir,
+                n_sol_triangles=self._read_n_triangles(
+                    prepared.geom_sol_cpl
+                ),
             )
 
         # Fresh Solene-side branch
@@ -183,7 +164,7 @@ class LegacyGeometryGateway(GeometryGateway):
         geom_med.reconstruire_geom()
 
         liste_num, liste_num_masque = self._collect_solene_family_lists(
-            familles=familles,
+            familles=families,
             carac_classe=carac_classe,
         )
 
@@ -191,13 +172,15 @@ class LegacyGeometryGateway(GeometryGateway):
             nom="geom_sol",
             liste_famille=liste_num,
         )
+        n_sol_triangles = int(geom_sol.n_triangles)
+        
         geom_sol_masque = geom_med.creer_sous_geom(
             nom="geom_sol_masque",
             liste_famille=liste_num_masque,
         )
 
-        self._save_geom(prepared.sauvegarde_geom_med, geom_med)
-        self._save_geom(prepared.sauvegarde_geom_sol, geom_sol)
+        self._save_geom(prepared.geom_med_cpl, geom_med)
+        self._save_geom(prepared.geom_sol_cpl, geom_sol)
 
         prepared.scene_cir.parent.mkdir(parents=True, exist_ok=True)
         prepared.masque_cir.parent.mkdir(parents=True, exist_ok=True)
@@ -214,17 +197,18 @@ class LegacyGeometryGateway(GeometryGateway):
         )
 
         return SoleneGeometryArtifacts(
-            geom_med_cpl=prepared.sauvegarde_geom_med,
-            geom_sol_cpl=prepared.sauvegarde_geom_sol,
+            geom_med_cpl=prepared.geom_med_cpl,
+            geom_sol_cpl=prepared.geom_sol_cpl,
             scene_cir=prepared.scene_cir,
             masque_cir=prepared.masque_cir,
+            n_sol_triangles=n_sol_triangles,
         )
     
     @staticmethod
     def _has_solene_geometry_artifacts(prepared: PreparedGeometryInputs) -> bool:
         return (
-            prepared.sauvegarde_geom_med.is_file()
-            and prepared.sauvegarde_geom_sol.is_file()
+            prepared.geom_med_cpl.is_file()
+            and prepared.geom_sol_cpl.is_file()
             and prepared.scene_cir.is_file()
             and prepared.masque_cir.is_file()
         )
@@ -233,14 +217,6 @@ class LegacyGeometryGateway(GeometryGateway):
     def _save_geom(path: Path, geom) -> None:
         geom_cpl = CplFile(str(path), geom)
         geom_cpl.enregistrer_geom()
-
-    @staticmethod
-    def _load_geom(path: Path, nom: str):
-        geom_cpl = CplFile(str(path))
-        geom_cpl.charger_geom()
-        geom = geom_cpl.geom
-        geom.nom = nom
-        return geom
 
     @staticmethod
     def _collect_solene_family_lists(familles, carac_classe) -> tuple[list[int], list[int]]:
@@ -257,22 +233,30 @@ class LegacyGeometryGateway(GeometryGateway):
                 liste_num.append(famille.num)
 
         return liste_num, liste_num_masque
-
-    def _require_prepared_inputs(self, state: SimulationState) -> PreparedGeometryInputs:
-        """
-        Ensure geometry preparation already ran before extraction starts.
-        """
-        prepared = state.results.get("prepared_geometry_inputs")
-        if prepared is None:
-            raise ValueError(
-                "Prepared geometry inputs are missing; run geometry preparation first."
-            )
-        return prepared
     
-    def _require_extracted_geometry(self, state: SimulationState) -> LegacyExtractedGeometry:
-        extracted = state.results.get("legacy_extracted_geometry")
-        if extracted is None:
+    @staticmethod
+    def _read_n_triangles(geom_cpl_path: Path) -> int:
+        cpl_file = CplFile(str(geom_cpl_path))
+        cpl_file.charger_geom()
+
+        geom = cpl_file.geom
+        if geom is None:
             raise ValueError(
-                "Legacy extracted geometry is missing; run MED extraction first."
+                f"Geometry could not be loaded from {geom_cpl_path}"
             )
-        return extracted
+
+        n_triangles = getattr(geom, "n_triangles", None)
+
+        if n_triangles is None:
+            triangles = getattr(geom, "triangles", None)
+            triangle_points = getattr(triangles, "points", None)
+
+            if triangle_points is None:
+                raise ValueError(
+                    "Loaded geom_sol does not contain n_triangles "
+                    f"or triangles.points: {geom_cpl_path}"
+                )
+
+            n_triangles = len(triangle_points)
+
+        return int(n_triangles)

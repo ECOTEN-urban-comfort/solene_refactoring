@@ -110,6 +110,7 @@ class SolEnv:
 
         self.dic_cas = {}
         self.carac_val = {}
+        self.meteo_liste = []
 
     def definir_meteo_liste(self, liste_meteo):
         """

@@ -1,0 +1,4 @@
+<map id="cs_navsto_monolithic_t" name="cs_navsto_monolithic_t">
+<area shape="rect" id="node1" title="Set of parameters specific for solving the Navier&#45;Stokes system with a fully coupled monolithic algor..." alt="" coords="5,145,164,223"/>
+<area shape="rect" id="node2" href="$structcs__equation__t.html" title="Main structure to handle the discretization and the resolution of an equation." alt="" coords="33,5,136,83"/>
+</map>

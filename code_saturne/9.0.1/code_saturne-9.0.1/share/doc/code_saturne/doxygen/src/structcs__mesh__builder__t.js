@@ -1,0 +1,25 @@
+var structcs__mesh__builder__t =
+[
+    [ "cell_bi", "structcs__mesh__builder__t.html#af4c7e2ba559d9dd22795cbf675c446cb", null ],
+    [ "cell_gc_id", "structcs__mesh__builder__t.html#a35267e9e5f52c8cd021fceca5c97a93b", null ],
+    [ "cell_rank", "structcs__mesh__builder__t.html#a954b60416817fa4713972ba56502df27", null ],
+    [ "face_bi", "structcs__mesh__builder__t.html#a753e93530b410637603d296762493dcc", null ],
+    [ "face_cells", "structcs__mesh__builder__t.html#a07c5ac57fd3de82f5eecdc22189ca60f", null ],
+    [ "face_gc_id", "structcs__mesh__builder__t.html#ad384da6e4cb5834e10c263c8307ea0ac", null ],
+    [ "face_r_gen", "structcs__mesh__builder__t.html#aa2c92f1943563d52da6caa767e67f785", null ],
+    [ "face_vertices", "structcs__mesh__builder__t.html#a696c692813444d5b4ae88333d4014927", null ],
+    [ "face_vertices_idx", "structcs__mesh__builder__t.html#a27ddc954c3544ce8a7a3976918aa64aa", null ],
+    [ "have_cell_rank", "structcs__mesh__builder__t.html#ac53e98dcaf7c66ddfdf7e35a762f49c1", null ],
+    [ "min_rank_step", "structcs__mesh__builder__t.html#ac2645065d82899643bb4af74d816b510", null ],
+    [ "n_g_face_connect_size", "structcs__mesh__builder__t.html#ac83e775f9cd7c5773a2ab6bce941d14d", null ],
+    [ "n_g_faces", "structcs__mesh__builder__t.html#aa5df1c31f48e65e667ffa13f6b42073b", null ],
+    [ "n_g_per_face_couples", "structcs__mesh__builder__t.html#a93fe1991cf509d0820590c35f86e0d70", null ],
+    [ "n_per_face_couples", "structcs__mesh__builder__t.html#a92826f4d4491b4f9091a13688acb8a0c", null ],
+    [ "n_perio", "structcs__mesh__builder__t.html#ade250e29366d45fc7c4b2d6fc441785e", null ],
+    [ "per_face_bi", "structcs__mesh__builder__t.html#a724d88cd1c05bdfffe73ee8d731f6d72", null ],
+    [ "per_face_couples", "structcs__mesh__builder__t.html#a0d47578b2f7fcad767d92efe597afe34", null ],
+    [ "periodicity_num", "structcs__mesh__builder__t.html#ae58029682e99c7b04035f9425aa5012d", null ],
+    [ "vertex_bi", "structcs__mesh__builder__t.html#acf8ac335ae9ab56abee4b7b664dfee3e", null ],
+    [ "vertex_coords", "structcs__mesh__builder__t.html#a5af5f92175072918d1860f44fe632dab", null ],
+    [ "vtx_r_gen", "structcs__mesh__builder__t.html#a8e738258c42bb785ec4a510d6d798f4d", null ]
+];

@@ -1,0 +1,36 @@
+var cs__coal_8h =
+[
+    [ "cs_coal_model_t", "structcs__coal__model__t.html", "structcs__coal__model__t" ],
+    [ "CS_COMBUSTION_COAL_MAX_ATOMIC_SPECIES", "cs__coal_8h.html#a9000102af79b0126711d787684fb8eb0", null ],
+    [ "CS_COMBUSTION_COAL_MAX_CLASSES", "cs__coal_8h.html#a7cf14534578de40ef5e4b1102ca8f0a5", null ],
+    [ "CS_COMBUSTION_COAL_MAX_ELEMENTARY_COMPONENTS", "cs__coal_8h.html#af2cc76bfd5e8ba0cc5a32679e52bb21e", null ],
+    [ "CS_COMBUSTION_COAL_MAX_GLOBAL_SPECIES", "cs__coal_8h.html#af1e6f639e0befbc47443cfe8976aad1a", null ],
+    [ "CS_COMBUSTION_COAL_MAX_OXYDANTS", "cs__coal_8h.html#aaa9b4e8a1f5a0be38a52e214642f29fe", null ],
+    [ "CS_COMBUSTION_COAL_MAX_SOLIDS", "cs__coal_8h.html#a10a83957e758eb05367f719a2f53f6cd", null ],
+    [ "CS_COMBUSTION_COAL_MAX_TABULATION_POINTS", "cs__coal_8h.html#a9f00b53dc4eec534209903f1c068e1b4", null ],
+    [ "CS_COMBUSTION_MAX_CLASSES_PER_COAL", "cs__coal_8h.html#a8b129db08e2604fc20723d6ead00eb64", null ],
+    [ "CS_COMBUSTION_MAX_COALS", "cs__coal_8h.html#ace73d0eca3d7b392d64a1cf84428e4fc", null ],
+    [ "cs_coal_model_type_t", "cs__coal_8h.html#a379ba22cb44208605d33bc377241333c", [
+      [ "CS_COMBUSTION_COAL_NONE", "cs__coal_8h.html#a379ba22cb44208605d33bc377241333ca03f44ddfb52fd44a292f9e13930d5361", null ],
+      [ "CS_COMBUSTION_COAL_STANDARD", "cs__coal_8h.html#a379ba22cb44208605d33bc377241333ca6dd4f323b6d114969214f4b5b628fc7e", null ],
+      [ "CS_COMBUSTION_COAL_WITH_DRYING", "cs__coal_8h.html#a379ba22cb44208605d33bc377241333cad7886af08abe31ca38f17ff74b92c71b", null ]
+    ] ],
+    [ "cs_coal_add_property_fields", "cs__coal_8h.html#a6c9abe8bd856dfd939d5e3823eaefe02", null ],
+    [ "cs_coal_add_variable_fields", "cs__coal_8h.html#a3f892ea33683681562b1ed3c49ea7203", null ],
+    [ "cs_coal_mass_transfer", "cs__coal_8h.html#a1a01ddbf5bec1c5aed4361699f3da106", null ],
+    [ "cs_coal_model_get_type", "cs__coal_8h.html#a3c85ebfd7d3225b4cf3d53947a9d3bd8", null ],
+    [ "cs_coal_model_set_model", "cs__coal_8h.html#aeb29b2fabda9edfcc76826deacdf3c5b", null ],
+    [ "cs_coal_rad_transfer_st", "cs__coal_8h.html#abca3f92a7477bb8ba3285201ba70fe0b", null ],
+    [ "cs_coal_setup", "cs__coal_8h.html#a7bea5d4a100fca0b9517a48167be687a", null ],
+    [ "cs_combustion_coal_log_setup", "cs__coal_8h.html#a33b12d116de212a6498a590152310c19", null ],
+    [ "cs_coal_atom_id_c", "cs__coal_8h.html#ac529c424d1332827ab909ad83b494995", null ],
+    [ "cs_coal_atom_id_h", "cs__coal_8h.html#a8279b3908430a442abab3f38b34a1d82", null ],
+    [ "cs_coal_atom_id_n", "cs__coal_8h.html#adba8e4a11fdcfc3f684f0cbecd3295f6", null ],
+    [ "cs_coal_atom_id_o", "cs__coal_8h.html#aada17b3da5a0d5085f9faf8849cf7376", null ],
+    [ "cs_coal_atom_id_s", "cs__coal_8h.html#a3df522d324d961e3911dc199344c6d0f", null ],
+    [ "cs_coal_epsilon", "cs__coal_8h.html#afc26e3068034ae8d185ae7db5b06c010", null ],
+    [ "cs_coal_prefth", "cs__coal_8h.html#a05626e3378bc1564b3ced7ada0ec4987", null ],
+    [ "cs_coal_trefth", "cs__coal_8h.html#a0fe9ee5ba843c556e75754959eabc6a8", null ],
+    [ "cs_coal_volmol", "cs__coal_8h.html#a5a56e69db7986053a501e96697229b57", null ],
+    [ "cs_glob_coal_model", "cs__coal_8h.html#aa6cd56c801ca0f590c388525fd980fd4", null ]
+];

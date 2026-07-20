@@ -44,4 +44,5 @@ def build_runtime_paths(sim_folder: Path) -> RuntimePaths:
         post_dir=case_root / "post",
         simul_sol_dir=case_root / "simulSol",
         simul_sat_dir=case_root / "simulSat",
+        tmp_saturne_dir = case_root / "tmpSaturne"
     )

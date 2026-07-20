@@ -1,0 +1,5 @@
+<map id="cs_gwf_tracer_decay_chain_t" name="cs_gwf_tracer_decay_chain_t">
+<area shape="rect" id="node1" title=" " alt="" coords="49,248,196,384"/>
+<area shape="rect" id="node2" href="$structcs__gwf__tracer__t.html" title="Set of parameters describing a tracer structure." alt="" coords="5,57,120,134"/>
+<area shape="rect" id="node3" href="$structcs__xdef__t.html" title="Structure storing medata for defining a quantity in a very flexible way." alt="" coords="145,5,223,185"/>
+</map>

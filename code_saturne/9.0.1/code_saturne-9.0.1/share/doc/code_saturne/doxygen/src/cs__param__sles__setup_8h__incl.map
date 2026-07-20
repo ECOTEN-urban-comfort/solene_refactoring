@@ -1,0 +1,10 @@
+<map id="src/alge/cs_param_sles_setup.h" name="src/alge/cs_param_sles_setup.h">
+<area shape="rect" id="node1" title="Routines to handle the setup of SLES relying on a cs_param_sles_t structure." alt="" coords="114,5,274,47"/>
+<area shape="rect" id="node2" href="$cs__param__sles_8h.html" title="Structure and routines handling the SLES ((Sparse Linear Equation Solver) settings stored inside a cs..." alt="" coords="119,95,269,121"/>
+<area shape="rect" id="node3" href="$cs__param__amg_8h.html" title="Routines to handle the set of parameters for algebraic multigrids (AMG) like boomerAMG of the HYPRE l..." alt="" coords="5,169,156,196"/>
+<area shape="rect" id="node4" href="$cs__param__types_8h.html" title=" " alt="" coords="56,244,217,271"/>
+<area shape="rect" id="node8" href="$cs__param__mumps_8h.html" title="Routines and structure to handle the MUMPS setup. The structure is used as a context structure of a c..." alt="" coords="231,169,399,196"/>
+<area shape="rect" id="node5" href="$cs__defs_8h.html" title=" " alt="" coords="81,319,192,345"/>
+<area shape="rect" id="node6" title=" " alt="" coords="17,393,139,420"/>
+<area shape="rect" id="node7" title=" " alt="" coords="163,393,227,420"/>
+</map>

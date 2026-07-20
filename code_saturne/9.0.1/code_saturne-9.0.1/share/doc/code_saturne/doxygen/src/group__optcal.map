@@ -1,0 +1,11 @@
+<map id="Module for calculation options" name="Module for calculation options">
+<area shape="rect" id="node1" href="$group__homogeneous__mixture.html" title=" " alt="" coords="203,5,356,45"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,201,155,241"/>
+<area shape="rect" id="node3" href="$group__scalar__params.html" title=" " alt="" coords="211,69,348,109"/>
+<area shape="rect" id="node4" href="$group__space__discretisation.html" title=" " alt="" coords="209,134,349,159"/>
+<area shape="rect" id="node5" href="$group__stokes.html" title=" " alt="" coords="225,183,334,209"/>
+<area shape="rect" id="node6" href="$group__thermal.html" title=" " alt="" coords="251,233,308,258"/>
+<area shape="rect" id="node7" href="$group__time__step__options.html" title=" " alt="" coords="204,283,355,323"/>
+<area shape="rect" id="node8" href="$group__time__stepping.html" title=" " alt="" coords="227,347,331,373"/>
+<area shape="rect" id="node9" href="$group__turbulence.html" title=" " alt="" coords="215,397,343,422"/>
+</map>

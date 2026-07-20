@@ -1,0 +1,1450 @@
+\_form#0=11x10:$ \varia $
+\_form#1=23x10:$ Rhs $
+\_form#2=325x34:\[
+Rhs = Rhs - \sum_{\fij \in \Facei{\celli}}      \left(
+       \dot{m}_\ij \left( \varia_\fij - \varia_\celli \right)
+     - \mu_\fij \gradv_\fij \varia \cdot \vect{S}_\ij  \right)
+\]
+\_form#3=14x14:$ C_p $
+\_form#4=53x29:$ \mu_\fij \dfrac{S_\fij}{\ipf \jpf} $
+\_form#5=44x33:$ \mu_\fib \dfrac{S_\fib}{\ipf \centf} $
+\_form#6=14x15:$ \tens{\mu}_\celli $
+\_form#7=24x13:$ \vect{Rhs} $
+\_form#8=11x13:$ \vect{\varia} $
+\_form#9=334x34:\[
+\vect{Rhs} = \vect{Rhs} - \sum_{\fij \in \Facei{\celli}}      \left(
+       \dot{m}_\ij \left( \vect{\varia}_\fij - \vect{\varia}_\celli \right)
+     - \mu_\fij \gradt_\fij \vect{\varia} \cdot \vect{S}_\ij  \right)
+\]
+\_form#10=90x18:$ \mu \transpose{\gradt\vect{\varia}}
++ \lambda \trace{\gradt\vect{\varia}} $
+\_form#11=8x10:$ \lambda $
+\_form#12=25x16:$ -\frac{2}{3} \mu $
+\_form#13=154x16:$ \divv
+                              \left(\mu \gradt \transpose{\vect{a}} \right)
+                              -2/3 \grad\left( \mu \dive \vect{a} \right)$
+\_form#14=11x15:$ \tens{\varia} $
+\_form#15=334x34:\[
+\tens{Rhs} = \tens{Rhs} - \sum_{\fij \in \Facei{\celli}}      \left(
+       \dot{m}_\ij \left( \tens{\varia}_\fij - \tens{\varia}_\celli \right)
+     - \mu_\fij \gradt_\fij \tens{\varia} \cdot \tens{S}_\ij  \right)
+\]
+\_form#16=24x15:$ \tens{Rhs} $
+\_form#17=118x16:\[
+C_\ij = \dot{m}_\ij \left( \varia_\fij - \varia_\celli \right)
+\]
+\_form#18=334x34:\[
+ \vect{Rhs} = \vect{Rhs} - \sum_{\fij \in \Facei{\celli}}      \left(
+        \dot{m}_\ij \left( \vect{\varia}_\fij - \vect{\varia}_\celli \right)
+      - \mu_\fij \gradt_\fij \vect{\varia} \cdot \vect{S}_\ij  \right)
+\]
+\_form#19=334x34:\[
+ \tens{Rhs} = \tens{Rhs} - \sum_{\fij \in \Facei{\celli}}      \left(
+        \dot{m}_\ij \left( \tens{\varia}_\fij - \tens{\varia}_\celli \right)
+      - \mu_\fij \gradt_\fij \tens{\varia} \cdot \tens{S}_\ij  \right)
+\]
+\_form#20=298x34:\[
+Rhs = Rhs + \sum_{\fij \in \Facei{\celli}}      \left(
+       C_p\dot{m}_\ij \varia_\fij
+     - \lambda_\fij \gradv_\fij \varia \cdot \vect{S}_\ij  \right)
+\]
+\_form#21=238x39:\[
+Rhs = Rhs - \sum_{\fij \in \Facei{\celli}}      \left(
+     - \tens{\mu}_\fij \gradv_\fij \varia \cdot \vect{S}_\ij  \right)
+\]
+\_form#22=239x39:\[
+\vect{Rhs} = \vect{Rhs} - \sum_{\fij \in \Facei{\celli}}      \left(
+     - \gradt_\fij \vect{\varia} \tens{\mu}_\fij  \cdot \vect{S}_\ij  \right)
+\]
+\_form#23=53x31:$ \tens{\mu}_\fij \dfrac{S_\fij}{\ipf\jpf} $
+\_form#24=25x33:$ \dfrac{S_\fib}{\ipf \centf} $
+\_form#25=151x16:\[
+\dot{m}_\ij = \dot{m}_\ij
+            - \Delta t \grad_\fij \delta p \cdot \vect{S}_\ij
+\]
+\_form#26=10x10:$ P $
+\_form#27=29x14:$ \dot{m}_\fij $
+\_form#28=193x31:\[
+\dot{m}_\fij = \dot{m}_\fij -
+             \left( \tens{\mu}_\fij \gradv_\fij P \cdot \vect{S}_\ij  \right)
+\]
+\_form#29=165x29:\[
+\dot{m}_\ij = \dot{m}_\ij
+            - \sum_j \Delta t \grad_\fij p \cdot \vect{S}_\ij
+\]
+\_form#30=88x18:$ \sum_{\fij \in \Facei{\celli}} \dot{m}_\fij $
+\_form#31=330x39:\[
+\sum_{\fij \in \Facei{\celli}} \dot{m}_\fij
+ = \sum_{\fij \in \Facei{\celli}} \dot{m}_\fij
+ - \sum_{\fij \in \Facei{\celli}}
+   \left( \tens{\mu}_\fij \gradv_\fij P \cdot \vect{S}_\ij  \right)
+\]
+\_form#32=38x11:$ \rho \vect{u} \cdot \vect{s}_\ij$
+\_form#33=20x13:$ \dot{m}_\ij $
+\_form#34=36x15:$ \gradt \left(\rho \vect{u} \right) $
+\_form#35=65x11:$ \vect{a}_{\rho u} = \rho_\fib \vect{a}_u $
+\_form#36=46x18:$ \tens{b}_{\rho u} = \tens{b}_u $
+\_form#37=260x24:\[
+\dot{m}_\ib = \left[ \rho_\fib \vect{a}_u  + \rho_\fib \tens{b}_u \vect{u}
++ \tens{b}_u \left(\gradt \vect{u} \cdot \vect{\centi \centip}\right)\right]
+\cdot \vect{s}_\ij
+\]
+\_form#38=30x9:$ \rho\vect{u}\cdot\vect{s} $
+\_form#39=24x9:$ \vect{u}\cdot\vect{s} $
+\_form#40=21x13:$ \dot{m}_\fib $
+\_form#41=28x11:$ \rho \tens{r} \vect{s}_\ij$
+\_form#42=128x31:\[
+\dot{m}_i = \dot{m}_i + \sum_{\fij \in \Facei{\celli}} \dot{m}_\ij
+\]
+\_form#43=39x28:$\kappa
+  -\dfrac{2}{3} \mu$
+\_form#44=126x31:\[
+  \grad\left( (\kappa -\dfrac{2}{3} \mu) \trace( \gradt(\vect{u})) \right)
+  \]
+\_form#45=136x11:$ \mu = \mu_{laminar} + \mu_{turbulent} $
+\_form#46=8x6:$ \kappa $
+\_form#47=101x16:$\overline{\left(\vect{u}-\overline{\vect{u}}\right)\otimes\left(\vect{u}
+*-\overline{\vect{u}}\right)}$
+\_form#48=21x16:$\mu_t \overline{\tens{S}}$
+\_form#49=136x28:$\mu_t\overline{\tens{S}}-\dfrac{2}{3}\mu_t
+  \trace\left(\overline{\tens{S}}\right)\tens{1}+\dfrac{2}{3}k\tens{1}$
+\_form#50=50x14:$\mu_t \dive \left(\overline{\vect{u}}\right)$
+\_form#51=36x31:$ \frac{\vect{IF} \cdot \tens{K}_\celli}
+                              {\norm{\tens{K}_\celli \cdot \vect{S}}^2} $
+\_form#52=36x31:$ \frac{\vect{FJ} \cdot \tens{K}_\cellj}
+                              {\norm{\tens{K}_\cellj \cdot \vect{S}}^2} $
+\_form#53=21x31:$ \der{u_i}{x_j} $
+\_form#54=24x29:$ \der{t_ij}{x_k} $
+\_form#55=16x14:$ S_\fib $
+\_form#56=30x20:$ \tens{f_s}^{imp} $
+\_form#57=45x31:\[ \begin{bmatrix} A&B^t\\ B&O  \end{bmatrix}\]
+\_form#58=95x13:\[ S = -B \cdot A^{-1} \cdot B \]
+\_form#59=134x16:\[ S \approx -B \cdot diag(A)^{-1} \cdot B^t \]
+\_form#60=115x16:\[ B \cdot lumped(A^{-1}) \cdot B^t \]
+\_form#61=98x15:$x=lumped(A^{-1})$
+\_form#62=44x10:$A.x = \bf{1}$
+\_form#63=6x9:$\bf{1}$
+\_form#64=171x26:\[ S \approx \alpha M_{22} + \frac{1}{dt} B.diag(A)^{-1}.B^t \]
+\_form#65=21x13:$M_{22}$
+\_form#66=209x26:\[ S \approx \alpha \cdot M_{22} + \frac{1}{dt} B\cdot lumped(A^{-1})
+ \cdot B^t \]
+\_form#67=21x13:$ M_{22} $
+\_form#68=110x15:$A=D(Id+D^{-1}X)$
+\_form#69=150x15:$A^{-1}=(Id+D^{-1}X)^{-1}D^{-1}$
+\_form#70=64x13:$Id+D^{-1}X$
+\_form#71=144x39:\[
+Id+\sum\limits_{I=1}^{poly\_degree}\left(-D^{-1}X\right)^{I}
+\]
+\_form#72=96x15:$x_{out} \leftarrow M^{-1}x_{out})$
+\_form#73=48x11:$ \vect{u} \cdot \vect{n} = 0 $
+\_form#74=83x14:$ (\mu+\mu_T)
+                                    \gradv \vect{u} \cdot \vect{n}  $
+\_form#75=51x13:$ \Delta t
+                                    \grad P \cdot \vect{n}  $
+\_form#76=119x31:$ cp \left( K +
+                                     \dfrac{K_T}{\sigma_T} \right)
+                                     \grad T \cdot \vect{n} $
+\_form#77=41x18:$\tens{H}\tens{B}\transpose{\tens{H}}$
+\_form#78=175x28:\[
+ \dfrac{\partial \varia}{\partial t} + \divs \left( \varia \vect{g} \right)
+     - \divs \left( \vect{V} \right) \varia = 0
+ \]
+\_form#79=8x11:$ \vect{g} $
+\_form#80=81x10:\[
+  \varia = z \textrm{ on walls}
+ \]
+\_form#81=98x28:\[
+  \dfrac{\partial \varia}{\partial n} = 0 \textrm{ elsewhere}
+ \]
+\_form#82=126x31:\[
+ \divs \left( \grad \varia \right)
+     = \divs \left( \dfrac{\vect{g}}{c_p \theta} \right)
+ \]
+\_form#83=6x10:$ \theta $
+\_form#84=176x35:\[
+  \varia = \left(\dfrac{P_{sea}}{p_s}\right)^{R/C_p} \textrm{on the ground}
+ \]
+\_form#85=28x10:$k-\varepsilon$
+\_form#86=54x11:$W.m^{-2}.K$
+\_form#87=39x11:$W.m^{-2}$
+\_form#88=61x11:$J.m^{-3}.K^{-1}$
+\_form#89=9x9:$>$
+\_form#90=10x13:$ \fib $
+\_form#91=14x11:$ \centf $
+\_form#92=10x13:$ Q $
+\_form#93=100x16:\[
+P_{\face} = A_P^g + B_P^g P_{\centi}
+\]
+\_form#94=103x18:\[
+Q_{\face} = A_P^f + B_P^f P_{\centi}
+\]
+\_form#95=18x15:$ P_\centi $
+\_form#96=79x16:\[
+  \delta P_{\face} = B_P^g \delta P_{\centi}
+  \]
+\_form#97=90x18:\[
+  \delta Q_{\face} = -B_P^f \delta P_{\centi}
+  \]
+\_form#98=9x9:$ \vect{u} $
+\_form#99=95x16:\[
+  \vect{u}_{\face} = \vect{A}_u^g + \tens{B}_u^g \vect{u}_{\centi}
+  \]
+\_form#100=98x20:\[
+  \vect{Q}_{\face} = \vect{A}_u^f + \tens{B}_u^f \vect{u}_{\centi}
+  \]
+\_form#101=18x16:$ \tens{B}_u^g $
+\_form#102=18x19:$ \tens{B}_u^f $
+\_form#103=13x14:$ \centip $
+\_form#104=18x14:$ R_{ij} $
+\_form#105=21x21:$\frac{|U_F|}{|U_I^p|}$
+\_form#106=6x10:$ k $
+\_form#107=6x6:$\varepsilon$
+\_form#108=19x13:$ D_H $
+\_form#109=8x10:$ I $
+\_form#110=24x14:$ U_{ref} $
+\_form#111=6x6:$ \varepsilon $
+\_form#112=33x18:$ \tens{alpha} $
+\_form#113=26x14:$ \rho^{n+1}$
+\_form#114=28x15:$ \rho^{n-\frac{1}{2}} $
+\_form#115=26x16:$ p_{ther}^{n+1} $
+\_form#116=6x6:$ a $
+\_form#117=275x18:\[
+f_s^{imp}(a^{n+1}-a^n)
++ \divs \left( a^{n+1} \rho \vect{u} - \mu \grad a^{n+1} \right)
+= Rhs
+\]
+\_form#118=200x16:\[
+f_s^{imp} \delta a
++ \divs \left( \delta a \rho \vect{u} - \mu \grad \delta a \right)
+= Rhs^1
+\]
+\_form#119=83x11:$ \delta a = a^{n+1} - a^n$
+\_form#120=184x15:$ Rhs^1 = Rhs - \divs( a^n \rho \vect{u} - \mu \grad a^n)$
+\_form#121=221x18:\[
+f_s^{imp} \delta a^k
++ \divs \left(\delta a^k \rho \vect{u}-\mu\grad\delta a^k \right)
+= Rhs^k
+\]
+\_form#122=278x16:$Rhs^k=Rhs-f_s^{imp}(a^k-a^n)
+- \divs \left( a^k\rho\vect{u}-\mu\grad a^k \right)$
+\_form#123=25x15:$ f_s^{imp} $
+\_form#124=13x9:$ a^n $
+\_form#125=11x11:$ a^k $
+\_form#126=28x11:$ Rhs^k $
+\_form#127=8x9:$ \vect{a} $
+\_form#128=296x20:\[
+\tens{f_s}^{imp}(\vect{a}^{n+1}-\vect{a}^n)
++ \divv \left( \vect{a}^{n+1} \otimes \rho \vect {u}
+             - \mu \gradt \vect{a}^{n+1}\right)
+= \vect{Rhs}
+\]
+\_form#129=223x20:\[
+\tens{f_s}^{imp} \delta \vect{a}
++ \divv \left( \delta \vect{a} \otimes \rho \vect{u}
+             - \mu \gradt \delta \vect{a} \right)
+= \vect{Rhs}^1
+\]
+\_form#130=83x14:$ \delta \vect{a} = \vect{a}^{n+1} - \vect{a}^n$
+\_form#131=204x18:$ \vect{Rhs}^1 = \vect{Rhs}
+- \divv \left( \vect{a}^n \otimes \rho \vect{u}
+             - \mu \gradt \vect{a}^n \right)$
+\_form#132=240x20:\[
+\tens{f_s}^{imp} \delta \vect{a}^k
++ \divv \left( \delta \vect{a}^k \otimes \rho \vect{u}
+             - \mu \gradt \delta \vect{a}^k \right)
+= \vect{Rhs}^k
+\]
+\_form#133=303x20:$ \vect{Rhs}^k = \vect{Rhs}
+- \tens{f_s}^{imp} \left(\vect{a}^k-\vect{a}^n \right)
+- \divv \left( \vect{a}^k \otimes \rho \vect{u}
+             - \mu \gradt \vect{a}^k \right)$
+\_form#134=14x11:$ \vect{a}^n $
+\_form#135=13x14:$ \vect{a}^k $
+\_form#136=29x15:$ \vect{Rhs}^k $
+\_form#137=6x19:$ \tens{\variat} $
+\_form#138=294x31:\[
+\tens{f_s}^{imp}(\tens{\variat}^{n+1}-\tens{\variat}^n)
++ \divt \left( \tens{\variat}^{n+1} \otimes \rho \vect {u}
+             - \mu \gradtt \tens{\variat}^{n+1}\right)
+= \tens{Rhs}
+\]
+\_form#139=223x31:\[
+\tens{f_s}^{imp} \delta \tens{\variat}
++ \divt \left( \delta \tens{\variat} \otimes \rho \vect{u}
+             - \mu \gradtt \delta \tens{\variat} \right)
+= \tens{Rhs}^1
+\]
+\_form#140=76x21:$ \delta \tens{\variat} = \tens{\variat}^{n+1} - \tens{\variat}^n$
+\_form#141=205x31:$ \tens{Rhs}^1 = \tens{Rhs}
+- \divt \left( \tens{\variat}^n \otimes \rho \vect{u}
+             - \mu \gradtt \tens{\variat}^n \right)$
+\_form#142=241x31:\[
+\tens{f_s}^{imp} \delta \tens{\variat}^k
++ \divt \left( \delta \tens{\variat}^k \otimes \rho \vect{u}
+             - \mu \gradtt \delta \tens{\variat}^k \right)
+= \tens{Rhs}^k
+\]
+\_form#143=306x31:$ \tens{Rhs}^k = \tens{Rhs}
+- \tens{f_s}^{imp} \left(\tens{\variat}^k-\tens{\variat}^n \right)
+- \divt \left( \tens{\variat}^k \otimes \rho \vect{u}
+             - \mu \gradtt \tens{\variat}^k \right)$
+\_form#144=171x14:$\delta P = C_0 + C_1.flow + C_2.flow^2$
+\_form#145=8x13:$ \phi $
+\_form#146=33x13:$ \phi-f_b $
+\_form#147=10x13:$ f_b $
+\_form#148=8x6:$ \alpha $
+\_form#149=63x11:$ Bl-v^2-k $
+\_form#150=9x6:$ \omega $
+\_form#151=30x10:$ k-\omega $
+\_form#152=14x13:$ \widetilde{\nu}_T $
+\_form#153=39x11:$ W\,m^{-2} $
+\_form#154=138x20:\[
+   Q = \tens{\Omega}:\tens{\Omega} -
+   \deviator{ \left(\tens{S} \right)}:\deviator{ \left(\tens{S} \right)}
+\]
+\_form#155=10x15:$\tens{\Omega}$
+\_form#156=26x20:$\deviator{ \left(\tens{S} \right)}$
+\_form#157=71x14:$ (\vect{x}_b - \vect{x}_a) \cdot \vect{x}_c $
+\_form#158=14x13:$ \phi^n $
+\_form#159=46x16:$ u^(n+1) $
+\_form#160=18x9:$ u^n. $
+\_form#161=58x16:$ \phi^(n+1,k) $
+\_form#162=80x16:$ u^(n+1,k+1) $
+\_form#163=59x16:$  u^(n+1,k) $
+\_form#164=18x9:$ u^n.$
+\_form#165=89x16:$ u^(n+1,0) = u^n $
+\_form#166=140x16:$ \phi^extrap = 2 \phi^n - \phi^(n-1) $
+\_form#167=171x16:$ \phi^extrap = 3/2 \phi^n - 1/2 \phi^(n-1) $
+\_form#168=30x10:$n+1$
+\_form#169=19x13:$S_i\phi$
+\_form#170=8x13:$\phi$
+\_form#171=185x15:$(S_i\phi)^{n+\theta}=S_i^n[(1-\theta)\phi^n+\theta\phi^{n+1}]$
+\_form#172=6x10:$\theta$
+\_form#173=13x13:$S_e$
+\_form#174=166x15:$(S_e)^{n+\theta}=[(1+\theta)S_e^n-\theta S_e^{n-1}]$
+\_form#175=6x10:$k$
+\_form#176=18x14:$R_{ij}$
+\_form#177=9x6:$\omega$
+\_form#178=8x9:$\varphi$
+\_form#179=9x14:$\overline{f}$
+\_form#180=13x13:$ \theta_S $
+\_form#181=159x15:$(S_e)^{n+\theta}=(1+\theta)S_e^n-\theta S_e^{n-1}$
+\_form#182=30x10:$theta$
+\_form#183=143x15:$\phi^{n+\theta}=(1+\theta)\phi^n-\theta \phi^{n-1}$
+\_form#184=9x14:$\bar{f}$
+\_form#185=29x15:$ m/s^2 $
+\_form#186=14x14:$C_p$
+\_form#187=8x6:$\kappa$
+\_form#188=288x16:$ \tens{\sigma} = -P\,\tens{Id} + \mu (\grad\,\vect{u} +
+      \ ^{t}\ggrad\,\vect{u})
+      +(\kappa-\frac{2}{3}\mu)\,\dive(\vect{u})\,\tens{Id} $
+\_form#189=8x9:$ \rho $
+\_form#190=9x9:$ \mu $
+\_form#191=13x13:$P_0$
+\_form#192=14x11:$T_0$
+\_form#193=10x10:$P$
+\_form#194=183x15:$ P^*=P-\rho_0\vect{g}.(\vect{x}-\vect{x}_0)+ P^*_0-P_0 $
+\_form#195=14x10:$\vect{x_0}$
+\_form#196=14x14:$
+      P^*_0 $
+\_form#197=13x13:$ P_0 $
+\_form#198=58x15:$-\grad{P}+\rho\vect{g}$
+\_form#199=101x15:$-\grad{P^*}+(\rho-\rho_0)\vect{g}$
+\_form#200=8x9:$
+      \rho$
+\_form#201=14x10:$P^*$
+\_form#202=10x10:$
+      P$
+\_form#203=9x11:$\tens{\sigma}$
+\_form#204=14x10:$\vect{x}_0$
+\_form#205=40x14:$kg/mol$
+\_form#206=71x11:$J.mol^{-1}.K^{-1}$
+\_form#207=34x11:$J.K^{-1}$
+\_form#208=8x6:$\sigma$
+\_form#209=66x11:$W.m^{-2}.K^{-4}$
+\_form#210=18x13:$N_A$
+\_form#211=35x11:$mol^{-1}$
+\_form#212=180x28:\[
+ \dfrac{\partial \varia}{\partial t} + \divs \left( \varia \vect{e}_r \right)
+     - \divs \left( \vect{e}_r \right) \varia = 0
+ \]
+\_form#213=73x26:$ \vect{e}_r
+         = \dfrac{\vect{x} - \vect{x}_0}{\norm{\vect{x} - \vect{x}_0}} $
+\_form#214=14x10:$\vect{x}_0 $
+\_form#215=14x10:$ \vect{x}_0$
+\_form#216=104x28:\[
+  \dfrac{\partial \varia}{\partial n} = 0 \textrm{everywhere}
+ \]
+\_form#217=73x26:$ \vect{e}_r = \dfrac{\vect{x} - \vect{x}_0}{\norm{\vect{x} - \vect{x}_0}} $
+\_form#218=101x14:$ \divs ( \grad P ) = \divs ( f ) $
+\_form#219=218x29:\[
+    D \left( \Delta t, \delta p \right) =
+\divs \left( \rho \vect{\widetilde{u}}\right)
+    - \Gamma^n
+    + \dfrac{\rho^n - \rho^{n-1}}{\Delta t}
+\]
+\_form#220=163x19:\[
+ \dot{m}^{n+1}_\ij = \dot{m}^{n}_\ij
+                   - \Delta t \grad_\fij \delta p \cdot \vect{S}_\ij
+\]
+\_form#221=38x15:$ \Gamma_{s,cond}^n $
+\_form#222=39x15:$ \Gamma_{v, cond}^n $
+\_form#223=211x14:\[
+    - DIV \cdot Hdg \cdot GRAD \left(\delta p \right) =
+- \divs \left( \rho \vect{\widetilde{u}}\right)
+\]
+\_form#224=188x16:\[
+ \dot{m}^{n+1} = \dot{m}^{n}
+                - Hodge \cdot GRAD \left(\delta p \right)
+\]
+\_form#225=223x29:\[
+D \left( \Delta t, \varia \right) = \divs \left( \rho \vect{u}^n\right)
+                                  - \Gamma^n
+                                  + \dfrac{\rho^n - \rho^{n-1}}{\Delta t}
+\]
+\_form#226=163x23:\[
+ \dot{m}^{n+\frac{1}{2}}_\ij = \dot{m}^{n}_\ij
+                              - \Delta t \grad_\fij \varia \cdot \vect{S}_\ij
+\]
+\_form#227=96x34:\[\rho^{n+1} =\rho^{n} \cdot \frac{P_{th}^{n+1}}{P_{th}^{n}}\]
+\_form#228=5x6:$ \epsilon $
+\_form#229=248x14:$\partial_i \left[(\kappa -2/3\,(\mu+\mu_t))\partial_k U_k  \right]
+      +     \partial_j \left[ (\mu+\mu_t)\partial_i U_j \right]$
+\_form#230=90x15:$\Delta \rho \vect{g} = - \rho \beta \Delta T \vect{g} $
+\_form#231=55x14:$ \vect{u}^{k+1} - \vect{u}^k $
+\_form#232=14x14:$ \vect{u}^0 $
+\_form#233=28x9:$ \rho_l, \mu_l $
+\_form#234=31x9:$ \rho_v, \mu_v $
+\_form#235=126x14:\[
+\rho_\celli = \alpha_\celli \rho_v + (1-\alpha_\celli) \rho_l,
+\]
+\_form#236=130x14:\[
+\mu_\celli = \alpha_\celli \mu_v + (1-\alpha_\celli) \mu_l,
+\]
+\_form#237=234x31:\[
+\left( \rho\vect{u}\cdot\vect{S} \right)_\ij = \\ \left\lbrace
+\begin{array}{ll}
+  \rho_\celli (\vect{u}\cdot\vect{S})_\ij
+ &\text{ if } (\vect{u}\cdot\vect{S})_\ij>0, \\
+  \rho_\cellj (\vect{u}\cdot\vect{S})_\ij
+ &\text{ otherwise },
+\end{array} \right.
+\]
+\_form#238=275x31:\[
+\left( \rho\vect{u}\cdot\vect{S} \right)_\ib = \\ \left\lbrace
+\begin{array}{ll}
+  \rho_\celli (\vect{u}\cdot\vect{S})_\ib
+ &\text{ if } (\vect{u}\cdot\vect{S})_\ib>0, \\
+  \rho_b (\vect{u}\cdot\vect{S})_\ib
+ &\text{ otherwise }.
+\end{array} \right.
+\]
+\_form#239=204x40:\[
+\sum_\celli\left(
+|\Omega_\celli|\dfrac{\rho_\celli^n - \rho_\celli^{n-1}}{\Delta t} +
+\sum_{\cellj\in\Face{\celli}}\left(\rho\vect{u}\vect{S}\right)_{\ij}^n
+\right).
+\]
+\_form#240=14x10:$ \vect u _d $
+\_form#241=104x39:\[
+\begin{cases}
+\left ( \vect u ^{n+1} . \vect S \right ) _{\face} = \Dot{m}_{\face}\\
+\left ( \vect u _d^{n+1} . \vect S \right ) _{\face} = \Dot{m^d}_{\face}
+\end{cases}
+\]
+\_form#242=230x33:\[
+\Dot{m^d}_{\face} = min \left ( C_{\gamma} \dfrac{\Dot{m}_{\face}}
+{\vect S_{\face}}, \underset{\face'}{max} \left [ \dfrac{\Dot{m}_{\face'}}
+{\vect S_{\face'}} \right ] \right ) \left ( \vect n \cdot \vect S \right )
+_{\face}
+\]
+\_form#243=15x14:$ C_{\gamma} $
+\_form#244=14x11:$ \vect n _{\face} $
+\_form#245=408x43:\[
+\vect {n} _{\face} = \dfrac{\left ( \grad \alpha \right ) _{\face}}
+{\norm {\left ( \grad \alpha \right ) _{\face} + \delta}},
+\text{ with: }
+\left ( \grad \alpha \right ) _{\face _{\celli \cellj}} = \dfrac{\left (
+\grad \alpha \right ) _\celli + \left ( \grad \alpha \right ) _\cellj}{2},
+\text{ and: }
+\delta = 10^{-8} / \overline{\vol \celli} ^{1/3}
+\]
+\_form#246=435x39:\[
+Rhs = Rhs - \sum_{\fij \in \Facei{\celli}}      \left(
+       \alpha_\celli^{n+1} \left( 1 - \alpha_\cellj^{n+1} \right) \left(
+       \dot{m}_\fij^{d} \right)^{+} + \alpha_\cellj^{n+1} \left( 1 -
+       \alpha_\celli^{n+1} \right) \left( \dot{m}_\fij^{d} \right)^{-}
+      \right)
+\]
+\_form#247=366x33:\[
+\dfrac{\alpha^n - \alpha^{n-1}}{\Delta t}
+    + \divs \left( \alpha^n \vect{u}^n \right)
+    + \divs \left( \left[ \alpha^n
+                          \left( 1 - \alpha^{n} \right)
+                   \right] \vect{u^r}^n \right)
+    = \dfrac{\Gamma_V \left( \alpha^{n-1}, p^n \right)}{\rho_v}
+\]
+\_form#248=16x13:$ \Gamma_V $
+\_form#249=13x9:$ \rho_v $
+\_form#250=14x11:$ \vect{u^r} $
+\_form#251=119x15:$ \Gamma_V \left(\alpha, p\right) = m^+ + m^- $
+\_form#252=224x31:\[
+m^+ = -\dfrac{C_{prod} \rho_l \min \left( p-p_V,0 \right)\alpha(1-\alpha)}
+             {0.5\rho_lu_\infty^2t_\infty},
+\]
+\_form#253=226x31:\[
+m^- = -\dfrac{C_{dest} \rho_v \max \left( p-p_V,0 \right)\alpha(1-\alpha)}
+             {0.5\rho_lu_\infty^2t_\infty},
+\]
+\_form#254=63x14:$ C_{prod}, C_{dest} $
+\_form#255=70x14:$ t_\infty=l_\infty/u_\infty $
+\_form#256=15x9:$p_V$
+\_form#257=14x13:$ l_\infty $
+\_form#258=18x9:$ u_\infty $
+\_form#259=35x14:$ \Gamma_V/\rho_v $
+\_form#260=209x46:\[
+\sum_i\left(
+|\Omega_i|\dfrac{\alpha_i^n - \alpha_i^{n-1}}{\Delta t} +
+\sum_{j\in\Face{\celli}}\left(\rho\vect{u}\vect{S}\right)_{ij}^n
+\right).
+\]
+\_form#261=9x9:$ \vect u $
+\_form#262=225x33:\[
+\Dot{m^d}_{\face} = min \left ( C_{\gamma} \dfrac{\Dot{m}_{\face}}
+{\vect S_{\face}}, \underset{\face'}{max} \left [ \dfrac{\Dot{m}_{\face'}}
+{\vect S_{\face'}} \right ] \right ) \left ( \vect n . \vect S \right )
+_{\face}
+\]
+\_form#263=408x43:\[
+{\vect n _{\face}} = \dfrac{\left ( \grad \alpha \right ) _{\face}}
+{\norm {\left ( \grad \alpha \right ) _{\face} + \delta}},
+\text{ with: }
+\left ( \grad \alpha \right ) _{\face _{\celli \cellj}} = \dfrac{\left (
+\grad \alpha \right ) _\celli + \left ( \grad \alpha \right ) _\cellj}{2},
+\text{ and: }
+\delta = 10^{-8} / \overline{\vol \celli} ^{1/3}
+\]
+\_form#264=30x16:$T^{fb}_{\mbox{mur}} $
+\_form#265=81x14:\[ -\divs ( \grad \varia ) = 1 \]
+\_form#266=40x15:$ \varia_|b = 0 $
+\_form#267=61x13:$ \grad \varia \cdot \vect{n} = 0 $
+\_form#268=170x16:\[
+ d \simeq -|\grad \varia |
+ + \sqrt{ \grad \varia \cdot \grad \varia +2 \varia }
+ \]
+\_form#269=141x14:\[
+\divs \left( \varia \vect{V} \right)
+    - \divs \left( \vect{V} \right) \varia = 0
+\]
+\_form#270=11x13:$ \vect{V} $
+\_form#271=53x30:\[
+ \vect{V} = \dfrac{ \grad y }{\norm{\grad y} }
+\]
+\_form#272=91x24:\[
+ \varia = \dfrac{u_\star}{\nu} \textrm{ on walls}
+\]
+\_form#273=98x28:\[
+ \dfrac{\partial \varia}{\partial n} = 0 \textrm{ elsewhere}
+\]
+\_form#274=49x14:\[
+ y^+ = y \varia
+\]
+\_form#275=14x9:$ \nu_T $
+\_form#276=93x29:$ (1-\exp(\dfrac{-y^+}{d^+}))^2 $
+\_form#277=14x11:$ d^+ $
+\_form#278=18x11:$ y+ $
+\_form#279=15x14:$ y^+ $
+\_form#280=28x10:$k-\epsilon$
+\_form#281=39x14:$R_{ij}-\epsilon$
+\_form#282=30x10:$k-\omega$
+\_form#283=15x14:$y^+$
+\_form#284=60x14:$1/\kappa\approx 2,38$
+\_form#285=16x11:$u^+$
+\_form#286=38x15:$\vec{n}.(\tens{R}\vec{n})$
+\_form#287=74x29:$ y^+ = \dfrac{\centip \centf u_\star}{\nu}$
+\_form#288=74x29:\[
+ h_{tur} = Pr \dfrac{y^+}{T^+}
+ \]
+\_form#289=54x15:$ y^+ < y^+_{lim} $
+\_form#290=16x11:$ u^+ $
+\_form#291=101x35:\[ u^+ = \int_0^{y_k^+} \dfrac{dy_k^+}{1+L_m^k} \]
+\_form#292=18x15:$ L_m^k $
+\_form#293=144x30:\[ L_m^k = \kappa y_k^+ (1 - exp(\dfrac{-y_k^+}{A})) \]
+\_form#294=51x15:$ y_k^+ < 200 $
+\_form#295=61x15:$ y_k^+ >= 200 $
+\_form#296=204x31:\[ u^+ = \dfrac{1}{\kappa}
+            \ln \left(\dfrac{(y+y_0) u_k}{\nu + \alpha \xi u_k} \right)
+           + Cst_{smooth} \]
+\_form#297=238x14:$ \alpha = \exp \left(- \kappa(Cst_{rough}-Cst_{smooth})\right)
+                \simeq 0.26 $
+\_form#298=298x28:$ y_0 = \alpha \xi \exp \left(-\kappa Cst_{smooth} \right)
+            = \xi \exp \left(-\kappa Cst_{rough} \right)
+            \simeq \dfrac{\xi}{33}$
+\_form#299=18x11:$ T^+ $
+\_form#300=74x33:\[
+ h = \dfrac{K}{\centip \centf} h_{tur}
+ \]
+\_form#301=54x15:$ Pr y^+/T^+ $
+\_form#302=63x29:$ h_{tur} = \sigma \dfrac{y^+}{t^+} $
+\_form#303=116x46:\[
+ \dfrac{T^+}{\sigma}
+          = \int_0^{y_k^+} \dfrac{dy_k^+}{1+\dfrac{\sigma}{\sigma_t}\nu_t^+}
+ \]
+\_form#304=49x15:$ \nu_t^+ = L_m^k $
+\_form#305=143x30:$ L_m^k = \kappa y_k^+(1 - exp(\dfrac{-y_k^+}{A})) $
+\_form#306=51x14:$ y^+=100 $
+\_form#307=53x15:$ \nu_t^+=\kappa y^+ $
+\_form#308=76x21:$ Pr=\sigma=\frac{\mu C_p}{\lambda_f} $
+\_form#309=10x9:$ \sigma_t $
+\_form#310=30x11:$ 10^{-12}$
+\_form#311=30x11:$ 10^{+30}$
+\_form#312=30x11:$ 10^{+12}$
+\_form#313=8x9:$ 0 $
+\_form#314=9x6:$ \pi $
+\_form#315=14x13:$ C_v $
+\_form#316=16x10:$P0$
+\_form#317=16x9:$T0$
+\_form#318=183x15:$P^*=P-\rho_0\vect{g}.(\vect{x}-\vect{x}_0)+P^*_0-P_0$
+\_form#319=14x14:$P^*_0$
+\_form#320=8x9:$\rho$
+\_form#321=40x14:$ kg/mol $
+\_form#322=39x14:$R_{ij}-\varepsilon$
+\_form#323=15x14:$C_\mu$
+\_form#324=14x13:$C_s$
+\_form#325=144x15:$ \delta = \text{xlesfl} . (\text{ales} . volume)^{\text{bles}}$
+\_form#326=13x9:$\omega_i$
+\_form#327=143x15:$\overline{\Delta}=xlesfl(ales*|\Omega_i|)^{bles}$
+\_form#328=43x13:$Omega_i$
+\_form#329=173x15:$\overline{\Delta}=xlesfl(ales*|Omega_i|)^{bles}$
+\_form#330=149x24:$\displaystyle\mu_{sg}=
+ \rho C_{smago}^2\bar{\Delta}^2\sqrt{2\bar{S}_{ij}\bar{S}_{ij}}$
+\_form#331=10x11:$\bar{\Delta}$
+\_form#332=15x15:$\bar{S}_{ij}$
+\_form#333=13x13:$\Omega_i$
+\_form#334=76x19:$\widetilde{\overline{\Delta}}=xlesfd\overline{\Delta}$
+\_form#335=106x18:$ (1-\exp^{(-y^+/cdries}) $
+\_form#336=8x9:$ \varphi $
+\_form#337=9x14:$ \overline{f} $
+\_form#338=16x13:$ \vect{IJ}$
+\_form#339=9x9:$\vect{n}$
+\_form#340=18x13:$\vect{IF}$
+\_form#341=30x29:$\displaystyle\frac{\vect{FJ}.\vect{n}}{\vect{IJ}.\vect{n}}$
+\_form#342=23x13:$\vect{I'J'}$
+\_form#343=18x13:$\vect{II'}$
+\_form#344=21x13:$\vect{OF}$
+\_form#345=14x9:$ u_x $
+\_form#346=14x10:$ u_y $
+\_form#347=14x9:$ u_z $
+\_form#348=20x13:$ R_{xx} $
+\_form#349=20x14:$ R_{yy} $
+\_form#350=19x13:$ R_{zz} $
+\_form#351=20x14:$ R_{xy} $
+\_form#352=20x14:$ R_{yz} $
+\_form#353=15x9:$ w_x $
+\_form#354=15x10:$ w_y $
+\_form#355=15x9:$ w_z $
+\_form#356=9x11:$\geqslant$
+\_form#357=28x10:$ k-\varepsilon $
+\_form#358=39x14:$ R_{ij}-\epsilon $
+\_form#359=68x11:$ BL-v^2-k $
+\_form#360=30x10:$ k-\omega$
+\_form#361=31x16:$\frac{2}{3}\grad \rho k$
+\_form#362=5x6:$\epsilon$
+\_form#363=11x15:$ \tens{R} $
+\_form#364=49x16:$ \divv \left( \rho \tens{R} \right) $
+\_form#365=80x14:$1-e^{-y^+/ cdries}$
+\_form#366=55x14:$f_s(\xi_K,\xi_D)$
+\_form#367=116x15:$ (k, \varepsilon, R_{ij}, \omega, \varphi, \overline{f}, \alpha, \nu_t$
+\_form#368=81x31:$\displaystyle \frac{\partial }{\partial n}\left(\frac{ \partial P}{\partial \tau}\right)=0$
+\_form#369=69x13:$ \vect{u} \cdot \vect{S} = \vect{w} \cdot \vect{S} $
+\_form#370=41x14:$ \vec{beta} \cdot \nabla $
+\_form#371=35x14:$ \nabla\cdot(\beta ) $
+\_form#372=25x14:$ 1./3. $
+\_form#373=46x16:$1./\sqrt(3.)$
+\_form#374=5x9:$1$
+\_form#375=25x14:$2./3.$
+\_form#376=14x13:$\mathbb{P}_1$
+\_form#377=14x13:$\mathbb{P}_2$
+\_form#378=21x11:$ \delta \varia^k $
+\_form#379=34x11:$ \delta \varia^{k-1} $
+\_form#380=28x10:$ k-\epsilon
+$
+\_form#381=143x15:$ \phi^{n+\theta} = (1-\theta) \phi^n + \theta \phi^{n+1} $
+\_form#382=26x9:$ 10^-8 $
+\_form#383=26x9:$ 10^-5 $
+\_form#384=28x10:$ k-\epsilon $
+\_form#385=49x14:$ \vec{beta} \cdot \nabla u $
+\_form#386=59x14:$ \nabla\cdot(\beta \otimes u) $
+\_form#387=30x15:$ \frac{\rho u}{2} \cdot u $
+\_form#388=56x14:$ rho/2 u\cdot u $
+\_form#389=49x10:$ h = u \cdot w $
+\_form#390=29x6:$ w \cdot w $
+\_form#391=178x14:$ max_{c \in Cells} |T_c - T_{ref}|/|T_{ref}| < \epsilon$
+\_form#392=114x14:$ 1/2 velocity \cdot velocity $
+\_form#393=59x16:$ \int_c velocity \cdot $
+\_form#394=64x16:$ \int_c vorticity \cdot $
+\_form#395=145x89:\begin{eqnarray*}
+   \der{\rho}{t} + \divs \left(\rho\vect{u}\right) &=&0
+\\ \der{\rho \vect{u}}{t} + \divv \left(\vect{u}\otimes\rho\vect{u}\right)&=&0
+\\ \der{E}{t} + \divs \left(\rho\vect{u} E\right) &=&0
+\end{eqnarray*}
+\_form#396=310x66:\begin{align*}
+         P_p &= 0 & \textrm{if } 1 + \displaystyle\frac{\gamma-1}{2}M<0
+      \\ P_p &= P_i \left(1 + \displaystyle\frac{\gamma-1}{2}M\right)
+         ^{\frac{2\gamma}{\gamma-1}} & \textrm{otherwise}
+         \end{align*}
+\_form#397=286x39:\begin{eqnarray*}
+      P_p = P_i \left(1 + \displaystyle\frac{\gamma(\gamma+1)}{4}M^2
+       +\gamma M \displaystyle\sqrt{1+\displaystyle\frac{(\gamma+1)^2}{16}M^2}\right)
+      \end{eqnarray*}
+\_form#398=60x26:$M = \displaystyle\frac{\vect{u}_i \cdot \vect{n}}{c_i}$
+\_form#399=68x33:\[c^2  = \left(\frac{\partial p}{\partial \rho}\right)_s\]
+\_form#400=44x26:\[c^2  = \gamma \frac{p}{\rho}\]
+\_form#401=65x34:\[ \beta = \left(\frac{\partial p}{\partial s}\right)_\rho \]
+\_form#402=38x13:\[ \beta = \rho^\gamma \]
+\_form#403=74x34:\[C_v = \left(\frac{\partial e}{\partial T}\right)_\rho\]
+\_form#404=38x26:\[s = \frac{p}{\rho^\gamma}\]
+\_form#405=83x14:\[\epsilon_{\textrm{sup}} = e - C_v T\]
+\_form#406=44x13:\[\epsilon_{\textrm{sup}} = 0\]
+\_form#407=261x15:\[
+s = Q^{\prime} + C_v * log(e-v P_{\infty})
+           + C_v * (\gamma-1) log(v)
+\]
+\_form#408=13x13:$Q^{\prime}$
+\_form#409=14x13:$C_v$
+\_form#410=18x13:$P_{\infty}$
+\_form#411=9x9:$\gamma$
+\_form#412=8x6:$ \tau $
+\_form#413=23x11:$T_{sat}$
+\_form#414=186x14:\[
+  P \rightarrow T_{sat} \/ \mu_1(T_{sat},P)=\mu_2(T_{sat},P)
+\]
+\_form#415=78x30:\[
+  \dfrac{1}{T} = \dfrac{\dd s}{\dd e}_{|\tau,\alpha,y,z}
+\]
+\_form#416=79x30:\[
+  \dfrac{P}{T} = \dfrac{\dd s}{\dd \tau}_{|e,\alpha,y,z}
+\]
+\_form#417=8x6:$\tau$
+\_form#418=5x6:$e$
+\_form#419=5x6:$s$
+\_form#420=86x30:\[
+  c^2 = -\tau^2 \der{P}{\tau}_{|s,y}
+\]
+\_form#421=8x6:$\alpha$
+\_form#422=8x9:$y$
+\_form#423=6x6:$z$
+\_form#424=101x14:\[
+  \mathcal{P}(\alpha, y, z, e, \tau) = P
+\]
+\_form#425=15x11:$T^2$
+\_form#426=15x11:$T^3$
+\_form#427=15x11:$T^4$
+\_form#428=175x15:$\rho^{n+1}$\,=\,srrom\,$\rho^n$+(1-srrom)\,$\rho^{n+1}$
+\_form#429=99x10:$ rovsdt \delta a = smbrs $
+\_form#430=36x10:$ rovsdt $
+\_form#431=34x10:$ smbrs $
+\_form#432=71x14:$ S_{exp} + S_{imp} a $
+\_form#433=171x14:$ smbrs  = smbrs  + S_{exp} + S_{imp} a $
+\_form#434=183x14:$ rovsdt = rovsdt + \max(-S_{imp},0) $
+\_form#435=16x13:$ \rho \Omega $
+\_form#436=40x14:$ kg_a.s^{-1} $
+\_form#437=50x14:$ kg.m.s^{-2} $
+\_form#438=48x14:$ kg.C.s^{-1} $
+\_form#439=29x11:$ J.s^{-1} $
+\_form#440=35x14:$ kg.s^{-1} $
+\_form#441=25x13:$ f_{min} $
+\_form#442=26x13:$ f_{max} $
+\_form#443=14x10:$\text{\degresC}$
+\_form#444=25x11:$m^{-3}$
+\_form#445=43x13:$CH_{X1m}$
+\_form#446=43x13:$CH_{X2m}$
+\_form#447=14x13:$O_2$
+\_form#448=24x13:$CO_2$
+\_form#449=25x13:$H_2O$
+\_form#450=15x13:$N_2$
+\_form#451=35x14:$ j . kg^{-1} $
+\_form#452=126x14:\[ rovsdt D(var) = smbrs \]
+\_form#453=85x11:$ cexp + cimp var $
+\_form#454=185x13:$ smbrs  = smbrs  + cexp + cimp var $
+\_form#455=184x14:$ rovsdt = rovsdt + \max(-cimp,0) $
+\_form#456=48x13:$ \rho volume$
+\_form#457=50x14:$ kg . m . s^{-2} $
+\_form#458=81x15:$ kg . [degres] . s^{-1} $
+\_form#459=29x11:$ J . s^{-1} $
+\_form#460=35x14:$ kg . s^{-1} $
+\_form#461=10x10:$A$
+\_form#462=10x10:$V$
+\_form#463=69x14:$ P_c = P_g - P_l $
+\_form#464=11x13:$ P_l $
+\_form#465=13x14:$ P_g $
+\_form#466=10x13:$ S_l $
+\_form#467=308x31:\[ \DP{u_p} = - \dfrac{1}{\rho_p} \grad P + \dfrac{u_s-u_p}{\tau_p}
+      + g
+      +1/2 C_A \dfrac{\rho_f}{\rho_p} \left( \dfrac{Du}{Dt}-\DP{u_p} \right)
+\]
+\_form#468=115x28:\[ \rho_f \dfrac{Du}{Dt} \simeq  - \grad P + \rho_f g \]
+\_form#469=39x13:$ C_A = 1$
+\_form#470=235x44:\[ \DP{u_p} = - \dfrac{1}{\rho_p} \dfrac{1+C_A/2}
+                                     {1+C_A/2\dfrac{\rho_f}{\rho_p}} \grad P
+         + \dfrac{u_s-u_p}{\widetilde{\tau}_p}
+         + g
+ \]
+\_form#471=116x28:\[ \widetilde{\tau_p} = (1 + C_A /2 \dfrac{\rho_f}{\rho_p}) \tau_p \]
+\_form#472=86x28:\[
+   \frac{dT}{dt}=\frac{T - PIP}{Tca}
+\]
+\_form#473=94x28:\[
+ \frac{dV}{dt} = \frac{V - PIP}{TCARAC}
+\]
+\_form#474=94x28:\[
+  \frac{dV}{dt} = \frac{V - PIP}{TCARAC}
+ \]
+\_form#475=20x10:$ KL $
+\_form#476=11x10:$ K $
+\_form#477=9x10:$ L $
+\_form#478=224x15:$ coefap =  \epsilon.\sigma.twall^4 / \pi + (1-\epsilon).qincid / \pi $
+\_form#479=18x16:$ \overline{{p^{\prime}}^2} $
+\_form#480=96x30:\[ smago = \dfrac{L_{ij}M_{ij}}{M_{ij}M_{ij}} \]
+\_form#481=141x16:\[ \mu_T = \rho smago L^2  \sqrt{2 S_{ij}S_{ij}} \]
+\_form#482=96x44:\[ S_{ij} = \dfrac{\der{u_i}{x_j} + \der{u_j}{x_i}}{2}\]
+\_form#483=126x16:\[ \mu_T = \rho (C_{S} l)^2  \sqrt{2 S_{ij}S_{ij}} \]
+\_form#484=265x36:$ \mu_T = \rho (C_{wale} L)^2 * \dfrac{(\tens{S}:\tens{Sd})^{3/2}}
+                                          {(\tens{S} :\tens{S})^(5/2)
+                                          +(\tens{Sd}:\tens{Sd})^(5/4)} $
+\_form#485=101x16:$ \tens{S}  = \frac{1}{2}(\gradt \vect{u} + \transpose{\gradt \vect{u}})$
+\_form#486=81x18:$ \tens{Sd} = \deviator{(\symmetric{(\tens{S}^2)})}$
+\_form#487=14x10:$ u^\star $
+\_form#488=6x6:$\varepsilon $
+\_form#489=28x14:$ (k,\varepsilon )$
+\_form#490=109x29:\[ |\dfrac{\Delta P}{\Delta x}| =
+                       \dfrac{\lambda}{D_H} \frac{1}{2} \rho U_{ref}^2 \]
+\_form#491=79x31:$u^\star = U_{ref} \sqrt{\dfrac{\lambda}{8}}$
+\_form#492=8x10:$\lambda $
+\_form#493=78x28:$ Re = \dfrac{U_{ref} D_H}{ \nu} $
+\_form#494=56x11:$ Re < 2000 $
+\_form#495=41x26:\[ \lambda = \dfrac{64}{Re} \]
+\_form#496=56x11:$ Re > 4000 $
+\_form#497=149x30:\[ \lambda = \dfrac{1}{( 1.8 \log_{10}(Re)-1.64 )^2} \]
+\_form#498=99x11:$ 2000 < Re < 4000 $
+\_form#499=165x14:\[ \lambda = 0.021377 + 5.3115. 10^{-6} Re \]
+\_form#500=6x6:$ \varepsilon$
+\_form#501=54x34:\[ k = \dfrac{u^{\star 2}}{\sqrt{C_\mu}} \]
+\_form#502=80x31:\[ \varepsilon = \dfrac{ u^{\star 3}}{(\kappa D_H /10)} \]
+\_form#503=6x6:$ \nu $
+\_form#504=76x16:\[ k = 1.5 I {U_{ref}}^2 \]
+\_form#505=93x31:\[ \varepsilon = 10 \dfrac{{C_\mu}^{0.75} k^{1.5}}{ \kappa D_H} \]
+\_form#506=10x11:$\tens{\alpha}$
+\_form#507=16x18:$\tens{R}_g$
+\_form#508=14x16:$\tens{R}_l$
+\_form#509=19x18:$\tens{P}_{lg}$
+\_form#510=113x16:\[
+\vect{R}_{g,\fib} = \tens{\alpha} \vect{R}_{g,\centip} + \vect{R}_{g}^*
+\]
+\_form#511=246x19:\[
+\vect{R}_g = \transpose{\left(R_{g,11},R_{g,22},R_{g,33},
+                             R_{g,12},R_{g,13},R_{g,23}\right)}
+\]
+\_form#512=28x18:$ \tens{R}_{g,\fib} $
+\_form#513=29x19:$\tens{R}_{g,\centip}$
+\_form#514=108x20:\[
+\tens{R}_{g,\fib}=\tens{P}_{lg}\tens{R}_{l,\fib}\transpose{\tens{P}_{lg}}
+\]
+\_form#515=403x66:\[
+\tens{R}_{l,\fib} =
+\begin{bmatrix}
+R_{l,11,\centip}   &   0        & c R_{l,13,\centip}\\
+  0          & R_{l,22,\centip} & 0                 \\
+c R_{l,13,\centip} & 0                & R_{l,33,\centip}
+\end{bmatrix} +
+\underbrace{\begin{bmatrix}
+                0  &   (1-c) u^* u_k        & 0                 \\
+  (1-c) u^* u_k          & 0                & 0                 \\
+0                  & 0                & 0
+\end{bmatrix}}_{\vect{R}_l^*}
+\]
+\_form#516=110x21:$\tens{R}_{l,\centip}=\transpose{\tens{P}_{lg}}\tens{R}_{g,\centip}
+                      \tens{P}_{lg}$
+\_form#517=28x9:$c = 0$
+\_form#518=28x9:$c = 1$
+\_form#519=28x10:$ k - \varepsilon $
+\_form#520=30x10:$ k - \omega $
+\_form#521=143x30:\[ \mu_T = \rho A1 \dfrac{k}{\max(A1 \omega; \; S f_2)} \]
+\_form#522=78x16:\[ S = \sqrt{  2 S_{ij} S_{ij}} \]
+\_form#523=93x15:$ f_2 = \tanh(arg2^2) $
+\_form#524=170x33:\[ arg2^2 = \max(2 \dfrac{\sqrt{k}}{C_\mu \omega y}; \;
+                    500 \dfrac{\nu}{\omega y^2}) \]
+\_form#525=8x9:$ y $
+\_form#526=28x13:$ \divs{\vect{u}} $
+\_form#527=9x10:$ S $
+\_form#528=170x33:\[ arg2^2 = \max(2 \dfrac{\sqrt{k}}{C_\mu \omega y}; \;
+                  500 \dfrac{\nu}{\omega y^2}) \]
+\_form#529=131x16:\[ \mu_T = \rho (\kappa L)^2 \cdot \sqrt{2 S_{ij} S_{ij}} \]
+\_form#530=9x13:$\ne$
+\_form#531=80x14:$1-e^{-y^+/cdries}$
+\_form#532=94x26:$ \dfrac{1}{\kappa} \ln(y^+) + cstlog $
+\_form#533=64x13:$ cstlog = 5.2 $
+\_form#534=125x26:$ \dfrac{1}{\kappa} \ln(y/\xi) + cstlog_{rough} $
+\_form#535=91x14:$ cstlog_{rough} = 8.5 $
+\_form#536=165x26:$ \dfrac{1}{\kappa} \ln(y u_k/(\nu + \alpha \xi u_k)) + cstlog $
+\_form#537=129x14:$ \alpha = \exp \left( -\kappa (8.5 - 5.2) \right) $
+\_form#538=18x13:$C_{\varepsilon 1}$
+\_form#539=19x13:$C_{\varepsilon 2}$
+\_form#540=19x13:$C_{\varepsilon 3}$
+\_form#541=106x14:$R_{ij}-\varepsilon EB-RSM$
+\_form#542=19x13:$C_{\varepsilon 4}$
+\_form#543=14x13:$C_1$
+\_form#544=14x13:$C_2$
+\_form#545=14x13:$C_0$
+\_form#546=38x13:$C_2=0$
+\_form#547=16x13:$C_T$
+\_form#548=34x10:$DFM$
+\_form#549=14x13:$C_3$
+\_form#550=14x14:$C_1^\prime$
+\_form#551=14x14:$C_2^\prime$
+\_form#552=18x13:$C_{s1}$
+\_form#553=19x13:$C_{s2}$
+\_form#554=19x13:$C_{r1}$
+\_form#555=19x13:$C_{r2}$
+\_form#556=19x13:$C_{r3}$
+\_form#557=19x13:$C_{r4}$
+\_form#558=16x9:$\sigma_{k1}$
+\_form#559=18x9:$\sigma_{k2}$
+\_form#560=18x9:$\sigma_{\omega 1}$
+\_form#561=19x9:$\sigma_{\omega 2}$
+\_form#562=13x13:$\beta_1$
+\_form#563=13x13:$\beta_2$
+\_form#564=73x25:$\frac{\beta_1}{C_\mu}-\frac{\kappa^2}{\sqrt{C_\mu}\sigma_{\omega 1}}$
+\_form#565=13x9:$\gamma_1$
+\_form#566=73x25:$\frac{\beta_2}{C_\mu}-\frac{\kappa^2}{\sqrt{C_\mu}\sigma_{\omega 2}}$
+\_form#567=13x9:$\gamma_2$
+\_form#568=11x9:$a_1$
+\_form#569=10x9:$ c_1 $
+\_form#570=40x13:$ C_{DDES} $
+\_form#571=29x13:$ C_{SAS}$
+\_form#572=40x13:$ C_{DDES}$
+\_form#573=13x13:$ \beta_0 $
+\_form#574=68x11:$BL-v^2-k$
+\_form#575=149x24:$\displaystyle\mu_{sg}=
+\rho C_{smago}^2\bar{\Delta}^2\sqrt{2\bar{S}_{ij}\bar{S}_{ij}}$
+\_form#576=10x10:$C$
+\_form#577=48x9:$ smagmx$
+\_form#578=49x9:$ smagmn$
+\_form#579=15x13:$C_L$
+\_form#580=14x14:$C_\eta$
+\_form#581=39x14:$ R_{ij} - \epsilon $
+\_form#582=28x10:$ k - \epsilon $
+\_form#583=6x9:$ \tilde{\nu} $
+\_form#584=16x13:$ P_{rt}$
+\_form#585=16x9:$ \mu_T $
+\_form#586=236x28:\[ \rho*volume*\frac{df}{dt} + .... = st\_imp*f + st\_exp \]
+\_form#587=34x11:$ \gamma_{\mbox{cond}} $
+\_form#588=149x28:\[ D\frac{rho}{dt} + divs \left( \rho \vect{u}^n\right) = \Gamma _{cond}
+\]
+\_form#589=9x10:$\Phi $
+\_form#590=154x28:\[ D\frac{\phi}{dt} = ... + \Gamma _{cond}*(\Phi _i - \Phi)
+\]
+\_form#591=241x31:\[ \rho*\dfrac{\Phi^{n+1}-\Phi^{n}}/dt = ...
+                           + \Gamma _{cond}*(\Phi _i - \Phi^{n+1})
+\]
+\_form#592=13x13:$ \Phi _i $
+\_form#593=9x10:$ \Phi $
+\_form#594=53x11:$ \Phi = \Phi ^{n+1}$
+\_form#595=38x13:$ \Phi = \Phi _i $
+\_form#596=34x13:$ \mbox{\LaTeX} $
+\_form#597=19x10:$ \divs    $
+\_form#598=19x13:$ \divv    $
+\_form#599=19x15:$ \divt    $
+\_form#600=13x13:$ \grad    $
+\_form#601=26x15:$ \ggrad   $
+\_form#602=13x13:$ \gradv   $
+\_form#603=13x15:$ \gradt   $
+\_form#604=13x18:$ \gradtt  $
+\_form#605=13x13:$ \mat{M}  $
+\_form#606=13x15:$ \matt{M} $
+\_form#607=23x13:$ \rot     $
+\_form#608=10x14:$ \tens{T} $
+\_form#609=20x11:$ \transpose{M} $
+\_form#610=20x11:$ \symmetric{M} $
+\_form#611=11x9:$ \trace   $
+\_form#612=21x11:$ \deviator{M}  $
+\_form#613=19x14:$ \norm{M} $
+\_form#614=15x11:$ \rans{M} $
+\_form#615=16x10:$ \fluct{M} $
+\_form#616=19x10:$ \fluctt{M} $
+\_form#617=14x14:$ \favre{M} $
+\_form#618=35x15:$ \int{M}{N} $
+\_form#619=21x16:$ \intss{M}{N} $
+\_form#620=23x11:$ \intt{M}{N} $
+\_form#621=14x10:$\mbox{\degresC}$
+\_form#622=25x10:$ \Max     $
+\_form#623=23x10:$ \Min     $
+\_form#624=8x10:$ \dd      $
+\_form#625=25x15:$ \Facei{\celli} $
+\_form#626=25x15:$ \Faceb{\cellj} $
+\_form#627=15x13:$ \Face{\celli}  $
+\_form#628=8x13:$ \face   $
+\_form#629=19x15:$ \fij    $
+\_form#630=10x13:$ \fib    $
+\_form#631=29x13:$ \iface  $
+\_form#632=11x11:$ \ij     $
+\_form#633=33x13:$ \ib     $
+\_form#634=5x6:$ \celli  $
+\_form#635=6x9:$ \cellj  $
+\_form#636=10x10:$ \ipf    $
+\_form#637=11x10:$ \jpf    $
+\_form#638=13x10:$ \centi  $
+\_form#639=14x10:$ \centj  $
+\_form#640=14x14:$ \centjp $
+\_form#641=14x10:$ \cento  $
+\_form#642=14x11:$ \centf  $
+\_form#643=39x13:$ \figurename $
+\_form#644=33x10:$ \tablename $
+\_form#645=35x15:$ kg/m^3$
+\_form#646=54x14:$ kg/(m\cdot s)$
+\_form#647=60x15:$ kg/(m\cdot s^2)$
+\_form#648=218x28:\[ \rho \der{\vect{u}}{t} = - \grad p + \vect{headloss} \: (+\: \text{other terms})\]
+\_form#649=220x18:\[ \vect{headloss} = - \rho \tens{cku}\cdot \vect{u} \,\:  (\text{in } kg\cdot m^{-2} \cdot s^{-1})\]
+\_form#650=74x34:${ \tens{\xi_l} = \dfrac{\tens{dh_l}}{(0.5 \rho  u^2)}}$
+\_form#651=19x16:$ \tens{dh_l} $
+\_form#652=98x19:$\tens{dh_l} = - \tens{\xi_l}(0.5\rho\vect{u}^2)$
+\_form#653=78x18:$ \tens{cku} = 0.5\tens{\xi_l}|\vect{U}| $
+\_form#654=64x34:$\tens{\xi_l} = \dfrac{\tens{dh_s}}{0.5\rho\vect{u}^2}$
+\_form#655=20x16:$\tens{dh_s} $
+\_form#656=104x31:\[\frac{\tens{dh_s}}{L} = - \frac{\tens{\xi_l}}{L} (0.5 \rho\vect{u}^2)\]
+\_form#657=80x31:\[\tens{cku} = 0.5\frac{\tens{\xi_s}}{L}|\vect{u}|\]
+\_form#658=65x13:$ alpha = 45^{o} $
+\_form#659=64x24:$ \tau_c = \frac{m_p{C_p}_p}{PId_p^2h_e} $
+\_form#660=11x9:$ \tau_c $
+\_form#661=18x10:$ m_p $
+\_form#662=20x16:$ {C_p}_p $
+\_form#663=163x19:$ \nu =  \frac{h_ed_p}{\lambda} = 2 + 0.55{\Re_e}_p^{0.5}P_{rt}^{0.33} $
+\_form#664=20x15:$ {\Re_e}_p $
+\_form#665=86x28:\[
+\frac{dT}{dt}=\frac{T - PIP}{Tca}
+\]
+\_form#666=39x11:$m \cdot s^{-1}$
+\_form#667=53x14:$kg \cdot m \cdot s^2$
+\_form#668=240x14:$ rcodcl3[face_id] = -(mesh_viscosity) \grad {Um}.\vect{n} $
+\_form#669=25x14:$(Um$
+\_form#670=171x14:$ K du/dn + alpha*(u - u0) = g $
+\_form#671=70x14:$ (alpha, u0, g)$
+\_form#672=30x13:$ alpha $
+\_form#673=15x9:$ u0 $
+\_form#674=75x14:\[ h_{vol} = h_{surf} S \]
+\_form#675=74x28:\[ h_{surf} = \frac{Nu \lambda}{L} \]
+\_form#676=9x10:$ \Omega $
+\_form#677=16x10:$ \partial \Omega $
+\_form#678=290x188:\[
+\begin{array}{r c l}
+Balance^n &=& \displaystyle
+              \sum_{\Omega_i \in \Omega}
+                \norm{\vol{\celli}} \rho_\celli
+                \left(\varia_\celli^{n-1} -\varia_\celli^n \right)  \\
+         &+& \displaystyle
+             \sum_{\Omega_i \in \Omega}
+             \sum_{\face \in \Face{\celli}}
+                \Delta t_\celli
+                \varia_\celli^n \left(\rho \vect{u}\right)_\face^n \cdot \vect{S}_{\iface} \\
+         &-& \displaystyle
+             \sum_{\face \in \partial \Omega}
+                \Delta t_\celli
+                \varia_\face^n \left(\rho \vect{u}\right)_\face^n \cdot \vect{S}_{\iface} \\
+         &+& \displaystyle
+             \sum_{\face \in \partial \Omega}
+                 \Delta t_\celli
+                 K_\face \grad_\face \varia^n \cdot \vect{S}_{\iface} \\
+         &-& \displaystyle
+             \sum_{\fib \in \partial \Omega}
+                \Delta t_\celli \dot{m}_\ib
+                \left(A_\ib^g + B_\ib^g \varia_\celli^n \right) \\
+         &+& \displaystyle
+             \sum_{\fib \in \partial \Omega}
+                \Delta t_\celli \norm{\vect{S}_\ib}
+                \left(A_\ib^f + B_\ib^f \varia_\celli^n \right)
+\end{array}
+\]
+\_form#679=26x9:$ x_{min}$
+\_form#680=26x9:$ y_{min}$
+\_form#681=24x9:$ z_{min}$
+\_form#682=28x9:$ x_{max}$
+\_form#683=28x9:$ y_{max}$
+\_form#684=25x9:$ z_{max}$
+\_form#685=148x39:\[
+\sqrt{\int_\Omega \left| \der{\varia}{t} \right|^2 \dd \Omega / \int_\Omega \left| \varia \right|^2 \dd \Omega}
+\]
+\_form#686=116x14:\[
+     -k (xstr(t)+xstreq).
+  \]
+\_form#687=348x30:\[
+  \vect{X}_{n+1} = \vect{X}_n + aexxst \Delta t_{n+1} \vect{X}^{\prime}_n +
+  bexxst \frac{(\Delta t_{n+1})^2}{\Delta t_n} (\vect{X}^{\prime}_n-\vect{X}^{\prime}_{n-1})
+  \]
+\_form#688=19x14:$ \vect{X}_n $
+\_form#689=9x6:$ n $
+\_form#690=19x15:$ \vect{X}^{\prime}_n $
+\_form#691=31x15:$ \vect{X}^{\prime}_{n-1} $
+\_form#692=30x9:$ n-1 $
+\_form#693=124x13:$ aexxst=1, bexxst=0 $
+\_form#694=134x13:$ aexxst=1, bexxst=0.5 $
+\_form#695=208x15:\[
+  \vect{F_{n+1}} = cfopre \vect{F_n} + (1-cfopre) \vect{F_{n-1}}
+  \]
+\_form#696=16x14:$ \vect{F_n} $
+\_form#697=29x15:$ \vect{F_{n-1}} $
+\_form#698=15x15:$ \tens{M} $
+\_form#699=11x15:$ \tens{C} $
+\_form#700=13x15:$ \tens{K} $
+\_form#701=178x16:\[
+  \tens{M} \vect{X^{\prime\prime}} + \tens{C} \vect{X^{\prime}} + \tens{K} (\vect{X}+\vect{X_0}) = \vect{F}
+\]
+\_form#702=13x13:$\vect{X}$
+\_form#703=18x14:$\vect{X_0}$
+\_form#704=15x15:$\tens{M}$
+\_form#705=11x15:$\tens{C}$
+\_form#706=13x15:$\tens{K}$
+\_form#707=99x28:$ \der{\rho}{t}+\divs{(\rho \vect{u})}=\Gamma $
+\_form#708=136x19:$ \frac{\Delta(\rho\varia)}{\Delta t} = ... + \Gamma(\varia^{in} - \varia) $
+\_form#709=219x30:$ \rho \dfrac{\varia^{(n+1)} - \varia^{(n)}}{\Delta t} = ... + \Gamma(\varia^{in} - \varia^{(n+1)}) $
+\_form#710=21x11:$ \varia^{in} $
+\_form#711=74x13:$ \varia^{in} = \varia^{(n+1)} $
+\_form#712=74x13:$ \varia^{in}=\varia^{(n+1)}$
+\_form#713=130x29:$ \dfrac{\partial{(\rho \varia)}}{\partial{dt}} + \divs{(\rho \vect{u} \varia)} = ...$
+\_form#714=96x13:$<f_1*f_2...*f_n>$
+\_form#715=53x14:\[ H = C_p T \]
+\_form#716=316x15:\[{ Q_{conduction} = Q_{convection} + (Q_{rayt_{absorption}} - Q_{rayt_{emission}}}) \]
+\_form#717=396x30:\[ \dfrac{xlamp}{epap}  (T_{fluid} - T_{wall})
+= h_{fluid}  (T_{fluid} - T_{wall}) + epsp  (Q_{incid} - \sigma * T_{wall}) \]
+\_form#718=26x11:$ T_{min} $
+\_form#719=29x11:$T_{max} $
+\_form#720=66x11:$W.m^{-1}.K^{-1}$
+\_form#721=13x6:$m$
+\_form#722=11x10:$K$
+\_form#723=314x31:\[
+\begin{array}{rcl}
+\frac{\texttt{xlamp}}{\texttt{epap}} \cdot (T_{wall} - T_{ext})
+&=& \text{fixed conduction flux in } W.m^{-2} \\
+&=& \texttt{rodcl(ifac,ivar,3)}
+\end{array}
+\]
+\_form#724=125x13:$ \texttt{rcodcl(ifac,ivar,3)}$
+\_form#725=10x9:$T$
+\_form#726=39x11:$ W.m^{-2}$
+\_form#727=270x26:\[ rcodcl(ifac,ivar,3)=C_p (viscls+\frac{visct}{\sigma})\cdot \grad{T}\cdot \vect{n} \]
+\_form#728=8x10:$h$
+\_form#729=39x11:$ W.m^{-2} $
+\_form#730=298x26:\[ RCODC(IFAC,IVAR,3)=(viscls+\frac{visct}{\sigma})\cdot \grad{H} \cdot \vect{n}\]
+\_form#731=251x30:\[
+\frac{xlamp}{epap} \cdot (T_{wall} - T_{ext}) = \text{fixed conduction flux}
+\]
+\_form#732=46x11:$ epsp = 0 $
+\_form#733=270x26:\[  rcodcl(ifac,ivar,3) = C_p  (viscls+\frac{visct}{\sigma}) \cdot \grad{T}\cdot \vect{n} \]
+\_form#734=258x26:\[  rcodcl(ifac,ivar,3) =    (viscls+\frac{visct}{\sigma})  \cdot \grad{H} \cdot \vect{n} \]
+\_form#735=178x28:\[
+  t_{old}(x = i*dx) = sin\frac{pi(0.5+i)}{n};
+\]
+\_form#736=476x14:\[
+   t(x = i \cdot dx) = t_{old}(x = i \cdot dx) + r\cdot(t_{old}(x = (i+1) \cdot dx) - 2 \cdot t_{old}(x = i \cdot dx) + t_{old}(x = (i-1) \cdot dx))
+\]
+\_form#737=31x9:$ x = 0 $
+\_form#738=34x10:$ x = L $
+\_form#739=353x14:\[
+   t(x = 0) = t_{old}(x = 0) + r \cdot (t_{old}(x = dx) - 3 \cdot t_{old}(x = 0) + 2 \cdot t_0)
+\]
+\_form#740=489x14:\[
+   t(x = (n-1) \cdot dx) = t_{old}(x = (n-1) \cdot dx) + r \cdot (2 \cdot t_L - 3 \cdot t_{old}(x = (n-1) \cdot dx) + t_{old}(x = (n-2) \cdot dx))
+\]
+\_form#741=34x16:$ x = \frac{L}{2} $
+\_form#742=9x9:$\vect{u}$
+\_form#743=78x15:$ \vect{S} = \tens{A} \cdot \vect{u} + \vect{B} $
+\_form#744=231x28:$ \rho \dfrac{d\vect{u}}{dt} = \vect{S} \: (+ \text{standard Navier-Stokes terms})$
+\_form#745=84x15:\[  \tens{A} = -\rho \cdot \tens{CKP} \]
+\_form#746=75x13:\[  \vect{B} =  \vect{XMMT}  \]
+\_form#747=18x11:$ s^{-1}$
+\_form#748=74x14:$kg \cdot m^{-2} \cdot s^{-2}$
+\_form#749=75x13:$ S=A \cdot f+B $
+\_form#750=265x28:$ \rho \dfrac{df}{dt}=S \: \text{(+ regular other terms in the equation)} $
+\_form#751=50x28:\[A=-\frac{\rho}{\tau_f} \]
+\_form#752=73x14:\[B=\rho \cdot prod_f \]
+\_form#753=5x6:$ s $
+\_form#754=8x13:$f$
+\_form#755=41x15:$ [f]\cdot s^{-1} $
+\_form#756=14x10:$W$
+\_form#757=18x11:$m^3$
+\_form#758=171x30:\[ \rho C_p \norm{\vol{\celli}} \frac{dT}{dt} + ... = \norm{\vol{\celli}[i]} \frac{pwatt}{voltf} \]
+\_form#759=18x10:$\varia:$
+\_form#760=188x28:\[ \rho \norm{\vol{\celli}} \frac{d(\varia)}{dt} = ... - \rho \norm{\vol{\celli}} \cdot ff - \rho \frac{ \varia}{\tau}\]
+\_form#761=15x13:$ ff $
+\_form#762=25x14:$ \overline{\varphi^\prime\varphi^\prime} $
+\_form#763=10x10:$ R $
+\_form#764=63x14:$kg.m^{-1}.s^{-1}$
+\_form#765=236x15:$\theta_{\text{min}}^{\text{rotor}}(z)=\theta_{\text{min}}^{\text{stator}}(z),\quad\theta_{\text{max}}^{\text{rotor}}(z)=\theta_{\text{max}}^{\text{stator}}(z)$
+\_form#766=13x13:$\vect{u}^*$
+\_form#767=51x19:$\eta^{\,pred}_{\,i,k}(\vect{u}^*)$
+\_form#768=13x13:$ \Omega_i $
+\_form#769=56x16:$\vect{\mathcal R}^{\,pred}(\vect{u}^*)$
+\_form#770=416x45:\begin{eqnarray*}
+  \vect{\mathcal R}^{\,pred}(\vect{u}^*)
+      & = & \rho^n \dfrac{\vect{u}^*-\vect{u}^n}{\Delta t}
+          + \rho^n \vect{u}^n \cdot \gradt (\vect{u}^*)
+          - \divv \left((\mu+\mu_t)^n \gradt (\vect{u}^*) \right)
+          + \grad(P^n)
+  \\  & - & \text{rest of the right-hand member }
+           (\vect{u}^n, P^n, \text{other variables}^n)
+\end{eqnarray*}
+\_form#771=236x20:$ \eta^{\,pred}_{\,i,k}(\vect{u}^*)= {|\Omega_i|}^{\,(k-2)/2}\ ||\vect{\mathcal R}^{\,pred}(\vect{u}^*)|| _{{IL}^{2}(\Omega_i)} $
+\_form#772=19x14:$ |\Omega_i| $
+\_form#773=44x16:$ {IL}^{2}(\Omega_i) $
+\_form#774=51x19:$ \eta^{\,pred}_{\,i,k}(\vect{u}^*)$
+\_form#775=63x16:$\eta^{\,der}_{\,i,k}(\vect{u}^{\,n+1})$
+\_form#776=481x40:\begin{eqnarray*}
+\eta^{\,der}_{\,i,k}(\vect{u}^{\,n+1})
+   &=& {|\Omega_i|}^{(k-2)/2}
+      || \divs (\text{corrected mass flow after the pressure step})
+      - \Gamma||_{{L}^{2}(\Omega_i)}
+\\ &=& {|\Omega_i|}^{(1-k)/2}
+     | \divs (\text{corrected mass flow after the pressure step})- \Gamma|
+\end{eqnarray*}
+\_form#777=66x16:$ \eta^{\,corr}_{\,i,k}(\vect{u}^{\,n+1})$
+\_form#778=224x18:\begin{eqnarray*}
+\eta^{\,corr}_{\,i,k}(\vect{u}^{\,n+1})=
+|\Omega_i|^{\,\delta_{\,2,k}}\ |div (\rho^n \vect{u}^{n+1}) - \Gamma|
+\end{eqnarray*}
+\_form#779=26x14:$\vect{u}^{n+1}$
+\_form#780=21x14:$ \,\delta_{\,2,k}$
+\_form#781=36x14:$kg.s^{\,-1}$
+\_form#782=60x16:$ \eta^{\,tot}_{\,i,k}(\vect{u}^{\,n+1})$
+\_form#783=64x15:$\vect{\mathcal R}^{\,tot}(\vect{u}^{\,n+1})$
+\_form#784=249x20:$ \eta^{\,tot}_{\,i,k}(\vect{u}^{\,n+1})= {|\Omega_i|}^{\,(k-2)/2}\ ||\vect{\mathcal R}^{\,tot}(\vect{u}^{\,n+1})||
+  _{{I\hspace{-.25em}L}^{2}(\Omega_i)} $
+\_form#785=138x20:\[
+  Q = \tens{\Omega}:\tens{\Omega} -
+  \deviator{ \left(\tens{S} \right)}:\deviator{ \left(\tens{S} \right)}
+\]
+\_form#786=149x15:$\phi^{n+\theta}=[(1+\theta)\phi^n-\theta \phi^{n-1}]$
+\_form#787=28x14:$\lambda/C_p$
+\_form#788=8x10:$\lambda$
+\_form#789=115x14:$(f-f_{min})(f_{max}-f)$
+\_form#790=25x13:$f_{min}$
+\_form#791=26x13:$f_{max}$
+\_form#792=33x18:$-\frac{\rho}{R_f}\frac{\varepsilon}{k}$
+\_form#793=68x18:$ \frac{\partial }{\partial n}\left(\frac{ \partial P}{\partial \tau}\right) = 0 $
+\_form#794=18x14:$ \varia_\fib $
+\_form#795=18x15:$ \varia_{\centip} $
+\_form#796=109x18:\[ \varia_\fib=A_{\fib}^g +B_{\fib}^g \varia_{\centip}. \]
+\_form#797=46x18:$ A_{\fib}^g , \, B_{\fib}^g $
+\_form#798=81x14:$ D_{\ib} \left(K_\fib, \, \varia \right) $
+\_form#799=174x19:\[ D_{\ib} \left(K_\fib, \, \varia \right) = A_{\fib}^f +B_{\fib}^f \varia_{\centip}. \]
+\_form#800=46x19:$ A_{\fib}^f , \, B_{\fib}^f $
+\_form#801=41x16:$ \divv \left(\tens{R} \right) $
+\_form#802=109x18:\[ \varia_\fib=A_{\fib}^d +B_{\fib}^d \varia_{\centip}. \]
+\_form#803=46x18:$ A_{\fib}^d , \, B_{\fib}^d $
+\_form#804=89x28:$ \dfrac{\partial \varia }{\partial t} + C \dfrac{\partial \varia}{\partial n} = 0 $
+\_form#805=73x33:$ CFL = \dfrac{C dt }{\centip \centf} $
+\_form#806=116x16:$ -(\lambda_T+C_p\frac{\mu_t}{\sigma_T})\grad T\cdot\vect{n} $
+\_form#807=34x15:$ W/m^2 $
+\_form#808=99x20:$ -(\frac{\lambda_T}{C_p}+\frac{\mu_t}{\sigma_h})\grad h\cdot\vect{n} $
+\_form#809=99x18:$ -(\lambda_\varphi+\frac{\mu_t}{\sigma_\varphi})\grad\varphi\cdot\vect{n} $
+\_form#810=81x15:$ kg.m^{-2}.s^{-1}.[\varphi] $
+\_form#811=14x14:$ [\varphi] $
+\_form#812=65x13:$ -\Delta t\ \grad P\cdot\vect{n} $
+\_form#813=63x14:$ kg.m^{-2}.s^{-1} $
+\_form#814=94x14:$ -(\mu+\mu_t)\grad U_i\cdot\vect{n} $
+\_form#815=63x14:$ kg.m^{-1}.s^{-2} $
+\_form#816=63x14:$ -\mu\grad R_{ij}\cdot\vect{n} $
+\_form#817=50x13:$ \vect{U}\cdot\vect{n} = 0 $
+\_form#818=116x11:$ \vect{u}_{fluid} \cdot \vect{n} = \vect{w}_{mesh} \cdot \vect{n} $
+\_form#819=9x13:$ \ne $
+\_form#820=11x9:$\tau_c$
+\_form#821=51x14:$H = C_p T$
+\_form#822=18x11:$3^{rd}$
+\_form#823=54x19:$\frac{1}{\sqrt{2}}\,Pp_{max}$
+\_form#824=10x10:$\Delta$
+\_form#825=18x9:$0.7$
+\_form#826=16x9:$1.3$
+\_form#827=95x14:$g_z=-9.81 m.s^{-2}$
+\_form#828=98x15:$g_x=g_y=0 m.s^{-2}$
+\_form#829=61x11:$g_z=-9.81$
+\_form#830=101x14:$C_{p}=1005 J/kg/K$
+\_form#831=35x11:$g_z=0$
+\_form#832=90x38:\[
+\theta =T\left(\frac{P}{P_{r}}\right)^{-\frac{R_{d}}{C_{p}}}
+\]
+\_form#833=109x31:\[
+\theta_{l} = \theta \left( 1-\frac{L}{C_{p}T} q_{l} \right)
+\]
+\_form#834=101x14:\[
+T_{v} = \left(1+0.61q\right)T
+\]
+\_form#835=129x29:\[
+P = \rho \frac{R}{M_{d}}\left(1+0,61q\right)T
+\]
+\_form#836=59x13:$R=R_{d} M_{d}$
+\_form#837=58x28:\[
+\frac{\partial P}{\partial z} = -\rho g
+\]
+\_form#838=8x9:$g$
+\_form#839=23x9:$9.81$
+\_form#840=34x11:$m.s^{-2}$
+\_form#841=18x13:$M_{d}$
+\_form#842=29x9:$28.97$
+\_form#843=56x14:$kg.kmol^{-1}$
+\_form#844=13x13:$P_{r}$
+\_form#845=18x11:$10^{5}$
+\_form#846=16x10:$Pa$
+\_form#847=10x10:$R$
+\_form#848=36x9:$8.3143$
+\_form#849=59x11:$J.K^{-1}.mol$
+\_form#850=15x13:$R_{d}$
+\_form#851=19x9:$287$
+\_form#852=64x14:$J.kg^{-1}.K^{-1}$
+\_form#853=14x14:$C_{p}$
+\_form#854=6x9:$q$
+\_form#855=9x9:$q_{l}$
+\_form#856=14x11:$T_{v}$
+\_form#857=9x13:$\theta_{l}$
+\_form#858=9x10:$L$
+\_form#859=8x9:$\rho $
+\_form#860=13x9:$10$
+\_form#861=55x11:$0.1 m^{2}.s^{-1}$
+\_form#862=13x13:$V_x$
+\_form#863=13x14:$V_y$
+\_form#864=244x15:$\theta_{min}^{rotor}(z)=\theta_{min}^{stator}(z),\quad\theta_{max}^{rotor}(z)=\theta_{max}^{stator}(z)$
+\_form#865=109x16:\[
+k = 1.5 \left(0.02 \textrm{ \texttt{uref}}\right)^2
+\]
+\_form#866=65x26:\[
+R_{ij}=\frac{2}{3}k\delta_{ij}
+\]
+\_form#867=78x28:\[
+\varepsilon = k^{1.5} \frac{C_\mu}{\textrm{\texttt{almax}}}
+\]
+\_form#868=80x26:\[
+\omega = k^{0.5} \frac{1}{\textrm{\texttt{almax}}}
+\]
+\_form#869=56x31:\[
+\left\{\begin{array}{ll}
+\varphi = & \frac{2}{3} \\
+\overline{f} = & 0
+\end{array}\right.
+\]
+\_form#870=31x9:\[
+\alpha = 1
+\]
+\_form#871=149x31:\[
+\tilde{\nu}_t = 0.02 \sqrt{\frac{3}{2}} (\textrm{\texttt{uref}}) (\textrm{\texttt{almax}})
+\]
+\_form#872=10x10:$\mathcal{S}$
+\_form#873=10x10:$\mathcal{B}$
+\_form#874=16x13:$ \mathbf{U}_c $
+\_form#875=65x14:$Re=u_\tau h/\nu$
+\_form#876=49x15:$(Re/50)^3$
+\_form#877=10x9:$\sigma_i$
+\_form#878=231x40:\[
+\sigma_i=\max\left\{C\frac{\big(\frac{3}{2}R_{ii}\big)^{3/2}}{\varepsilon},\Delta\right\},\qquad
+C=0.5.
+\]
+\_form#879=149x25:\[
+\Delta=2\max_{i\le3,V\in\mathcal{V}}\Big\{\big|x_i^V-x_i^C\big|\Big\}
+\]
+\_form#880=10x11:$\mathcal{V}$
+\_form#881=13x16:$\widetilde{\overline{\Delta}}$
+\_form#882=9x10:$\widetilde{a}$
+\_form#883=13x11:$\overline{\Delta}$
+\_form#884=8x9:$\overline{a}$
+\_form#885=220x61:\[
+\begin{array}{ll}
+\overline{S}_{ij}=\frac{1}{2}(\frac{\partial \overline{u}_i}{\partial x_j}
+                  +\frac{\partial \overline{u}_j}{\partial x_i})  &
+||\overline{S}||=\sqrt{2 \overline{S}_{ij}\overline{S}_{ij}}\\
+\alpha_{ij}=-2\widetilde{\overline{\Delta}}^2
+             ||\widetilde{\overline{S}}||
+             \widetilde{\overline{S}}_{ij}&
+\beta_{ij}=-2\overline{\Delta}^2
+             ||\overline{S}||
+               \overline{S}_{ij}\\
+L_{ij}=\widetilde{\overline{u}_i\overline{u}_j}-
+ \widetilde{\overline{u}}_i\widetilde{\overline{u}}_j&
+M_{ij}=\alpha_{ij}-\widetilde{\beta}_{ij}\\
+\end{array}
+\]
+\_form#886=276x46:\[
+\begin{array}{llll}
+\mu_{\text{total}}&=&\mu+\mu_{\text{sub-grid}} &
+    \text{\ \ if\ \ }\mu_{\text{sub-grid}}>0\\
+                   &=&\mu                          &
+    \text{\ \ otherwise }\\
+\text{with\ }\mu_{\text{sub-grid}}&=&\rho C \overline{\Delta}^2 ||\overline{S}||
+\end{array}
+\]
+\_form#887=203x15:$\overline{\Delta}=XLESFL*(ALES*|\Omega_i|)^{BLES}$
+\_form#888=15x15:$C_s^2$
+\_form#889=71x29:$\displaystyle C=\frac{M_{ij}L{ij}}{M_{kl}M_{kl}}$
+\_form#890=71x39:\[
+C=\frac{\widetilde{M_{ij}L{ij}}}{\widetilde{M_{kl}M_{kl}}}
+\]
+\_form#891=84x38:\[
+C=\widetilde{\left[\frac{M_{ij}L{ij}}{M_{kl}M_{kl}}\right]}
+\]
+\_form#892=193x18:$\rho\frac{\partial \varphi}{\partial t}+\ldots = \ldots + S_{impl}\times\varphi+S_{expl}$
+\_form#893=31x14:$\varepsilon$, $R_{ij}$
+\_form#894=205x13:$\text{\texttt{st\_exp[c\_id]}}= 0.5*\text{\texttt{cell\_vol[c\_id]}}$
+\_form#895=220x13:$\text{\texttt{st\_imp[c\_id]}}= -0.75*\text{\texttt{cell\_vol[c\_id]}}$
+\_form#896=95x28:\[
+\frac{\partial \rho}{\partial t} + div(\rho\vect{u})=\Gamma
+\]
+\_form#897=144x28:\[
+\frac{\Delta(\rho\varia)}{\Delta t} = ... + \Gamma(\varia^{in} - \varia)
+\]
+\_form#898=219x30:\[
+\rho \dfrac{\varia^{(n+1)} - \varia^{(n)}}{\Delta t} = ... + \Gamma(\varia^{in} - \varia^{(n+1)})
+\]
+\_form#899=31x11:$ \Gamma > 0 $
+\_form#900=48x14:$\varia \ne \varia^{in}$
+\_form#901=75x13:$faces \rightarrow cells$
+\_form#902=49x14:$y^+>2.5$
+\_form#903=80x14:$30<y^+<100$
+\_form#904=8x6:$r$
+\_form#905=69x10:$0 < r < 0.49$
+\_form#906=16x9:$0.1$
+\_form#907=18x10:$25^{\circ}$
+\_form#908=29x11:$ \lambda<1 $
+\_form#909=49x15:$\mathsf{\underline{grad}\cdot div}$
+\_form#910=49x13:$\mathsf{\underline{curl}\cdot\underline{curl} }$
+\_form#911=13x13:$P_1$
+\_form#912=13x13:$P_2$
+\_form#913=40x10:$\mathsf{Mx = b}$
+\_form#914=194x31:\[
+ \mathsf{M} = \begin{bmatrix}
+    A & B^T \\
+    B & 0
+ \end{bmatrix}
+ \qquad
+ \text{and}
+ \qquad
+ \mathsf{b} =
+ \begin{bmatrix}
+    f \\
+    g
+ \end{bmatrix}
+\]
+\_form#915=41x15:$\underline{\mathsf{grad}}\,\mathsf{div}$
+\_form#916=35x14:$H(\mathsf{div})$
+\_form#917=89x11:$\mathsf{S} = \mathsf{-B\cdot A^{-1} \cdot B}$
+\_form#918=9x14:$\mathsf{\widetilde{S}}$
+\_form#919=121x18:$\mathsf{\widetilde{S}} = \mathsf{-B\cdot diag(A)^{-1} \cdot B}$
+\_form#920=75x14:$\mathsf{\widetilde{S}} = \mathsf{-B\cdot L \cdot B}$
+\_form#921=40x10:$\mathsf{A\,L = 1}$
+\_form#922=5x9:$\mathsf{1}$
+\_form#923=6x10:$\mathsf{L}$
+\_form#924=40x10:$\mathsf{A\,L =
+1}$
+\_form#925=55x14:$ (C_m - C_l) $
+\_form#926=25x10:$ K^-1\ $
+\_form#927=25x10:$ K^-1 $
+\_form#928=124x34:\[
+    \int_\Omega \left| \der{\varia}{t} \right|^2 \Delta t \dd \Omega / \int_\Omega \dd \Omega
+  \]
+\_form#929=148x39:\[
+    \sqrt{\int_\Omega \left| \der{\varia}{t} \right|^2 \dd \Omega / \int_\Omega \left| \varia \right|^2 \dd \Omega}
+  \]

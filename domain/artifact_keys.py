@@ -6,7 +6,7 @@
 # It currently provides:
 # - artifact keys for known input and staged files,
 # - artifact type names,
-# - result keys used in SimulationState.results.
+# - result keys used in Simulationstate.geometry_ref.
 #
 # Its purpose is to prevent inconsistent string usage across modules and to make
 # renaming or extending artifact vocabulary safer and easier.
@@ -28,12 +28,6 @@ OUTPUT_ARTIFACT = "output"
 RESULT_ARTIFACT = "result"
 
 PREPARED_GEOMETRY_INPUTS = "prepared_geometry_inputs"
+BUILT_GEOMETRY_ARTIFACTS = "built_geometry_artifacts"
 LEGACY_EXTRACTED_GEOMETRY = "legacy_extracted_geometry"
-LEGACY_SOLENE_GEOMETRY = "legacy_solene_geometry"
-LEGACY_SOLENE_ENVIRONMENT = "legacy_solene_environment"
-LEGACY_TIME_STEP = "legacy_time_step"
 LEGACY_COUPLED_RUNTIME = "legacy_coupled_runtime"
-METEO_LIST = "meteo_list"
-METEO_DIC = "meteo_dic"
-
-FAMILLES = "familles"

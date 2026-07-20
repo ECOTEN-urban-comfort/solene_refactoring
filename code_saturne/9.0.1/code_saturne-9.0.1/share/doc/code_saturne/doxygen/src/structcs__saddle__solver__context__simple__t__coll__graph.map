@@ -1,0 +1,7 @@
+<map id="cs_saddle_solver_context_simple_t" name="cs_saddle_solver_context_simple_t">
+<area shape="rect" id="node1" title=" " alt="" coords="111,505,284,744"/>
+<area shape="rect" id="node2" href="$structcs__range__set__t.html" title=" " alt="" coords="11,299,122,435"/>
+<area shape="rect" id="node3" href="$structcs__halo__t.html" title=" " alt="" coords="5,5,128,229"/>
+<area shape="rect" id="node4" href="$structcs__property__t.html" title="Structure associated to the definition of a property relying on the cs_xdef_t structure." alt="" coords="147,329,248,406"/>
+<area shape="rect" id="node5" href="$structcs__adjacency__t.html" title=" " alt="" coords="273,292,386,443"/>
+</map>

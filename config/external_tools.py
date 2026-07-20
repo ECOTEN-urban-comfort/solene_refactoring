@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+import os
 from pathlib import Path
 import platform
 
@@ -26,6 +27,10 @@ class CommonCExternalTools:
     simulation_ts_energie_bat_bb5: Path
     simulation_ts_energie_bat_mixture: Path
 
+@dataclass(frozen=True)
+class SaturneExternalTools:
+    installation_root: Path
+    code_saturne: Path
 
 def _platform_dir_name() -> str:
     system = platform.system().lower()
@@ -124,4 +129,26 @@ def build_tools_from_legacy_exe_dir(exe_dir: Path) -> CommonCExternalTools:
         simulation_ts_energie_bat_azam=_require_file(exe_dir / f"simulation_Ts_EnergieBat_azam{suffix}"),
         simulation_ts_energie_bat_bb5=_require_file(exe_dir / f"simulation_Ts_EnergieBat_bb5{suffix}"),
         simulation_ts_energie_bat_mixture=_require_file(exe_dir / f"simulation_Ts_EnergieBat_mixture{suffix}"),
+    )
+
+def build_saturne_external_tools(
+    installation_root: Path,
+) -> SaturneExternalTools:
+    installation_root = Path(installation_root)
+
+    code_saturne = installation_root / "bin" / "code_saturne"
+
+    if not code_saturne.is_file():
+        raise FileNotFoundError(
+            f"Code_Saturne executable does not exist: {code_saturne}"
+        )
+
+    if not os.access(code_saturne, os.X_OK):
+        raise PermissionError(
+            f"Code_Saturne executable is not executable: {code_saturne}"
+        )
+
+    return SaturneExternalTools(
+        installation_root=installation_root,
+        code_saturne=code_saturne,
     )

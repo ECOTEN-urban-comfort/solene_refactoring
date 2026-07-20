@@ -1,0 +1,15 @@
+<map id="cs_navsto_param_t" name="cs_navsto_param_t">
+<area shape="rect" id="node1" title="Structure storing the parameters related to the resolution of the Navier&#45;Stokes system." alt="" coords="855,579,1027,1184"/>
+<area shape="rect" id="node2" href="$structcs__turbulence__param__t.html" title="Structure storing the parameters related to the resolution of the turbulence modelling...." alt="" coords="230,343,387,421"/>
+<area shape="rect" id="node3" href="$structcs__turb__model__t.html" title="Turbulence model general options descriptor." alt="" coords="5,27,124,207"/>
+<area shape="rect" id="node4" href="$structcs__turb__rans__model__t.html" title="RANS turbulence model descriptor." alt="" coords="148,5,299,229"/>
+<area shape="rect" id="node5" href="$structcs__turb__les__model__t.html" title="LES turbulence model descriptor." alt="" coords="323,79,465,156"/>
+<area shape="rect" id="node6" href="$structcs__turb__ref__values__t.html" title=" " alt="" coords="489,71,632,163"/>
+<area shape="rect" id="node7" href="$structcs__physical__constants__t.html" title="Physical constants descriptor." alt="" coords="412,336,579,428"/>
+<area shape="rect" id="node8" href="$structcs__property__t.html" title="Structure associated to the definition of a property relying on the cs_xdef_t structure." alt="" coords="603,343,705,421"/>
+<area shape="rect" id="node9" href="$structcs__navsto__param__boussinesq__t.html" title="Structure storing the parameters related to the Boussinesq source term in the momentum equation." alt="" coords="729,329,939,435"/>
+<area shape="rect" id="node10" href="$structcs__param__convergence__t.html" title="Set of parameters to check the convergence (or the divergence) of an iterative process (tolerances or..." alt="" coords="963,321,1134,443"/>
+<area shape="rect" id="node11" href="$structcs__iter__algo__param__aac__t.html" title="Structure storing all the parameters to drive the algorithm called Anderson acceleration." alt="" coords="1159,307,1293,457"/>
+<area shape="rect" id="node12" href="$structcs__xdef__t.html" title="Structure storing medata for defining a quantity in a very flexible way." alt="" coords="1317,292,1396,472"/>
+<area shape="rect" id="node13" href="$structcs__boundary__t.html" title="Structure storing information related to the &quot;physical&quot; boundaries associated with the computational ..." alt="" coords="1448,314,1559,450"/>
+</map>

@@ -1,0 +1,27 @@
+var cs__mesh__adjacencies_8cpp =
+[
+    [ "cs_adjacency_compose", "cs__mesh__adjacencies_8cpp.html#a5b746c50eca336eb162c10a0bceb39fb", null ],
+    [ "cs_adjacency_concatenate", "cs__mesh__adjacencies_8cpp.html#af222750e2f4e13fbae4e80d2e0302439", null ],
+    [ "cs_adjacency_create", "cs__mesh__adjacencies_8cpp.html#a67eaaeb56e2f29f77ad213ea7838eacb", null ],
+    [ "cs_adjacency_create_from_i_arrays", "cs__mesh__adjacencies_8cpp.html#a9b809558f437957084e906051ae47521", null ],
+    [ "cs_adjacency_create_from_s_arrays", "cs__mesh__adjacencies_8cpp.html#a7378cf211bcf88db2cbc626e15683d30", null ],
+    [ "cs_adjacency_destroy", "cs__mesh__adjacencies_8cpp.html#a085df3e8de72f0eb40cf3acb9741c892", null ],
+    [ "cs_adjacency_difference", "cs__mesh__adjacencies_8cpp.html#a7c9a915a54a4569959f0c228d06b5ad0", null ],
+    [ "cs_adjacency_dump", "cs__mesh__adjacencies_8cpp.html#a5b6baef8f08808c27b5c04710090f6b2", null ],
+    [ "cs_adjacency_remove_self_entries", "cs__mesh__adjacencies_8cpp.html#ae37b33b582ec83d961e2db52c62532d2", null ],
+    [ "cs_adjacency_sort", "cs__mesh__adjacencies_8cpp.html#a821f493553d85f2adbebfe292c7ce3f8", null ],
+    [ "cs_adjacency_transpose", "cs__mesh__adjacencies_8cpp.html#a8095c19ab05616a371873a244cd76476", null ],
+    [ "cs_mesh_adjacencies_cell_faces", "cs__mesh__adjacencies_8cpp.html#a01c189de47b677974e7280aa34c60c9d", null ],
+    [ "cs_mesh_adjacencies_cell_vertices", "cs__mesh__adjacencies_8cpp.html#a9e4d841df419fdf60090be5b37f1ae9d", null ],
+    [ "cs_mesh_adjacencies_finalize", "cs__mesh__adjacencies_8cpp.html#aef95b63f0a43bb545d5c0878d6c3387a", null ],
+    [ "cs_mesh_adjacencies_get_global", "cs__mesh__adjacencies_8cpp.html#a058558e34918ae1cc3ad604ead6a9c0d", null ],
+    [ "cs_mesh_adjacencies_initialize", "cs__mesh__adjacencies_8cpp.html#a78c0ba6b28babb1aa4537316f8f8476d", null ],
+    [ "cs_mesh_adjacencies_update_cell_cells_e", "cs__mesh__adjacencies_8cpp.html#a00fd1fb65e702cfdeae2b38abbaddaf5", null ],
+    [ "cs_mesh_adjacencies_update_cell_i_faces", "cs__mesh__adjacencies_8cpp.html#a654988e31a7ebd6d8d34e484173f6fda", null ],
+    [ "cs_mesh_adjacencies_update_device", "cs__mesh__adjacencies_8cpp.html#ac23951c8c46c33e6a2ec0e041968ffb5", null ],
+    [ "cs_mesh_adjacencies_update_mesh", "cs__mesh__adjacencies_8cpp.html#ac2b30e8bba1813dfead5642a1046573f", null ],
+    [ "cs_mesh_adjacency_c2f", "cs__mesh__adjacencies_8cpp.html#a8f4d26ef68f0f7b52ad7350cb8701c1e", null ],
+    [ "cs_mesh_adjacency_c2f_boundary", "cs__mesh__adjacencies_8cpp.html#a34a4d8122f661a36bb794f3ce235538e", null ],
+    [ "cs_mesh_adjacency_c2f_lower", "cs__mesh__adjacencies_8cpp.html#af6decbab21160ceb23ef9fd306044f21", null ],
+    [ "cs_mesh_adjacency_v2v", "cs__mesh__adjacencies_8cpp.html#ac1354e17aa8b341724516a0261a7393e", null ]
+];

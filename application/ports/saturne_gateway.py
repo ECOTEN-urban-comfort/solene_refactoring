@@ -1,13 +1,11 @@
 from typing import Protocol
 
 from domain.simulation_state import SimulationState
-from domain.solene import LegacySoleneEnvironment
 
 
 class SaturneGateway(Protocol):
     def initialize(
         self,
-        environment: LegacySoleneEnvironment,
         state: SimulationState,
     ) -> None:
         """

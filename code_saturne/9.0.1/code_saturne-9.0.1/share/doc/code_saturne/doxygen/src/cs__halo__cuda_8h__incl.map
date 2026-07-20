@@ -1,0 +1,18 @@
+<map id="src/base/cs_halo_cuda.h" name="src/base/cs_halo_cuda.h">
+<area shape="rect" id="node1" title=" " alt="" coords="559,5,726,32"/>
+<area shape="rect" id="node2" href="$cs__defs_8h.html" title=" " alt="" coords="355,379,466,405"/>
+<area shape="rect" id="node5" href="$cs__halo_8h.html" title=" " alt="" coords="459,80,570,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="291,453,413,480"/>
+<area shape="rect" id="node4" title=" " alt="" coords="437,453,501,480"/>
+<area shape="rect" id="node6" href="$cs__base_8h.html" title=" " alt="" coords="5,155,120,181"/>
+<area shape="rect" id="node8" href="$cs__base__accel_8h.html" title=" " alt="" coords="155,155,307,181"/>
+<area shape="rect" id="node12" href="$cs__interface_8h.html" title=" " alt="" coords="341,155,477,181"/>
+<area shape="rect" id="node14" href="$fvm__periodicity_8h.html" title=" " alt="" coords="357,229,504,256"/>
+<area shape="rect" id="node15" href="$cs__rank__neighbors_8h.html" title=" " alt="" coords="529,229,703,256"/>
+<area shape="rect" id="node7" title=" " alt="" coords="32,229,93,256"/>
+<area shape="rect" id="node9" href="$cs__mem_8h.html" title=" " alt="" coords="117,229,232,256"/>
+<area shape="rect" id="node10" href="$bft__error_8h.html" title=" " alt="" coords="81,304,181,331"/>
+<area shape="rect" id="node11" title=" " alt="" coords="96,379,165,405"/>
+<area shape="rect" id="node13" href="$fvm__defs_8h.html" title=" " alt="" coords="307,304,421,331"/>
+<area shape="rect" id="node16" href="$cs__block__dist_8h.html" title=" " alt="" coords="497,304,642,331"/>
+</map>

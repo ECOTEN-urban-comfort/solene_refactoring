@@ -21,10 +21,15 @@
 from dataclasses import dataclass, field
 from enum import Enum
 from pathlib import Path
-from typing import Any
+from typing import Union, Any
 
+from domain.geometry import PreparedGeometryInputs, SoleneGeometryArtifacts
 from domain.simulation_definition import SimulationBootstrap
-
+from infrastructure.solene.famille import Familles
+from infrastructure.solene.timeStep import TimeStep
+from infrastructure.solene.sol_command import SolCommand
+from infrastructure.solene.sol_env import SolEnv
+from infrastructure.saturne.sat_command import SatCommand
 
 class SimulationPhase(str, Enum):
     """
@@ -116,8 +121,7 @@ class SimulationPhase(str, Enum):
     SOLENE_ENVIRONMENT_READY = "solene_environment_ready"
     SOLENE_RUNTIME_PREPARED = "solene_runtime_prepared"
     AIR_MODEL_EXECUTED = "air_model_executed"
-    COUPLING_INITIALIZED = "coupling_initialized"
-    SATUNE_INITIALIZED = "saturne_initialized"
+    SATURNE_INITIALIZED = "saturne_initialized"
     RUNNING = "running"
     POSTPROCESSING = "postprocessing"
 
@@ -369,25 +373,24 @@ class SimulationState:
     """
     run_id: str
     workspace: Path
-    configuration_fingerprint: str
     phase: SimulationPhase
 
     # Reference to the static run definition loaded during bootstrap.
     # This is intentionally broad for now (`Any`) because the exact shape of the
     # startup definition may still evolve during refactoring.
-    definition: Any
+    definition: SimulationBootstrap
 
     # State of major lifecycle steps.
     # These are more granular than `phase` and allow services to update their own
     # execution status without losing visibility of the overall run stage.
     bootstrapping: StepStatus = StepStatus.NOT_STARTED
     geometry_initialization: StepStatus = StepStatus.NOT_STARTED
-    familles_extraction: StepStatus = StepStatus.NOT_STARTED
+    families_extraction: StepStatus = StepStatus.NOT_STARTED
     geometry_building: StepStatus = StepStatus.NOT_STARTED
     solene_environment_creation: StepStatus = StepStatus.NOT_STARTED
     solene_shared_preparation: StepStatus = StepStatus.NOT_STARTED
     air_model_execution: StepStatus = StepStatus.NOT_STARTED
-    coupling_initialization: StepStatus = StepStatus.NOT_STARTED
+    saturne_initialization: StepStatus = StepStatus.NOT_STARTED
     solene_run: StepStatus = StepStatus.NOT_STARTED
     saturne_run: StepStatus = StepStatus.NOT_STARTED
     postprocessing: StepStatus = StepStatus.NOT_STARTED
@@ -395,8 +398,21 @@ class SimulationState:
     # Known artifacts and results at the current moment of the run.
     # `default_factory=dict` is used so each SimulationState gets its own
     # independent dictionary instead of sharing one mutable default.
+    families: Familles | None = None
+    sol_env: SolEnv | None = None
+    sol_command: SolCommand | None = None
+    sat_command: SatCommand | None = None
+    time_step: TimeStep | None = None
+    meteo: dict[str, dict[str, float]] = field(default_factory=dict)
+    n_proc_saturne: int = 1
+
     artifacts: dict[str, ArtifactRef] = field(default_factory=dict)
-    results: dict[str, Any] = field(default_factory=dict)
+    geometry_ref: dict[str, Union[PreparedGeometryInputs, SoleneGeometryArtifacts]] = field(default_factory=dict)
+
+    sky: list[Path] = field(default_factory=list)
+    input: list[Path] = field(default_factory=list)
+    output: dict[str, Any] = field(default_factory=dict)
+    input_models: list[Path] = field(default_factory=list)
 
     # state validity / diagnostics
     is_valid: bool = True

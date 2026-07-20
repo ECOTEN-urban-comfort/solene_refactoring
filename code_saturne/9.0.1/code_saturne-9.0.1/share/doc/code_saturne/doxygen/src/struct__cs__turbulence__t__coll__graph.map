@@ -1,0 +1,12 @@
+<map id="cs_turbulence_t" name="cs_turbulence_t">
+<area shape="rect" id="node1" title=" " alt="" coords="509,623,639,876"/>
+<area shape="rect" id="node2" href="$structcs__turbulence__param__t.html" title="Structure storing the parameters related to the resolution of the turbulence modelling...." alt="" coords="278,365,435,443"/>
+<area shape="rect" id="node3" href="$structcs__turb__model__t.html" title="Turbulence model general options descriptor." alt="" coords="5,27,124,207"/>
+<area shape="rect" id="node4" href="$structcs__turb__rans__model__t.html" title="RANS turbulence model descriptor." alt="" coords="148,5,299,229"/>
+<area shape="rect" id="node5" href="$structcs__turb__les__model__t.html" title="LES turbulence model descriptor." alt="" coords="323,79,465,156"/>
+<area shape="rect" id="node6" href="$structcs__turb__ref__values__t.html" title=" " alt="" coords="489,71,632,163"/>
+<area shape="rect" id="node7" href="$structcs__equation__t.html" title="Main structure to handle the discretization and the resolution of an equation." alt="" coords="460,365,563,443"/>
+<area shape="rect" id="node8" href="$structcs__property__t.html" title="Structure associated to the definition of a property relying on the cs_xdef_t structure." alt="" coords="587,365,689,443"/>
+<area shape="rect" id="node9" href="$structcs__field__t.html" title="Field descriptor." alt="" coords="713,292,817,516"/>
+<area shape="rect" id="node10" href="$structcs__field__bc__coeffs__t.html" title="Field boundary condition descriptor (for variables)" alt="" coords="694,5,835,229"/>
+</map>

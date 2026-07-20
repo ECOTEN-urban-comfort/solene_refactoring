@@ -1,0 +1,8 @@
+<map id="cs_solidification_t" name="cs_solidification_t">
+<area shape="rect" id="node1" title=" " alt="" coords="155,836,317,1075"/>
+<area shape="rect" id="node2" href="$structcs__property__t.html" title="Structure associated to the definition of a property relying on the cs_xdef_t structure." alt="" coords="5,365,107,443"/>
+<area shape="rect" id="node5" href="$structcs__thermal__system__t.html" title=" " alt="" coords="163,637,309,773"/>
+<area shape="rect" id="node3" href="$structcs__field__t.html" title="Field descriptor." alt="" coords="340,292,444,516"/>
+<area shape="rect" id="node4" href="$structcs__field__bc__coeffs__t.html" title="Field boundary condition descriptor (for variables)" alt="" coords="321,5,463,229"/>
+<area shape="rect" id="node6" href="$structcs__equation__t.html" title="Main structure to handle the discretization and the resolution of an equation." alt="" coords="173,365,275,443"/>
+</map>

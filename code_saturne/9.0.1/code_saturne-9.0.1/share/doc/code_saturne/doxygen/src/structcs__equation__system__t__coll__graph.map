@@ -1,0 +1,22 @@
+<map id="cs_equation_system_t" name="cs_equation_system_t">
+<area shape="rect" id="node1" title="Main structure to handle a set of coupled equations." alt="" coords="671,2524,825,2807"/>
+<area shape="rect" id="node2" href="$structcs__equation__system__param__t.html" title="Main structure storing the parameter settings." alt="" coords="1405,1430,1547,1669"/>
+<area shape="rect" id="node3" href="$structcs__property__t.html" title="Structure associated to the definition of a property relying on the cs_xdef_t structure." alt="" coords="1283,608,1384,685"/>
+<area shape="rect" id="node12" href="$structcs__equation__param__t.html" title="Set of parameters to handle an unsteady convection&#45;diffusion&#45;reaction equation with term sources." alt="" coords="830,895,1021,2204"/>
+<area shape="rect" id="node4" href="$structcs__param__sles__t.html" title="Structure storing all metadata related to the resolution of a linear system with an iterative solver." alt="" coords="1325,189,1475,457"/>
+<area shape="rect" id="node17" href="$structcs__param__saddle__t.html" title="Structure storing all metadata related to the resolution of a saddle&#45;point linear system...." alt="" coords="1123,542,1258,751"/>
+<area shape="rect" id="node5" href="$structcs__param__convergence__t.html" title="Set of parameters to check the convergence (or the divergence) of an iterative process (tolerances or..." alt="" coords="1105,5,1276,127"/>
+<area shape="rect" id="node6" href="$structcs__timer__counter__t.html" title=" " alt="" coords="523,2325,656,2403"/>
+<area shape="rect" id="node7" href="$structcs__cdo__system__helper__t.html" title=" " alt="" coords="289,2267,455,2461"/>
+<area shape="rect" id="node8" href="$structcs__cdo__system__block__t.html" title=" " alt="" coords="84,1489,247,1610"/>
+<area shape="rect" id="node9" href="$structcs__cdo__system__block__info__t.html" title=" " alt="" coords="5,564,157,729"/>
+<area shape="rect" id="node10" href="$structcs__equation__t.html" title="Main structure to handle the discretization and the resolution of an equation." alt="" coords="839,2325,942,2403"/>
+<area shape="rect" id="node11" href="$structcs__equation__core__t.html" title="Main structures on which an equation structure relies." alt="" coords="681,2325,815,2403"/>
+<area shape="rect" id="node13" href="$structcs__xdef__t.html" title="Structure storing medata for defining a quantity in a very flexible way." alt="" coords="851,233,930,413"/>
+<area shape="rect" id="node15" href="$structcs__adv__field__t.html" title=" " alt="" coords="769,542,898,751"/>
+<area shape="rect" id="node14" href="$structcs__hodge__param__t.html" title="Structure storing all metadata/parameters related to the usage of a discrete Hodge operator." alt="" coords="1537,586,1669,707"/>
+<area shape="rect" id="node16" href="$structcs__enforcement__param__t.html" title="Set of data defining an enforcement." alt="" coords="182,571,351,722"/>
+<area shape="rect" id="node18" href="$structcs__iter__algo__param__aac__t.html" title="Structure storing all the parameters to drive the algorithm called Anderson acceleration." alt="" coords="459,571,594,722"/>
+<area shape="rect" id="node19" href="$structcs__time__control__t.html" title=" " alt="" coords="619,535,744,759"/>
+<area shape="rect" id="node20" href="$structcs__equation__builder__t.html" title="Store common elements used when building an algebraic system related to an equation." alt="" coords="658,1511,806,1588"/>
+</map>
