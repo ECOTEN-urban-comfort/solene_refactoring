@@ -81,8 +81,8 @@ def build_tools_from_bin_dir(bin_root: Path) -> CommonCExternalTools:
         surf_cont=_require_file(platform_dir / f"surf_cont{suffix}"),
         val_op_val=_require_file(platform_dir / f"val_op_val{suffix}"),
 
-        temp_dir=Path("/home/sol_user/solene_refactoring/common_c_tools/temp/"),
-        solene_home=Path("/home/sol_user/solene_refactoring/common_c_tools/exe/"),
+        temp_dir=Path("/home/sol_user/common_c_tools/temp/"),
+        solene_home=Path("/home/sol_user/common_c_tools/exe/"),
 
         simulation_ts_energie_bat_azam=_require_file(platform_dir / f"simulation_Ts_EnergieBat_azam.exe"),
         simulation_ts_energie_bat_bb5=_require_file(platform_dir / f"simulation_Ts_EnergieBat_bb5.exe"),
@@ -123,8 +123,8 @@ def build_tools_from_legacy_exe_dir(exe_dir: Path) -> CommonCExternalTools:
         surf_cont=_require_file(exe_dir / f"surf_cont{suffix}"),
         val_op_val=_require_file(exe_dir / f"val_op_val{suffix}"),
 
-        temp_dir=Path("/home/sol_user/solene_refactoring/common_c_tools/temp/"),
-        solene_home=Path("/home/sol_user/solene_refactoring/common_c_tools/exe/"),
+        temp_dir=Path("/home/sol_user/common_c_tools/temp/"),
+        solene_home=Path("/home/sol_user/common_c_tools/exe/"),
 
         simulation_ts_energie_bat_azam=_require_file(exe_dir / f"simulation_Ts_EnergieBat_azam{suffix}"),
         simulation_ts_energie_bat_bb5=_require_file(exe_dir / f"simulation_Ts_EnergieBat_bb5{suffix}"),

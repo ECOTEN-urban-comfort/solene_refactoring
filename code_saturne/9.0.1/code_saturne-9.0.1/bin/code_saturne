@@ -31,8 +31,8 @@ import sys
 #-------------------------------------------------------------------------------
 
 # Store the installation path of code_saturne Python modules.
-cspath = '/home/sol_user/solene_refactoring/code_saturne/9.0.1/code_saturne-9.0.1/lib/python3.12/site-packages/code_saturne'
-cslibdir = '/home/sol_user/solene_refactoring/code_saturne/9.0.1/code_saturne-9.0.1/lib'
+cspath = '/home/sol_user/code_saturne/9.0.1/code_saturne-9.0.1/lib/python3.12/site-packages/code_saturne'
+cslibdir = '/home/sol_user/code_saturne/9.0.1/code_saturne-9.0.1/lib'
 
 # Store the information whether the installation is relocatable or not.
 relocatable = 'no'

@@ -73,6 +73,8 @@ def main() -> int:
     air_model_service = AirModelService(runner=AirModelRunner())
     state = air_model_service.run(state)
 
+    state = saturne_service.run_initial(state)
+
     return 0
 
 

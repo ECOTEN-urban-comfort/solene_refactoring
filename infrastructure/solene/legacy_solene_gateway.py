@@ -54,7 +54,7 @@ class LegacySoleneGateway(SoleneGateway):
             tmp_saturne_dir = bootstrap.paths.tmp_saturne_dir,
         )
 
-        time_step, meteo_list, meteo = self._build_time_step_and_meteo(
+        time_step, meteo_list = self._build_time_step_and_meteo(
             bootstrap=bootstrap,
             sol_command=sol_command,
         )
@@ -77,7 +77,7 @@ class LegacySoleneGateway(SoleneGateway):
         if meteo_list:
             sol_env.definir_meteo_liste(meteo_list)
 
-        return sol_command, sat_command, sol_env, time_step, meteo
+        return sol_command, sat_command, sol_env, time_step, meteo_list
     
     @staticmethod
     def _load_geom(path: Path, nom: str):
@@ -114,7 +114,7 @@ class LegacySoleneGateway(SoleneGateway):
         if meteo_list:
             sol_command.definir_meteo_dic(meteo_list)
 
-        return time_step, meteo_list, meteo
+        return time_step, meteo_list
 
     def prepare_shared_runtime(
         self,

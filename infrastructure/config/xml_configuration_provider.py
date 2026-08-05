@@ -72,12 +72,12 @@ class XmlConfigurationProvider(ConfigurationProvider):
         paths = build_runtime_paths(sim_folder)
 
         external_tools = build_tools_from_bin_dir(
-            Path("/home/sol_user/solene_refactoring/common_c_tools/bin")
+            Path("/home/sol_user/common_c_tools/bin")
         )
 
         saturne_tools = build_saturne_external_tools(
             Path(
-                "/home/sol_user/solene_refactoring/code_saturne/"
+                "/home/sol_user/code_saturne/"
                 "9.0.1/code_saturne-9.0.1"
             )
         )

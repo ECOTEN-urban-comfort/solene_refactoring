@@ -122,6 +122,7 @@ class SimulationPhase(str, Enum):
     SOLENE_RUNTIME_PREPARED = "solene_runtime_prepared"
     AIR_MODEL_EXECUTED = "air_model_executed"
     SATURNE_INITIALIZED = "saturne_initialized"
+    SATURNE_INITIAL_RUN_DONE = "saturne_initial_run_done"
     RUNNING = "running"
     POSTPROCESSING = "postprocessing"
 
@@ -391,6 +392,7 @@ class SimulationState:
     solene_shared_preparation: StepStatus = StepStatus.NOT_STARTED
     air_model_execution: StepStatus = StepStatus.NOT_STARTED
     saturne_initialization: StepStatus = StepStatus.NOT_STARTED
+    saturne_initial_run: StepStatus = StepStatus.NOT_STARTED
     solene_run: StepStatus = StepStatus.NOT_STARTED
     saturne_run: StepStatus = StepStatus.NOT_STARTED
     postprocessing: StepStatus = StepStatus.NOT_STARTED

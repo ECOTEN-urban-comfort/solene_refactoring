@@ -1,6 +1,7 @@
 from pathlib import Path
 
 from application.ports.saturne_gateway import SaturneGateway
+from infrastructure.saturne import sat_command
 from infrastructure.solene.famille import Familles
 from infrastructure.solene.utils import ecrire_fichier
 from infrastructure.saturne.sat_command import SatCommand
@@ -57,6 +58,42 @@ class LegacySaturneGateway(SaturneGateway):
         # equivalent of ecrire_fichier(.../z0, '10.0')
         z0_path = Path(sat_command.chemins["data"]) / "z0"
         ecrire_fichier(str(z0_path), "10.0")
+
+    def run_initial(
+        self,
+        *,
+        sat_command: SatCommand,
+        meteo: dict,
+        iterations: int,
+    ) -> None:
+        sat_command.change_num_iteration(iterations)
+        sat_command.definir_meteo(meteo)
+        sat_command.launch_simulation(terminal=False)
+        sat_command.follow_simulation()
+
+    def run_restart(
+        self,
+        sat_command: SatCommand,
+        meteo: dict,
+        additional_iterations: int,
+        terminal: bool = True,
+    ) -> None:
+        sat_command.definir_meteo(meteo)
+
+        restart_result = sat_command.definir_restart()
+        if restart_result != 0:
+            raise RuntimeError(
+                "Code_Saturne restart checkpoint was not found."
+            )
+
+        sat_command.ajouter_iterations(
+            additional_iterations
+        )
+
+        sat_command.launch_simulation(
+            terminal=terminal,
+        )
+        sat_command.follow_simulation()
 
     def _create_constant_data(
         self,

@@ -31,6 +31,7 @@ from infrastructure.saturne.templates import SaturneTemplateRepository
 
 import threading
 import queue
+from typing import Callable, Any
 
 
 
@@ -355,7 +356,7 @@ class SatCommand:
             liste_mesh = os.listdir(self.chemins['mesh'])
             liste_mesh_med = []
             for mesh in liste_mesh:
-                if me5B5B5Bsh[-4:] == '.med':
+                if mesh[-4:] == '.med':
                     liste_mesh_med.append(mesh)
             if len(liste_mesh_med) == 1:
                 self.chemins['geometrie'] = JOIN(self.chemins['mesh'], 
@@ -485,30 +486,60 @@ class SatCommand:
         ecrire_fichier(nom_cs_postprocess, self.cs_postprocess_perso)
 
 	
-    def launch_simulation(self, terminal = True):
+    def launch_simulation(self, terminal=True):
         """
-        launches the Saturn simulation in a terminal
+        Launches the Saturne simulation.
         """
         print("\033[91m CALLED LANCER \033[0m")
-        ici = os.path.realpath(os.curdir)
-        
-        start_time = '%d%.2d%.2d-%.2d%.2d'%time.localtime()[:5]
 
-        # if a simulation has already been launched with the same identifier
+        ici = os.path.realpath(os.curdir)
+
+        start_time = "%d%.2d%.2d-%.2d%.2d" % time.localtime()[:5]
+
         if start_time == self.start_time:
-            while('%0.2d'%time.localtime()[4] == start_time[-2:]):
+            while "%0.2d" % time.localtime()[4] == start_time[-2:]:
                 time.sleep(1)
 
-        self.start_time = '%d%.2d%.2d-%.2d%.2d'%time.localtime()[:5]
+        self.start_time = "%d%.2d%.2d-%.2d%.2d" % time.localtime()[:5]
 
-        os.chdir(self.chemins['data'])
-        nom_param = os.path.split(self.chemins['conf_xml'])[1]   
-        if terminal:
-            com = ['gnome-terminal', '-e', f'{self.code_saturne_executable} run -p {nom_param}', '&']
-        else:
-            com = [self.code_saturne_executable, 'run', '--nprocs', str(self.processors_number) , '-p', nom_param]
+        try:
+            os.chdir(self.chemins["data"])
 
-        os.chdir(ici)
+            nom_param = os.path.split(
+                self.chemins["conf_xml"]
+            )[1]
+
+            com = [
+                self.code_saturne_executable,
+                "run",
+                "--nprocs",
+                str(self.processors_number),
+                "-p",
+                nom_param,
+            ]
+
+            self.simulation_error = None
+
+            if terminal:
+                # Output is displayed in the current Docker terminal.
+                self.simu = subprocess.Popen(com)
+
+            else:
+                self.simu = subprocess.Popen(
+                    com,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.STDOUT,
+                    text=True,
+                    bufsize=1,
+                )
+
+                threading.Thread(
+                    target=self._monitor_simulation_output,
+                    daemon=True,
+                ).start()
+
+        finally:
+            os.chdir(ici)
 
     def _monitor_simulation_output(self):
         errors_list = [ "Error in calculation stage.", "MPI_ABORT", "Run failed in compile or link stage."]
@@ -589,7 +620,10 @@ class SatCommand:
         """
         if time_simul:
             rep_tmp = '%s.%s.%s' % (self.nom_cas, self.case1, time_simul)
-            self.chemins['tmp'] = JOIN(self.tmp_saturne_dir, rep_tmp)
+            self.chemins['tmp'] = JOIN(
+                self.chemins["tmp"],
+                rep_tmp,
+            )
 
         self.chemins['listing'] = JOIN(self.chemins['resu'], self.start_time, 'listing')
         
