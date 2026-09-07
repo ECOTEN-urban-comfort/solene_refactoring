@@ -13,6 +13,7 @@
 # startup pipeline works end to end before solver execution and coupling logic
 # are moved into the new architecture.
 
+from application.coupling_service import CouplingService
 from application.geometry_service import GeometryService
 from application.runtime_session_service import RuntimeSessionService
 from infrastructure.config.xml_configuration_provider import XmlConfigurationProvider
@@ -24,6 +25,7 @@ from application.air_model_service import AirModelService
 from infrastructure.solene.air_models.runner import AirModelRunner
 from application.saturne_service import SaturneService
 from infrastructure.saturne.legacy_saturne_gateway import LegacySaturneGateway
+from infrastructure.coupling.legacy_coupling_gateway import LegacyCouplingGateway
 
 
 def main() -> int:
@@ -74,6 +76,22 @@ def main() -> int:
     state = air_model_service.run(state)
 
     state = saturne_service.run_initial(state)
+
+    coupling_gateway = LegacyCouplingGateway()
+    coupling_service = CouplingService(
+        gateway=coupling_gateway,
+    )
+
+    state = coupling_service.initialize_exchange(state)
+
+    if state.is_valid:
+        bootstrap = state.require_bootstrap_definition()
+        b_coupl = state.time_step.n_ts - bootstrap.settings.ts_coupl
+
+        state = coupling_service.run_step(
+            state=state,
+            step_index=b_coupl + 1,
+        )
 
     return 0
 

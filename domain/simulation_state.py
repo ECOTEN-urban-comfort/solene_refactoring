@@ -393,6 +393,7 @@ class SimulationState:
     air_model_execution: StepStatus = StepStatus.NOT_STARTED
     saturne_initialization: StepStatus = StepStatus.NOT_STARTED
     saturne_initial_run: StepStatus = StepStatus.NOT_STARTED
+    coupling_initial_exchange: StepStatus = StepStatus.NOT_STARTED
     solene_run: StepStatus = StepStatus.NOT_STARTED
     saturne_run: StepStatus = StepStatus.NOT_STARTED
     postprocessing: StepStatus = StepStatus.NOT_STARTED
@@ -410,6 +411,7 @@ class SimulationState:
 
     artifacts: dict[str, ArtifactRef] = field(default_factory=dict)
     geometry_ref: dict[str, Union[PreparedGeometryInputs, SoleneGeometryArtifacts]] = field(default_factory=dict)
+    results: dict[str, Any] = field(default_factory=dict)
 
     sky: list[Path] = field(default_factory=list)
     input: list[Path] = field(default_factory=list)
